@@ -1,0 +1,14 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/api-products
+versioning: Major version in the URI path (v1 across all published APIs); OpenAPI info.version carries the minor/patch (e.g. Health Check 1.0.117, Stapled Super Fund 1.1.28). Each API product page shows "Status" (e.g. Active), "Last modified" and dated Release notes.
+deprecation: No deprecation policy, notice period or Sunset/Deprecation headers are documented. The Health Check and SMSF Alias Lookup status endpoints enumerate a "Deprecated" API status value.
+conditions: The Conditions of Use state developer materials "may change from time to time (including to reflect changes in legislative and administrative requirements)" and that the DSP must ensure compliance with the current Conditions of Use.
+conditions_source: https://apiportal.ato.gov.au/conditions-use
+status_page: null
+sla: null
+products:
+- {name: Health Check API, status: Active, last_modified: '2024-02-26', url: https://apiportal.ato.gov.au/api-products/health-check-api}
+- {name: OAuth Dynamic Client Registration API, status: Active, last_modified: '2024-12-04', url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api}
+- {name: Stapled Super Fund, status: Active, last_modified: '2026-05-29', url: https://apiportal.ato.gov.au/api-products/stapled-super-fund}
+- {name: Property Settlement Service, status: Active, last_modified: '2026-09-29', url: https://apiportal.ato.gov.au/api-products/property-settlement-service}

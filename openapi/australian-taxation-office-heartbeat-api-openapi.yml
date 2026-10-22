@@ -1,0 +1,308 @@
+openapi: 3.2.0
+info:
+  title: Australian Taxation Office Heartbeat API
+  version: 1.0.117
+  x-status:
+    status: Active
+  description: 'Operations tagged Heartbeat across 2 of this provider''s published API definitions: dsg-health-check-v1_10_0_0.yaml, australian-taxation-office-health-check-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{env}/healthcheck/v1
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+security:
+- ScopeAuth:
+  - ato.healthcheck.*.*
+tags:
+- name: Heartbeat
+  description: This will make sure the DSG is running successfully and will return a successful response
+paths:
+  /heartbeat:
+    get:
+      tags:
+      - Heartbeat
+      summary: This will make sure that the DSG is running
+      description: This endpoint will make sure the DSG is operational by returning a positive response
+      operationId: GetHeartbeat
+      responses:
+        '200':
+          description: "OK. \n\nThe request was successfully processed.\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatInfoResponse'
+              examples:
+                HeartbeatSuccessfulResponseExample:
+                  $ref: '#/components/examples/HeartbeatSuccessfulResponse'
+        '400':
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/PathBadRequestResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Bad Request
+    servers:
+    - url: https://{env}/healthcheck/v1
+      description: Production Environment
+      variables:
+        env:
+          default: api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+  /clients/ABN/{abn_business}/individuals/TFN/{tfn_individual}/heartbeat:
+    get:
+      tags:
+      - Heartbeat
+      summary: This will make sure your authorized and DSG is running
+      description: Use this endpoint to check that the DSG is running and you are authorized to do so. You will have to provide the payer ABN and payee TFN in the request path, along with any intermediary details if required
+      operationId: GetHeartbeatABN
+      parameters:
+      - $ref: '#/components/parameters/businessAbnParam'
+      - $ref: '#/components/parameters/individualTfnParam'
+      - $ref: '#/components/parameters/contextParam'
+      responses:
+        '200':
+          description: "OK. \n\nThe request was successfully processed.\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatInfoResponse'
+              examples:
+                HeartbeatSuccessfulResponseExample:
+                  $ref: '#/components/examples/HeartbeatSuccessfulResponse'
+        '400':
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/PathBadRequestResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Bad Request
+    servers:
+    - url: https://{env}/healthcheck/v1
+      description: Production Environment
+      variables:
+        env:
+          default: api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+  /clients/WPN/{wpn_business}/individuals/TFN/{tfn_individual}/heartbeat:
+    get:
+      tags:
+      - Heartbeat
+      summary: This will make sure your authorized and DSG is running
+      description: Use this endpoint to check that the DSG is running and your are authorized to do so. You will have to provide the payer WPN and payee TFN in the request path, along with any intermediary details if required
+      operationId: GetHeartbeatWPN
+      parameters:
+      - $ref: '#/components/parameters/businessWpnParam'
+      - $ref: '#/components/parameters/individualTfnParam'
+      - $ref: '#/components/parameters/contextParam'
+      responses:
+        '200':
+          description: "OK. \n\nThe request was successfully processed.\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatInfoResponse'
+              examples:
+                HeartbeatSuccessfulResponseExample:
+                  $ref: '#/components/examples/HeartbeatSuccessfulResponse'
+        '400':
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/PathBadRequestResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Bad Request
+    servers:
+    - url: https://{env}/healthcheck/v1
+      description: Production Environment
+      variables:
+        env:
+          default: api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+components:
+  schemas:
+    ApiError:
+      description: This will hold the response error details.
+      type: object
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: '{request.uri} not found'
+          type:
+          - string
+          - 'null'
+        code:
+          description: An application-specific error code
+          example: ATO.GEN.404000
+          type:
+          - string
+          - 'null'
+        source:
+          $ref: '#/components/schemas/Source'
+      title: ApiError
+    Source:
+      description: An object containing references to the source of the error
+      type: object
+      properties:
+        pointer:
+          description: JSON Pointer points to the associated entity in the request document
+          example: ''
+          type:
+          - string
+          - 'null'
+        parameter:
+          description: A string indicating which URI query parameter caused the error.
+          example: ''
+          type:
+          - string
+          - 'null'
+      title: Source
+    HeartbeatInfo:
+      description: This will hold information of the successful return response and the time received
+      type: object
+      additionalProperties: false
+      properties:
+        systemTimeUTC:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2021-08-26 16:00:40+10:00
+    HeartbeatInfoResponse:
+      description: This will hold data of the successful return response and the time received
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/HeartbeatInfo'
+        messages:
+          items:
+            $ref: '#/components/schemas/ApiMessage'
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+      required:
+      - data
+    ApiErrorsResponse:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+      description: ''
+    ApiMessage:
+      description: This will hold the response message details
+      type: object
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: ''
+          type:
+          - string
+          - 'null'
+        code:
+          description: An application-specific error code
+          example: ''
+          type:
+          - string
+          - 'null'
+        source:
+          $ref: '#/components/schemas/Source'
+        severity:
+          description: The severity level of the message.
+          example: information
+          type: string
+          enum:
+          - information
+          - warning
+      title: ApiMessage
+  parameters:
+    individualTfnParam:
+      name: tfn_individual
+      in: path
+      description: The payee's Tax File Number (TFN)
+      required: true
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 9
+        pattern: '[0-9]*'
+      examples:
+        tfnExemptionCode:
+          value: 111111111
+          summary: Exempted TFN Code
+        payeeTfn:
+          value: 220114645
+          summary: Payee Tax File Number (TFN)
+    businessAbnParam:
+      name: abn_business
+      in: path
+      description: The payer's Australian Business Number (ABN)
+      required: true
+      schema:
+        type: string
+        pattern: '[0-9]{11}'
+        example: 83091895966
+    businessWpnParam:
+      name: wpn_business
+      in: path
+      description: The payer's Withholding Payer Number (WPN)
+      required: true
+      schema:
+        type: string
+        pattern: '[0-9]{11}'
+        example: 151994401
+    contextParam:
+      name: context
+      required: false
+      in: query
+      description: "\nThe `context` parameter specifies then ABN of the intermediary, the Tax Agent Number (TAN),\nor Registered Agent Number (RAN)\n\n- When a payer is submitting a request: context not required.\n- When an intermediary that is not an agent is acting on behalf of the payer submitting a request: \n`context=\"ABN={abn_intermediary}\";` note the intermediary doesn't have a TAN or RAN as it's not an agent\n- When an agent is acting on behalf of the payer submitting a request, TAN or RAN\nof the intermediary has to be provided in the context, e.g.: `context=\"TAN={TAN}\"` or `context=\"RAN={RAN}\"`.\n"
+      schema:
+        type: string
+      examples:
+        tan:
+          value: '"TAN=17801003"'
+          summary: Tax Agent - TAN
+        ran:
+          value: '"RAN=17801003"'
+          summary: Tax Agent - RAN
+        abn_intermediary:
+          value: '"ABN=18083973826"'
+          summary: Intermediary that is not a tax agent
+  examples:
+    PathBadRequestResponse:
+      summary: Schema API Path Bad Request response
+      description: Example Schema API Path Bad Request response
+      value: "{\n  \"errors\": [\n  {\n    \"code\": \"RSF.00000\",\n    \"detail\": \"No API path found that matches request '{entered_API_Path}'.\"\n  }\n  ]\n}"
+    HeartbeatSuccessfulResponse:
+      summary: ATO DSG Successful Response
+      description: Example of the heartbeat response that will be returned
+      value: "{\n  \"data\": {\n    \"systemTimeUTC\": \"2022-06-22T06:00:40Z\"\n  }\n}      "
+  securitySchemes:
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.ato.gov.au/core2/connect/token
+          scopes:
+            ato.healthcheck.*.*: Grants ability to access the Healthcheck API
+x-refined-from:
+- dsg-health-check-v1_10_0_0.yaml
+- australian-taxation-office-health-check-openapi.yml

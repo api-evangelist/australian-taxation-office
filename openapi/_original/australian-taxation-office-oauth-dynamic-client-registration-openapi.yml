@@ -1,0 +1,274 @@
+# x-archived-from: australian-taxation-office-oauth-dynamic-client-registration-openapi.yml
+# x-archived-on: 2026-10-22
+openapi: 3.0.0
+info:
+  description: |
+    <p>The ATO’s Rest based APIs are protected with the OAuth protocol. As part of the OAuth standard, software applications are required to be registered with the Authorisation server. This API will register Digital Service Providers application instances with the ATO’s Authorisation server. The API is based on the <a href="https://www.rfc-editor.org/rfc/rfc7591">Dynamic Registration Protocol</a> and <a href="https://www.rfc-editor.org/rfc/rfc7592">Dynamic Client Registration Management Protocol</a>.</p>
+  version: 1.0.69
+  x-status:
+    status: Active
+  title: OAuth Dynamic Client Registration API
+servers:
+- url: https://{env}/idp/v1/relyingparties
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+paths:
+  /:
+    post:
+      tags:
+      - Register a new software application instance
+      summary: |
+        Use this endpoint to register a new software application instance with ATO auth server
+      description: |
+        <p>You can use this endpoint to register a new software application instance with the ATO auth server. It is based on <a href="https://www.rfc-editor.org/rfc/rfc7591">OAuth 2.0 Dynamic Client Registration Standard</a>. </p>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelyingParty'
+        description: Contains the resource - RelyingParty - that represents the software application instance that has to be registered.
+        required: true
+      operationId: postClientRegistration
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelyingParty'
+          description: "Created. \n\nThe request was successfully processed."
+        "400":
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/BadRequest'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request.
+        "401":
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/Unauthorised'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: |
+            Unauthorized.
+        "403":
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/Forbidden'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Forbidden.
+        "404":
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found.
+components:
+  securitySchemes:
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.ato.gov.au/core2/connect/token
+          scopes:
+            ato.idp.relyingParties.c: Grants ability to register (POST) a new software application
+  headers:
+    ReceiptHeader:
+      description: The receipt number for the client oauth registration.
+      schema:
+        type: string
+        pattern: '[0-9]{13}'
+        example: 6300000000014
+  schemas:
+    RelyingParty:
+      properties:
+        client_name:
+          description: Human-readable string name of the client to be presented to the end-user during authorization.
+          example: ExampleClient
+          type: string
+          maxLength: 256
+        ato_api_key:
+          description: API Key as defined by ATO DSG (Digital Services Gateway). Ensure it is same as the api key provided in the request header.
+          example: t5h5qTIoynfDh54iq7zwRVILpo63hUm9
+          type: string
+          maxLength: 50
+        x509_certificate:
+          description: Base64 encoded x509 public certificate that will be used to verify private_key_jwt client assertions during client authentication. Either jwks_uri or x509_certificate, any one must be povided.
+          example: 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
+          type: string
+          maxLength: 8000
+        grant_types:
+          description: Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. Grant type should be client_credentials for desktop service providers & urn:ietf:params:oauth:grant-type:jwt-bearer for cloud service providers.
+          example:
+          - client_credentials
+          type: array
+          items:
+            type: string
+            enum:
+            - client_credentials
+            - urn:ietf:params:oauth:grant-type:jwt-bearer
+          maxItems: 1
+        contacts:
+          description: Ways to contact people responsible for this client, typically email addresses.
+          example:
+          - jane.citizen@example.com
+          type: array
+          items:
+            type: string
+            maxLength: 256
+          nullable: true
+          maxItems: 3
+        software_id:
+          description: A 32 length GUID (canonical) or 36 length GUID (non-canonical) unique identifier string assigned by the client developer or software publisher used by registration endpoint to identify the client software to be dynamically registered.
+          example: ExampleApplication
+          type: string
+          nullable: true
+          maxLength: 36
+        software_version:
+          description: A version identifier string for the client software identified by "software_id". The value of the "software_version" should change on any update to the client software identified by the same "software_id". The value of this field is intended to be compared using string equality matching and no other comparison semantics are defined by this specification.
+          example: v1.0.0.1
+          type: string
+          nullable: true
+          maxLength: 50
+        client_id:
+          description: Random value that uniquely identifies the client software at the ATO auth server and is set by the system as a result of registration. Its format is a flat string representation of a GUID.
+          example: c04e4efa-0933-210e-97ae-cf0baffe304e
+          type: string
+          nullable: true
+          readOnly: true
+          maxLength: 36
+        client_id_issued_at:
+          description: Time at which the client identifier was issued.  The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of issuance and be set by the system at the time of registration.
+          example: 2023-02-20T16:38:46.0000000
+          type: string
+          nullable: true
+          readOnly: true
+        registration_client_uri:
+          description: String containing the fully qualified URL of the client configuration endpoint for this client.
+          example: https://exampleclient.com/api/v1/registry/c04e4efa-0933-210e-97ae-cf0baffe304e
+          type: string
+          nullable: true
+          readOnly: true
+          maxLength: 2048
+        registration_access_token:
+          description: A long lived access token. String containing the access token to be used at the client configuration endpoint to perform subsequent operations upon the client registration. This token is initially generated while registering the client and will be updated during each applicable update.
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjFTZ29aZ0xJM2h4YWFRMXQ2SVlQZW1IakY4TSIsImtpZCI6IkQ1MjgyODY2MDJDOERFMUM1QTY5MEQ2REU4ODYwRjdBNjFFMzE3QzMifQ.eyJpc3MiOiJodHRwczovL2V4YW1wbGUudGVzdC5hdSIsImF1ZCI6Imh0dHBzOi8vZXhhbXBsZS50ZXN0LmF1L3Jlc291cmNlcyIsImV4cCI6MTczOTk0MzUyNiwibmJmIjoxNjc2ODcxNTI2LCJjbGllbnRfaWQiOiJiOTNiM2JmMy05Nzk4LTQ5OWQtODllYy1iMDJiY2ZmZDA3NWIiLCJhenAiOiJodHRwczovL2V4YW1wbGUudGVzdC5hdS90ZXN0aW5nIiwic2NvcGUiOiJhdG8uaWRwLnJlbHlpbmdQYXJ0aWVzLnIiLCJzdWIiOiJFeGFtcGxlSWRwIiwiaWRwIjoiaHR0cHM6Ly9leGFtcGxlLnRlc3QuYXUiLCJhY3IiOiJ1cm46ZXhhbXBsZS50ZXN0LmF1OnRkaWY6YWNyOjpjbDIiLCJqdGkiOiJiMGU4NzBmNDEwNjgyOTYxMGNlOTBhZGI0YTM4Mjc2NCIsInZlcnNpb24iOiIzLjAuMC4wIiwiaWF0IjoxNjc2ODcxNTI2fQ.k4xkfXrQZhRehdEkaaDGVS7nvo0cguqyXB9xy2JrucM3A3Je_istT49J__38oKI35jS98bOx-vHMNLcSj9eJBCST1h7ddvTdASH0_JP27v_vCyeS9xdmq3JR80K0l0gbkUinP-kQErLjLyFCg3drx_t174NCh0k1DAlF70zYxBUk33i5P23eiPiMGtlV9Ylj1dISzyzLJwML5geMS8WFmx3EiWF6Yhr84su4F4c4YkVL6vL1uPBVQv-Zpd0AMD9WwgP38JVRzeLwE_s1oz9WrvX3xapCK-M0ARF_D0AfpV7FjN5URbCNktSLMc32tw_cDqj2gz_VgyKuaDmQ0zds-g
+          type: string
+          nullable: true
+          readOnly: true
+          maxLength: 8000
+        scope:
+          description: String containing a space-separated list of scope values that the client can use when requesting access tokens; it is a read only attribute and will be provided as part of response
+          example: ato.smsfaliaslookup.providers.r ato.super.stapledsuperfund.c
+          type: string
+          nullable: true
+          readOnly: true
+          maxLength: 2000
+        token_endpoint_auth_method:
+          description: String indicator of the authentication method for the token endpoint. Currently we only support it to be of the type urn:ietf:params:oauth:client-assertion-type:jwt-bearer; it is a read-only attribute.
+          example: urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          type: string
+          nullable: true
+          readOnly: true
+          maxLength: 2000
+      required:
+      - client_name
+      - grant_types
+      - x509_certificate
+      - ato_api_key
+    ErrorResponse:
+      description: This will hold the response error details.
+      type: object
+      properties:
+        error:
+          description: The type of error that is returned.
+          example: invalid_request
+          type: string
+          nullable: false
+          enum:
+          - invalid_request
+          - invalid_token
+          - insufficient_scope
+        error_description:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: The Authorization Token is invalid
+          type: string
+          nullable: true
+      title: ErrorResponse
+      required:
+      - error
+    ApiErrorsResponse:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+      description: ""
+    ApiError:
+      description: This will hold the API error details.
+      type: object
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: regex '^[0-9]{4}$' does not match input string '12345'
+          type: string
+          nullable: true
+        code:
+          description: An application-specific error code.
+          example: DSG.00000
+          type: string
+          nullable: true
+      title: ApiError
+  examples:
+    BadRequest:
+      summary: Bad Request
+      description: Example of an invalid request
+      value: |-
+        {
+          "error": "invalid_request",
+          "error_description": "invalid request"
+        }
+    Unauthorised:
+      summary: Unauthorised
+      description: Example of an unauthorised response due to invalid token
+      value: |-
+        {
+          "error": "invalid_token",
+          "error_description": "The Authorization Token is invalid"
+        }
+    Forbidden:
+      summary: Forbidden
+      description: Example of a forbidden response due to insufficient scope(s) provided in the request body
+      value: |-
+        {
+          "error": "insufficient_scope",
+          "error_description": "entity is not enabled for one or more requested scopes"
+        }
+    NotFound:
+      summary: Not Found
+      description: Example response for a resource that does not exist
+      value: |-
+        {
+          "errors": [
+            {
+              "code": "DSG.00000",
+              "detail": "No API path found that matches request '{entered_API_Path}'"
+            }
+          ]
+        }
+

@@ -1,0 +1,32 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist overlay for GST Property Settlement API
+  version: 1.0.0
+extends: ../openapi/_original/australian-taxation-office-gst-property-settlement-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-api-evangelist:
+      provider: australian-taxation-office
+      portal: https://apiportal.ato.gov.au/
+      profiled: '2026-10-22'
+- target: $.paths['/clients/ABN/{identifierValue}/propertySettlements'].post
+  description: agent hints (read-only flag, suggested operationId; the published spec has none)
+  update:
+    x-agent-read-only: false
+    x-suggested-operationId: postABNPropertySettlements
+- target: $.paths['/clients/ABN/{identifierValue}/propertySettlements/validationResults'].post
+  description: agent hints (read-only flag, suggested operationId; the published spec has none)
+  update:
+    x-agent-read-only: false
+    x-suggested-operationId: postPropertySettlementsValidationResults
+- target: $.paths['/clients/ABN/{identifierValue}/changeOfPropertySettlements'].post
+  description: agent hints (read-only flag, suggested operationId; the published spec has none)
+  update:
+    x-agent-read-only: false
+    x-suggested-operationId: postABNChangeOfPropertySettlements
+- target: $.paths['/clients/ABN/{identifierValue}/changeOfPropertySettlements/validationResults'].post
+  description: agent hints (read-only flag, suggested operationId; the published spec has none)
+  update:
+    x-agent-read-only: false
+    x-suggested-operationId: postChangeOfPropertySettlementsValidationResults

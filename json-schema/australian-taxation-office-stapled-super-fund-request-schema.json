@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-stapled-super-fund-request-schema.json",
+  "title": "StapledSuperFundRequest",
+  "description": "The information needed for the stapled superfund request payload structure",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/StapledSuperFundRequest",
+  "properties": {
+    "payee": {
+      "$ref": "#/$defs/Payee"
+    },
+    "declaration": {
+      "$ref": "#/$defs/Declaration"
+    }
+  },
+  "type": "object",
+  "required": [
+    "payee",
+    "declaration"
+  ],
+  "$defs": {
+    "Address": {
+      "properties": {
+        "line1": {
+          "description": "First line utilising free format, that is used to create a semi structured address.",
+          "type": "string",
+          "maxLength": 38
+        },
+        "line2": {
+          "description": "Second line utilising free format, that is used to create a semi structured address.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 38
+        },
+        "localityName": {
+          "description": "A word or combination of words, by which a geographic locality/suburb is designated or known.",
+          "type": "string",
+          "maxLength": 46
+        },
+        "stateOrTerritoryCode": {
+          "description": "The code that is assigned to each Australian State or Territory.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            null,
+            "ACT",
+            "NSW",
+            "NT",
+            "QLD",
+            "SA",
+            "TAS",
+            "VIC",
+            "WA"
+          ]
+        },
+        "countryCode": {
+          "enum": [
+            "ad",
+            "ae",
+            "af",
+            "ag",
+            "ai",
+            "al",
+            "am",
+            "an",
+            "ao",
+            "aq",
+            "ar",
+            "as",
+            "at",
+            "au",
+            "aw",
+            "ax",
+            "az",
+            "ba",
+            "bb",
+            "bd",
+            "be",
+            "bf",
+            "bg",
+            "bh",
+            "bi",
+            "bj",
+            "bl",
+            "bm",
+            "bn",
+            "bo",
+            "bq",
+            "br",
+            "bs",
+            "bt",
+            "bv",
+            "bw",
+            "by",
+            "bz",
+            "ca",
+            "cc",
+            "cf",
+            "cg",
+            "ch",
+            "ci",
+            "ck",
+            "cl",
+            "cm",
+            "cn",
+            "co",
+            "cr",
+            "cu",
+            "cv",
+            "cw",
+            "cx",
+            "cy",
+            "cz",
+            "de",
+            "dj",
+            "dk",
+            "dm",
+            "do",
+            "dz",
+            "ec",
+            "ee",
+            "eg",
+            "eh",
+            "er",
+            "es",
+            "et",
+            "fi",
+            "fj",
+            "fk",
+            "fm",
+            "fo",
+            "fr",
+            "ga",
+            "gb",
+            "gd",
+            "ge",
+            "gf",
+            "gg",
+            "gh",
+            "gi",
+            "gl",
+            "gm",
+            "gn",
+            "gp",
+            "gq",
+            "gr",
+            "gs",
+            "gt",
+            "gu",
+            "gw",
+            "gy",
+            "hk",
+            "hm",
+            "hn",
+            "hr",
+            "ht",
+            "hu",
+            "id",
+            "ie",
+            "il",
+            "im",
+            "in",
+            "io",
+            "iq",
+            "ir",
+            "is",
+            "it",
+            "je",
+            "jm",
+            "jo",
+            "jp",
+            "ke",
+            "kg",
+            "kh",
+            "ki",
+            "km",
+            "kn",
+            "kp",
+            "kr",
+            "kw",
+            "ky",
+            "kz",
+            "la",
+            "lb",
+            "lc",
+            "li",
+            "lk",
+            "lr",
+            "ls",
+            "lt",
+            "lu",
+            "lv",
+            "ly",
+            "ma",
+            "mc",
+            "md",
+            "me",
+            "mf",
+            "mg",
+            "mh",
+            "mk",
+            "ml",
+            "mm",
+            "mn",
+            "mo",
+            "mp",
+            "mq",
+            "mr",
+            "ms",
+            "mt",
+            "mu",
+            "mv",
+            "mw",
+            "mx",
+            "my",
+            "mz",
+            "na",
+            "nc",
+            "ne",
+            "nf",
+            "ng",
+            "ni",
+            "nl",
+            false,
+            "np",
+            "nr",
+            "nu",
+            "nz",
+            "om",
+            "ot",
+            "pa",
+            "pe",
+            "pf",
+            "pg",
+            "ph",
+            "pk",
+            "pl",
+            "pm",
+            "pn",
+            "pr",
+            "ps",
+            "pt",
+            "pw",
+            "py",
+            "qa",
+            "re",
+            "ro",
+            "rs",
+            "ru",
+            "rw",
+            "sa",
+            "sb",
+            "sc",
+            "sd",
+            "se",
+            "sg",
+            "sh",
+            "si",
+            "sj",
+            "sk",
+            "sl",
+            "sm",
+            "sn",
+            "so",
+            "sr",
+            "ss",
+            "st",
+            "sv",
+            "sx",
+            "sy",
+            "sz",
+            "tc",
+            "td",
+            "tf",
+            "tg",
+            "th",
+            "tj",
+            "tk",
+            "tm",
+            "tn",
+            "to",
+            "tp",
+            "tr",
+            "tt",
+            "tv",
+            "tw",
+            "tz",
+            "ua",
+            "ug",
+            "um",
+            "us",
+            "uy",
+            "uz",
+            "va",
+            "vc",
+            "ve",
+            "vg",
+            "vi",
+            "vn",
+            "vu",
+            "wf",
+            "ws",
+            "ye",
+            "yt",
+            "yu",
+            "za",
+            "zm",
+            "zr",
+            "zw"
+          ],
+          "description": "This represents the Country Code as prescribed by AS4590 and inherited from ISO 3166.",
+          "type": "string",
+          "default": "au"
+        },
+        "postCode": {
+          "description": "The descriptor for a postal delivery area, aligned with locality, suburb or place. Can be used for an Australian or non-Australian address.",
+          "type": "string"
+        }
+      },
+      "description": "This will hold the specific information relating to the address of the payee. Can be either the Residential or Postal Address Details.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "line1",
+        "localityName",
+        "postCode"
+      ]
+    },
+    "Declaration": {
+      "properties": {
+        "statementAcceptedIndicator": {
+          "description": "Indicates that the terms stated in the Declaration Text have been accepted or declined.",
+          "type": "boolean"
+        }
+      },
+      "description": "This will hold the specific information relating to the declaration text for the stapled superfund request.",
+      "type": "object",
+      "required": [
+        "statementAcceptedIndicator"
+      ]
+    },
+    "Payee": {
+      "properties": {
+        "payeePayrollId": {
+          "description": "The Employment Payroll Number. Number allocated by the payer payroll system to identify a payee. This identifier will be quoted on any correspondence regarding the payee's declaration to assist correct identification of the payee.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "personName": {
+          "$ref": "#/$defs/PersonName"
+        },
+        "personDemographic": {
+          "$ref": "#/$defs/PersonDemographic"
+        },
+        "addressResidential": {
+          "$ref": "#/$defs/Address"
+        },
+        "addressPostal": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "description": "This will hold the specific information related to the payee (employee)",
+      "type": "object",
+      "required": [
+        "personName",
+        "personDemographic"
+      ]
+    },
+    "PersonDemographic": {
+      "properties": {
+        "birthDm": {
+          "description": "The date of the day in the month in which an individual was born.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        },
+        "birthM": {
+          "description": "The month in which an individual was born.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "birthY": {
+          "description": "The year in which an individual was born.",
+          "type": "integer",
+          "minimum": 1800,
+          "maximum": 9999
+        }
+      },
+      "required": [
+        "birthDm",
+        "birthM",
+        "birthY"
+      ]
+    },
+    "PersonName": {
+      "properties": {
+        "familyName": {
+          "description": "The person's last name or surname. The name by which a family group is identified.",
+          "type": "string",
+          "pattern": "^([0-9a-zA-Z \\.,\\?\\(\\)\\[\\]:;'\\-=\\/@$%\\*&!\"])*$",
+          "maxLength": 40
+        },
+        "givenName": {
+          "description": "The name given to a person which is that person's identifying name within the family group or the name by which the person is uniquely socially identified; the name borne by an individual, often assigned by his or her parents shortly after birth, as opposed to the inherited surname.",
+          "type": "string",
+          "pattern": "^([0-9a-zA-Z \\.,\\?\\(\\)\\[\\]:;'\\-=\\/@$%\\*&!\"])*$",
+          "maxLength": 40
+        },
+        "otherGivenName": {
+          "description": "The middle name given to a person which complements that person's identifying name within the family group or the name by which the person is uniquely socially identified.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 40,
+          "pattern": "^([0-9a-zA-Z \\.,\\?\\(\\)\\[\\]:;'\\-=\\/@$%\\*&!\"])*$"
+        }
+      },
+      "description": "This will hold the specific information relating to the name details for the payee.",
+      "type": "object",
+      "required": [
+        "familyName",
+        "givenName"
+      ]
+    }
+  }
+}

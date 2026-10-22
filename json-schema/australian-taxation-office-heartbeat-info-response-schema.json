@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-heartbeat-info-response-schema.json",
+  "title": "HeartbeatInfoResponse",
+  "description": "This will hold data of the successful return response and the time received",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-health-check-openapi.yml#/components/schemas/HeartbeatInfoResponse",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/HeartbeatInfo"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/ApiMessage"
+      },
+      "type": "array"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/ApiError"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "ApiError": {
+      "description": "This will hold the response error details.",
+      "type": "object",
+      "properties": {
+        "detail": {
+          "description": "A human-readable explanation specific to this occurrence of the problem.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {
+          "description": "An application-specific error code",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "title": "ApiError"
+    },
+    "ApiMessage": {
+      "description": "This will hold the response message details",
+      "type": "object",
+      "properties": {
+        "detail": {
+          "description": "A human-readable explanation specific to this occurrence of the problem.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {
+          "description": "An application-specific error code",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "severity": {
+          "description": "The severity level of the message.",
+          "type": "string",
+          "enum": [
+            "information",
+            "warning"
+          ]
+        }
+      },
+      "title": "ApiMessage"
+    },
+    "HeartbeatInfo": {
+      "description": "This will hold information of the successful return response and the time received",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "systemTimeUTC": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "Source": {
+      "description": "An object containing references to the source of the error",
+      "type": "object",
+      "properties": {
+        "pointer": {
+          "description": "JSON Pointer points to the associated entity in the request document",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parameter": {
+          "description": "A string indicating which URI query parameter caused the error.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "Source"
+    }
+  }
+}

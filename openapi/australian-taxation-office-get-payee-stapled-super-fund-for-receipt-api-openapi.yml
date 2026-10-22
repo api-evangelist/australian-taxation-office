@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: Australian Taxation Office Get Payee Stapled Super Fund for…
+  version: 1.1.28
+  x-status:
+    status: Proposed
+  description: 'Operations tagged Get Payee Stapled Super Fund for Receipt across 2 of this provider''s published API definitions: stapled-super-fund-v1_16.yaml, australian-taxation-office-stapled-super-fund-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{env}/super/v1/clients/{identifierType}/{identifierValue}/payees/TFN/*/stapledSuperFund
+  description: Devtest Environment
+  variables:
+    identifierType:
+      default: ABN
+      enum:
+      - ABN
+      - WPN
+      description: Identifier Type
+    env:
+      default: sandbox.api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+security:
+- ScopeAuth:
+  - ato.super.stapledsuperfund.c,r
+tags:
+- name: Get Payee Stapled Super Fund for Receipt
+paths:
+  /{receipt}:
+    get:
+      tags:
+      - Get Payee Stapled Super Fund for Receipt
+      summary: Use this endpoint to fetch the outcome of a previously made request for stapled…
+      description: Use this endpoint to fetch the outcome of a previously made request for stapled fund. You will have to provide the receipt number of the original request along with the payee and the intermediary details.
+      operationId: requestStapledSuperFundForPayeeWithReceiptNumberAndAbn
+      parameters:
+      - $ref: '#/components/parameters/receiptParam'
+      - $ref: '#/components/parameters/contextParam'
+      responses:
+        '400':
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/PathBadRequestResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Bad Request
+        '422':
+          content:
+            application/json:
+              examples:
+                InvalidReceiptIdResponseExample:
+                  $ref: '#/components/examples/InvalidReceiptIdResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: UnprocessableEntity
+        '200':
+          content:
+            application/json:
+              examples:
+                SMSFStapledSuperFundResponseExample:
+                  $ref: '#/components/examples/SMSFStapledSuperFundResponse'
+                NonSMSFStapledSuperFundResponseExample:
+                  $ref: '#/components/examples/NonSMSFStapledSuperFundResponse'
+              schema:
+                $ref: '#/components/schemas/StapledSuperFundResponse'
+          description: "OK. \n\nThe request was successfully processed.\n"
+        '500':
+          content:
+            application/json:
+              examples:
+                InternalServerErrorExample:
+                  $ref: '#/components/examples/InternalServerErrorResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Internal Server Error
+    servers:
+    - url: https://{env}/super/v1/clients/{identifierType}/{identifierValue}/payees/TFN/*/stapledSuperFund
+      description: Devtest Environment
+      variables:
+        identifierType:
+          default: ABN
+          enum:
+          - ABN
+          - WPN
+          description: Identifier Type
+        env:
+          default: sandbox.api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+components:
+  schemas:
+    ApiError:
+      description: This will hold the response error details.
+      type: object
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: regex '^[0-9]{4}$' does not match input string '12345'
+          type:
+          - string
+          - 'null'
+        code:
+          description: An application-specific error code.
+          example: RSF.00000
+          type:
+          - string
+          - 'null'
+        source:
+          $ref: '#/components/schemas/Source'
+      title: ApiError
+    Source:
+      description: An object containing references to the source of the error.
+      type: object
+      properties:
+        pointer:
+          description: JSON Pointer [RFC6901] to the associated entity in the request document.
+          example: /payee/addressResidential/postCode
+          type:
+          - string
+          - 'null'
+        parameter:
+          description: A string indicating which URI query parameter caused the error.
+          example: receipt
+          type:
+          - string
+          - 'null'
+      title: Source
+    StapledSuperFund:
+      description: This holds the stapled super fund details.
+      properties:
+        requestOutcome:
+          $ref: '#/components/schemas/StapledFundRequestOutcome'
+        payee:
+          properties:
+            personName:
+              properties:
+                familyName:
+                  example: Martin
+                  description: The person's last name or surname. The name by which a family group is identified.
+                  type: string
+                givenName:
+                  example: Mark
+                  description: The name given to a person which is that person's identifying name within the family group or the name by which the person is uniquely socially identified; the name borne by an individual, often assigned by his or her parents shortly after birth, as opposed to the inherited surname.
+                  type: string
+                otherGivenName:
+                  example: Matthew
+                  description: The middle name given to a person which complements that person's identifying name within the family group or the name by which the person is uniquely socially identified.
+                  type:
+                  - string
+                  - 'null'
+            payeePayrollId:
+              type: string
+          type: object
+        superfund:
+          properties:
+            australianBusinessNumber:
+              description: A unique public identifier issued to all entities registered in the Australian Business Register (ABR), to be used in their dealings with government. Companies registered under the Corporations Law and business entities carrying on an enterprise in Australia are entitled to an ABN.
+              example: 50110219460
+              type: string
+            organisationalName:
+              description: The full name by which an organisation is known.
+              type: string
+            superannuationProduct:
+              $ref: '#/components/schemas/SuperannuationProduct'
+            superannuationFund:
+              $ref: '#/components/schemas/SuperannuationFund'
+          description: The information that gets populated for the stapled superfund response payload structure
+          type: object
+    SuperannuationProduct:
+      properties:
+        name:
+          description: This is the name of the superannuation fund's product.
+          type: string
+      type:
+      - object
+      - 'null'
+    StapledFundRequestOutcome:
+      properties:
+        reasonCode:
+          enum:
+          - Unmatched
+          - Excluded client
+          - Choice fund
+          - Choice SMSF
+          - Stapled fund
+          - Stapled SMSF
+          - Use default
+          - No active payee/payer link
+          example: Unmatched
+          type: string
+      type: object
+    ApiErrorsResponse:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+      description: ''
+    SuperannuationFund:
+      properties:
+        memberAccount:
+          description: This is a unique account number allocated by a provider to a member's superannuation contributions.
+          type: string
+        uniqueSuperannuationIdentifier:
+          description: The unique superannuation identifier is used for identifying the product within the fund which the member account belongs to.
+          type: string
+      type:
+      - object
+      - 'null'
+    StapledSuperFundResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/StapledSuperFund'
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+  examples:
+    InternalServerErrorResponse:
+      summary: Internal Server Error response
+      description: Example Internal Server Error response
+      value: "{\n  \"errors\": [\n  {\n    \"code\": \"RSF.00003\",\n    \"detail\": \"Your request cannot be processed. Please try again later.  If the problem persists, please contact ATO\"\n  }\n  ]\n}"
+    NonSMSFStapledSuperFundResponse:
+      summary: Non SMSF Stapled Super Fund response
+      description: Example Non SMSF Stapled Super Fund response
+      value: "{\n  \"data\":{\n    \"requestOutcome\": {\n      \"reasonCode\": \"Stapled fund\"\n    },\n    \"payee\": {\n      \"payeePayrollId\": \"123456789\",\n      \"personName\": {\n        \"familyName\": \"Doe\",\n        \"givenName\": \"John\",\n        \"otherGivenName\": \"Louis Rey\"\n      }\n    },\n    \"superfund\": {\n      \"australianBusinessNumber\": \"12345678901\",\n      \"organisationalName\": \"Australian Super Pty Ltd\",\n      \"superannuationProduct\": {\n        \"name\": \"Australian Super\"\n      },\n      \"superannuationFund\": {\n        \"uniqueSuperannuationIdentifier\": \"STA0100AU\",\n        \"memberAccount\": \"12345678901234\"\n      }\n    }\n    }\n}"
+    PathBadRequestResponse:
+      summary: Schema API Path Bad Request response
+      description: Example Schema API Path Bad Request response
+      value: "{\n  \"errors\": [\n  {\n    \"code\": \"RSF.00000\",\n    \"detail\": \"No API path found that matches request '{entered_API_Path}'.\"\n  }\n  ]\n}"
+    SMSFStapledSuperFundResponse:
+      summary: SMSF Stapled Super Fund response
+      description: Example SMSF Stapled Super Fund response
+      value: "{\n  \"data\": {\n    \"requestOutcome\": {\n      \"reasonCode\": \"Stapled SMSF\"\n    },\n    \"payee\": {\n      \"payeePayrollId\": \"123456789\",\n      \"personName\": {\n        \"familyName\": \"Doe\",\n        \"givenName\": \"John\",\n        \"otherGivenName\": \"Louis Rey\"\n      }\n    },\n    \"superfund\": {\n      \"australianBusinessNumber\": \"12345678901\",\n      \"organisationalName\": \"Australian Super Pty Ltd\",\n      \"superannuationProduct\": {\n        \"name\": \"\"\n      },\n      \"superannuationFund\": {\n        \"uniqueSuperannuationIdentifier\": \"\",\n        \"memberAccount\": \"\"\n      }\n    }\n  }\n}"
+    InvalidReceiptIdResponse:
+      summary: Invalid Receipt ID response
+      description: Example invalid receipt id response
+      value: "{\n  \"errors\": [\n  {\n    \"code\": \"RSF.00006\",\n    \"detail\": \"Receipt number provided is invalid.\",\n    \"source\": {\n      \"parameter\": \"receipt\"\n    }\n  }\n  ]\n}"
+  parameters:
+    receiptParam:
+      name: receipt
+      in: path
+      description: The receipt number for the super fund details interaction.
+      required: true
+      schema:
+        type: string
+        pattern: '[0-9]{13}'
+        example: 6300000000001
+    contextParam:
+      name: context
+      required: false
+      in: query
+      description: "\nThe `context` parameter specifies the ABN of the intermediary, the Tax Agent Number (TAN),\nor Registered Agent Number(RAN)\n\n-\tWhen a payer is submitting request for its newly joined payee: context not required.\n-\tWhen an intermediary that is not an agent is acting on behalf of the payer requesting\n  stapled super fund of the newly joined payee:\n  `context=\"ABN={abn_intermediary}\";` note the intermediary does not have a TAN or a RAN as it is not an agent\n-\tWhen an agent is acting on behalf of the payer requesting stapled super fund of the newly joined payee,\n  TAN or RAN of the intermediary has to be provided in the context, e.g.: `context=\"TAN={TAN}\"` or `context=\"RAN={RAN}\"`.\n  \n"
+      schema:
+        type: string
+      examples:
+        tan:
+          value: '"TAN=17801003"'
+          summary: Tax agent – TAN
+        ran:
+          value: '"RAN=17801003"'
+          summary: Tax agent – RAN
+        abn_intermediary:
+          value: '"ABN=18083973826"'
+          summary: Intermediary that is not a tax agent
+  securitySchemes:
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.evte.ato.gov.au/core2/connect/token
+          scopes:
+            ato.super.stapledsuperfund.c,r: Grants ability to POST and GET a Stapled Super Fund
+x-refined-from:
+- stapled-super-fund-v1_16.yaml
+- australian-taxation-office-stapled-super-fund-openapi.yml

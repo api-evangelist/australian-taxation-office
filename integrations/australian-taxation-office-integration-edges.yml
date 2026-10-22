@@ -1,0 +1,21 @@
+generated: '2026-10-22'
+method: none
+source:
+- https://zapier.com/apps/australian-taxation-office/integrations
+- https://n8n.io/integrations/australian-taxation-office/
+- https://composio.dev/toolkits/australian-taxation-office
+- https://monid.ai/tools/australian-taxation-office
+checked:
+- https://composio.dev/toolkits/australian-taxation-office
+- https://monid.ai/tools/australian-taxation-office
+- https://n8n.io/integrations/australian-taxation-office/
+- https://zapier.com/apps/australian-taxation-office/integrations
+- https://apiportal.ato.gov.au/api-products
+- https://apiportal.ato.gov.au/getting-started
+- 'openapi/ (8 contracts: no operation names another service)'
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
+note: The ATO API Portal has no integrations, partners or marketplace page; the ATO lists no app on automation marketplaces.
+  Its contracts name only ATO services.

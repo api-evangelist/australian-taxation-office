@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json",
+  "title": "GSTPropertySettlementDateConfirmationRequest",
+  "description": "This object will hold the data of the request payload of GST Property Settlement Date Confirmation.",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementDateConfirmationRequest",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/GSTPropertySettlementDateConfirmation"
+    }
+  },
+  "$defs": {
+    "ContactDetails": {
+      "type": "object",
+      "description": "This will hold all the contact information for the lodging entity who is lodging the form.\n\nYou must provide contact details of the person completing the lodgment. This allows us to resolve any issues and process the form in a timely manner.\n",
+      "properties": {
+        "title": {
+          "description": "Title of contact person\n",
+          "type": "string",
+          "enum": [
+            "MR",
+            "MRS",
+            "MISS",
+            "MS",
+            "OTHER"
+          ]
+        },
+        "personName": {
+          "$ref": "#/$defs/PersonName"
+        },
+        "representativeBusinessName": {
+          "type": "string",
+          "description": "Representative's business name\n\nThis is required for the purchaser's representative completing this lodgment.\n",
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9 \\-`!@%#\\$&\\(\\)_=\\[\\]\\{\\}\\\\\\|;:'\",\\.\\?\\/]+$"
+        },
+        "telephoneAreaCode": {
+          "type": "string",
+          "description": "Telephone area code of the contact person\n",
+          "maxLength": 4,
+          "pattern": "^[0-9]+$"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "Telephone number of the contact person. Don't include brackets or spaces in your phone number.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^[0-9]+$"
+        },
+        "emailCorrespondenceIndicator": {
+          "type": "boolean",
+          "description": "Would you like ATO to communicate with you via email?\n\nBy providing an email address, you are authorising the ATO to communicate with you by email about this form. If an email address is not provided, a confirmation email will not be sent.\n"
+        },
+        "electronicMailAddress": {
+          "type": "string",
+          "description": "Email address of the contact person.\n\nThe email address should comply with RFC 5322.\n\nIf you provide your email address, we will email you a copy of the notification confirmation. \n\nYou should be aware that the internet is not a secure environment. The ATO does not control the path of inbound and outbound emails, so the privacy of personal information sent by unencrypted email cannot be guaranteed.\n",
+          "minLength": 5,
+          "maxLength": 100
+        },
+        "digitalSettlementServiceProvider": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "This is the name of the digital platform or service provider used to complete the property settlement.\n",
+          "pattern": "^[A-Za-z0-9 \\-`!@%#\\$&\\(\\)_=\\[\\]\\{\\}\\\\\\|;:'\",\\.\\?\\/]+$"
+        },
+        "digitalSettlementFileNumber": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "This is the unique Workspace ID/number for the digital settlement file created in the Electronic Lodgment Network (ELN).\n"
+        }
+      },
+      "required": [
+        "title",
+        "personName",
+        "telephoneAreaCode",
+        "telephoneNumber",
+        "emailCorrespondenceIndicator",
+        "digitalSettlementServiceProvider",
+        "representativeBusinessName"
+      ]
+    },
+    "DeclarationDateConfirmation": {
+      "type": "object",
+      "properties": {
+        "statementAcceptedIndicator": {
+          "type": "boolean",
+          "description": "You are accepting the following declaration with the identification details you used to log-in to submit the lodgment.\n            \nIf you are submitting the lodgment as a purchaser's representative, you are accepting the following declaration.\n  - I am authorised by the purchaser/s listed above to complete this form and submit it to the Commissioner of Taxation\n  - This form has been prepared in accordance with the information supplied by the purchaser/s\n  - I have received a declaration from the purchaser/s, stating that the information provided to me is true and correct\n  - I have also included information in this form as provided by the supplier/s\n  - I acknowledge that the ATO may contact the supplier/s or the supplier's representative to confirm the information provided by them\n\nA choice of TRUE/FALSE values.\n\ntrue = Indicates that the terms stated in the Declaration Text have been accepted.\n\nfalse = Indicates that the terms stated in the Declaration Text have been declined.\n\nPrivacy: For important information about your privacy see our **[Privacy notice](https://www.ato.gov.au/privacy)**.\n"
+        }
+      },
+      "required": [
+        "statementAcceptedIndicator"
+      ]
+    },
+    "GSTPropertySettlementDateConfirmation": {
+      "description": "This object will hold all information about GST Property Settlement Date Confirmation.\n",
+      "type": "object",
+      "required": [
+        "prerequisiteCheckIndicator",
+        "lodgedBy",
+        "lodgmentChangedIndicator",
+        "contactDetails",
+        "transaction",
+        "declaration"
+      ],
+      "properties": {
+        "prerequisiteCheckIndicator": {
+          "description": "Have you completed the GST property settlement withholding notification form?",
+          "type": "boolean"
+        },
+        "lodgedBy": {
+          "type": "string",
+          "enum": [
+            "REPRESENTATIVE"
+          ],
+          "description": "Are you completing this form as a purchaser of the property or the purchaser's representative?\n"
+        },
+        "lodgmentChangedIndicator": {
+          "description": "Have the purchaser/supplier details changed since the GST withholding notification was lodged? \n\nYou must contact us to cancel the incorrect withholding notification and complete and submit another GST property settlement withholding notification before you can lodge this.\n",
+          "type": "boolean"
+        },
+        "contactDetails": {
+          "$ref": "#/$defs/ContactDetails"
+        },
+        "transaction": {
+          "$ref": "#/$defs/TransactionDateConfirmation"
+        },
+        "declaration": {
+          "$ref": "#/$defs/DeclarationDateConfirmation"
+        }
+      }
+    },
+    "PersonName": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "type": "string",
+          "description": "First given name\n",
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9' -]+$"
+        },
+        "familyName": {
+          "description": "Family name\n",
+          "type": "string",
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9' -]+$"
+        }
+      },
+      "required": [
+        "givenName",
+        "familyName"
+      ]
+    },
+    "TransactionDateConfirmation": {
+      "description": "When you submitted the GST property settlement withholding notification, you were provided with a payment reference number (PRN) and a lodgment reference number (LRN). Use both reference numbers in order for us to correctly match the details.",
+      "type": "object",
+      "required": [
+        "lodgmentReferenceNumber",
+        "paymentReferenceNumber",
+        "actualSettlementDate"
+      ],
+      "properties": {
+        "lodgmentReferenceNumber": {
+          "description": "You can find the Lodgment Reference Number (LRN) from either:\n\n- the email we issued to you when you lodged a GST Property Settlement Withholding Notification.\n- the receipt in the API response header returned when you submit the withholding notification using the ATO GST Property Settlement Withholding Notification API.\n",
+          "type": "string",
+          "minLength": 13,
+          "maxLength": 13,
+          "pattern": "^[0-9]+$"
+        },
+        "paymentReferenceNumber": {
+          "description": "You can find the payment reference number (PRN) on either:\n\n  - the email we issued to you when you lodged a GST Property Settlement Withholding Notification.\n  - the API response returned when you submit the withholding notification using ATO GST Property Settlement Withholding Notification API\n",
+          "type": "string",
+          "maxLength": 18,
+          "pattern": "^[0-9]+$"
+        },
+        "actualSettlementDate": {
+          "description": "The settlement date is the date of settlement for the sale. If it is an instalment contract, it is the date you pay the first instalment (not the date you paid the deposit).",
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

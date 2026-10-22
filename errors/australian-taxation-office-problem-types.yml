@@ -1,0 +1,104 @@
+generated: '2026-10-22'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml
+- openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml
+- openapi/australian-taxation-office-gst-property-settlement-openapi.yml
+- openapi/australian-taxation-office-health-check-openapi.yml
+- openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml
+- openapi/australian-taxation-office-payment-reference-number-openapi.yml
+- openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml
+- openapi/australian-taxation-office-stapled-super-fund-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: ApiErrorsResponse
+coverage:
+  operations: 20
+  statuses_declared: 12
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 13
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 401
+  title: Unauthorized
+  description: Unauthorised
+  operations: 8
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 8
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 404
+  title: Not Found
+  description: Not Found
+  operations: 7
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 405
+  title: Method Not Allowed
+  description: Method Not Allowed
+  operations: 4
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 406
+  title: Not Acceptable
+  description: Accept header Type Not Supported.
+  operations: 4
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 415
+  title: Unsupported Media Type
+  description: Content-Type Not Supported.
+  operations: 4
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 422
+  title: Unprocessable Content
+  description: Unprocessable Entity
+  operations: 8
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 429
+  title: Too Many Requests
+  description: Rate limit has been exhausted
+  operations: 4
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 500
+  title: Internal Server Error
+  description: Internal Server Error
+  operations: 9
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 503
+  title: Service Unavailable
+  description: Server Unavailable
+  operations: 4
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse
+- status: 504
+  title: Gateway Timeout
+  description: Server Timeout
+  operations: 4
+  media_types:
+  - application/json
+  schema: ApiErrorsResponse

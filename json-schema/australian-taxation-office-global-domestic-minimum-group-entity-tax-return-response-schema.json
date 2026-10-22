@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json",
+  "title": "GlobalDomesticMinimumGroupEntityTaxReturnResponse",
+  "description": "This is the response for the Combined Global and Domestic Minimum Group Entity Tax Return when successfully submitted.",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GlobalDomesticMinimumGroupEntityTaxReturnResponse",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/GlobalDomesticGroupEntityForm"
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "GlobalDomesticGroupEntityForm": {
+      "description": "This is the response data for a successfully submitted Group Entity Combined Global and Domestic Tax Return",
+      "properties": {
+        "message": {
+          "description": "Response message to let the lodger know their lodgment was successful.\n",
+          "type": "string"
+        },
+        "date": {
+          "description": "Timestamp for when the lodgement was completed.\n",
+          "type": "string",
+          "format": "date-time"
+        },
+        "entityName": {
+          "description": "The name of the group entity which form was lodged for.\n",
+          "type": "string"
+        },
+        "australianBusinessNumber": {
+          "description": "This is the ABN of the group entity and will be returned if applicable for the group entity.\n",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paymentAmount": {
+          "description": "This is the total amount of liabilities the group entity has to pay. \n",
+          "type": "integer"
+        },
+        "paymentReferenceNumber": {
+          "description": "This is the payment reference number for this group entity. Will be returned if there is an amount to be paid.\n",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "message",
+        "date",
+        "entityName",
+        "paymentAmount"
+      ]
+    }
+  }
+}

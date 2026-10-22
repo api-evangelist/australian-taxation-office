@@ -1,0 +1,26 @@
+name: Australian Taxation Office agent skills
+generated: '2026-10-22'
+method: generated
+source: openapi/*.yml
+skills:
+- name: stapled-super-fund-lookup
+  file: australian-taxation-office-stapled-super-fund-lookup.md
+  operations:
+  - requestStapledSuperFundForPayeeWithAbn
+  - requestStapledSuperFundForPayeeWithReceiptNumberAndAbn
+- name: payment-reference-number
+  file: australian-taxation-office-payment-reference-number.md
+  operations:
+  - retrievePaymentReferenceNumberFormat4
+- name: dsg-health-check
+  file: australian-taxation-office-dsg-health-check.md
+  operations:
+  - GetStatus
+  - GetHeartbeat
+  - GetHeartbeatABN
+  - GetHeartbeatWPN
+- name: global-domestic-minimum-tax-return
+  file: australian-taxation-office-global-domestic-minimum-tax-return.md
+  operations:
+  - requestGlobalDomesticMinimumTaxReturnFormABN
+  - requestGlobalDomesticGroupEntityTaxReturnForm

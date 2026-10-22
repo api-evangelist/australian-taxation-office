@@ -1,0 +1,98 @@
+name: Australian Taxation Office MCP Server (candidate)
+type: MCPServer
+status: candidate
+generated: '2026-10-22'
+method: derived
+source: openapi/*.yml (ATO Digital Service Gateway specs from apiportal.ato.gov.au)
+description: No official ATO MCP server was found (web search 2026-10-22 surfaced only a third-party mcp.so tag listing; https://apiportal.ato.gov.au/.well-known/mcp.json returned 404). This is a candidate
+  tool list derived from the published Digital Service Gateway (DSG) OpenAPI operations. Write tools lodge tax-return or property-settlement data and require machine-credential authentication; agents must
+  not call them without an authorised principal.
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+evidence:
+- url: https://apiportal.ato.gov.au/.well-known/mcp.json
+  status: 404
+- url: https://apiportal.ato.gov.au/llms.txt
+  status: 403
+- url: https://mcp.so/tags/australian-taxation-office
+  note: third-party directory tag, not an ATO publication
+tools:
+- name: request_global_domestic_group_entity_tax_return_form
+  description: This endpoint will allow you to either lodge or amend a Combined Global and Domestic Minimum Tax Return on behalf of a group entity.
+  operationId: requestGlobalDomesticGroupEntityTaxReturnForm
+  method: POST
+  path: /clients/ABN/{identifierValue}/globalDomesticReturn/{transactionID}/groupEntity
+  spec: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml
+  read_only: false
+- name: request_global_domestic_minimum_tax_return_form_a_b_n
+  description: This endpoint will allow you to either lodge or amend a Combined Global and Domestic Minimum Tax Return.
+  operationId: requestGlobalDomesticMinimumTaxReturnFormABN
+  method: POST
+  path: /clients/ABN/{identifierValue}/globalDomesticReturn
+  spec: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml
+  read_only: false
+- name: get_heartbeat
+  description: This will make sure that the DSG is running
+  operationId: GetHeartbeat
+  method: GET
+  path: /heartbeat
+  spec: openapi/australian-taxation-office-health-check-openapi.yml
+  read_only: true
+- name: get_heartbeat_a_b_n
+  description: This will make sure your authorized and DSG is running
+  operationId: GetHeartbeatABN
+  method: GET
+  path: /clients/ABN/{abn_business}/individuals/TFN/{tfn_individual}/heartbeat
+  spec: openapi/australian-taxation-office-health-check-openapi.yml
+  read_only: true
+- name: get_heartbeat_w_p_n
+  description: This will make sure your authorized and DSG is running
+  operationId: GetHeartbeatWPN
+  method: GET
+  path: /clients/WPN/{wpn_business}/individuals/TFN/{tfn_individual}/heartbeat
+  spec: openapi/australian-taxation-office-health-check-openapi.yml
+  read_only: true
+- name: get_status_health_check
+  description: Will give current status of this API
+  operationId: GetStatus
+  method: GET
+  path: /
+  spec: openapi/australian-taxation-office-health-check-openapi.yml
+  read_only: true
+- name: retrieve_payment_reference_number_format4
+  description: This endpoint will allow you to get a Payment Reference Number (PRN) for a transaction
+  operationId: retrievePaymentReferenceNumberFormat4
+  method: GET
+  path: /
+  spec: openapi/australian-taxation-office-payment-reference-number-openapi.yml
+  read_only: true
+- name: get_providers
+  description: provide list of SMSF messaging providers
+  operationId: GetProviders
+  method: GET
+  path: /providers
+  spec: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml
+  read_only: true
+- name: get_status_smsf_alias_lookup
+  description: Will give current status of this API
+  operationId: GetStatus
+  method: GET
+  path: /
+  spec: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml
+  read_only: true
+- name: request_stapled_super_fund_for_payee_with_abn
+  description: Use this endpoint to make a request for the stapled superannuation fund of a newly joined payee using the payer ABN
+  operationId: requestStapledSuperFundForPayeeWithAbn
+  method: POST
+  path: /
+  spec: openapi/australian-taxation-office-stapled-super-fund-openapi.yml
+  read_only: false
+- name: request_stapled_super_fund_for_payee_with_receipt_number_and_abn
+  description: Use this endpoint to fetch the outcome of a previously made request for stapled fund using the receipt number.
+  operationId: requestStapledSuperFundForPayeeWithReceiptNumberAndAbn
+  method: GET
+  path: /{receipt}
+  spec: openapi/australian-taxation-office-stapled-super-fund-openapi.yml
+  read_only: true

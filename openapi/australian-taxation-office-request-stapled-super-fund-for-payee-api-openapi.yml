@@ -1,0 +1,726 @@
+openapi: 3.2.0
+info:
+  title: Australian Taxation Office Request Stapled Super Fund for…
+  version: 1.1.28
+  x-status:
+    status: Proposed
+  description: 'Operations tagged Request Stapled Super Fund for Payee across 2 of this provider''s published API definitions: stapled-super-fund-v1_16.yaml, australian-taxation-office-stapled-super-fund-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{env}/super/v1/clients/{identifierType}/{identifierValue}/payees/TFN/*/stapledSuperFund
+  description: Devtest Environment
+  variables:
+    identifierType:
+      default: ABN
+      enum:
+      - ABN
+      - WPN
+      description: Identifier Type
+    env:
+      default: sandbox.api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+security:
+- ScopeAuth:
+  - ato.super.stapledsuperfund.c,r
+tags:
+- name: Request Stapled Super Fund for Payee
+paths:
+  /:
+    post:
+      tags:
+      - Request Stapled Super Fund for Payee
+      summary: Use this endpoint to make a request for the stapled superannuation fund of a…
+      description: 'You can use this endpoint to make a request for the stapled superannuation fund of a newly joined payee using the
+
+        payer ABN. We can process the request faster if you provide the payee TFN and will respond back with the outcome near real-time.
+
+        However, if you provide us an exempted TFN code, we will need more time to process the request.
+
+        The response header section will contain a receipt number.
+
+        You will have to make another call using the
+
+        "Get Payee Stapled Super Fund for Receipt"
+
+        to get the outcome using the receipt number.
+
+
+        Following are the exempted TFN codes:
+
+
+        - `000000000`: Use this when the employee chose not to quote a TFN and has not claimed an exemption from quoting a TFN or does not fit any of the below categories
+
+        - `111111111`: Use this when the employee has applied for a TFN but hasn''t received it yet
+
+        - `333333333`: Use this when the employee is under 18 years old, with no TFN, and earns less than the amount required to attract pay as you go (PAYG) withholding
+
+        - `444444444`: Use this when the employee is a recipient of social security, or a service pension or benefit'
+      parameters:
+      - $ref: '#/components/parameters/contextParam'
+      - $ref: '#/components/parameters/umcParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StapledSuperFundRequest'
+        description: Request stapled super fund details.
+        required: true
+      operationId: requestStapledSuperFundForPayeeWithAbn
+      responses:
+        '400':
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/SchemaBadRequestResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Bad Request
+          headers:
+            receipt:
+              $ref: '#/components/headers/ReceiptHeader'
+        '422':
+          content:
+            application/json:
+              examples:
+                TFNExemptionAddressResponseExample:
+                  $ref: '#/components/examples/TFNExemptionAddressResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: UnprocessableEntity
+          headers:
+            receipt:
+              $ref: '#/components/headers/ReceiptHeader'
+        '200':
+          content:
+            application/json:
+              examples:
+                SMSFStapledSuperFundResponseExample:
+                  $ref: '#/components/examples/SMSFStapledSuperFundResponse'
+                NonSMSFStapledSuperFundResponseExample:
+                  $ref: '#/components/examples/NonSMSFStapledSuperFundResponse'
+              schema:
+                $ref: '#/components/schemas/StapledSuperFundResponse'
+          description: "OK. \n\nThe request was successfully processed.\n"
+          headers:
+            receipt:
+              $ref: '#/components/headers/ReceiptHeader'
+        '500':
+          content:
+            application/json:
+              examples:
+                InternalServerErrorExample:
+                  $ref: '#/components/examples/InternalServerErrorResponse'
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+          description: Internal Server Error
+          headers:
+            receipt:
+              $ref: '#/components/headers/ReceiptHeader'
+    servers:
+    - url: https://{env}/super/v1/clients/{identifierType}/{identifierValue}/payees/TFN/*/stapledSuperFund
+      description: Devtest Environment
+      variables:
+        identifierType:
+          default: ABN
+          enum:
+          - ABN
+          - WPN
+          description: Identifier Type
+        env:
+          default: sandbox.api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+components:
+  schemas:
+    Source:
+      description: An object containing references to the source of the error.
+      type: object
+      properties:
+        pointer:
+          description: JSON Pointer [RFC6901] to the associated entity in the request document.
+          example: /payee/addressResidential/postCode
+          type:
+          - string
+          - 'null'
+        parameter:
+          description: A string indicating which URI query parameter caused the error.
+          example: receipt
+          type:
+          - string
+          - 'null'
+      title: Source
+    Address:
+      properties:
+        line1:
+          example: 34 wanderer street
+          description: First line utilising free format, that is used to create a semi structured address.
+          type: string
+          maxLength: 38
+        line2:
+          example: Unit 8
+          description: Second line utilising free format, that is used to create a semi structured address.
+          type:
+          - string
+          - 'null'
+          maxLength: 38
+        localityName:
+          example: Mt Helen
+          description: A word or combination of words, by which a geographic locality/suburb is designated or known.
+          type: string
+          maxLength: 46
+        stateOrTerritoryCode:
+          description: The code that is assigned to each Australian State or Territory.
+          example: VIC
+          type:
+          - string
+          - 'null'
+          enum:
+          - null
+          - ACT
+          - NSW
+          - NT
+          - QLD
+          - SA
+          - TAS
+          - VIC
+          - WA
+        countryCode:
+          enum:
+          - ad
+          - ae
+          - af
+          - ag
+          - ai
+          - al
+          - am
+          - an
+          - ao
+          - aq
+          - ar
+          - as
+          - at
+          - au
+          - aw
+          - ax
+          - az
+          - ba
+          - bb
+          - bd
+          - be
+          - bf
+          - bg
+          - bh
+          - bi
+          - bj
+          - bl
+          - bm
+          - bn
+          - bo
+          - bq
+          - br
+          - bs
+          - bt
+          - bv
+          - bw
+          - by
+          - bz
+          - ca
+          - cc
+          - cf
+          - cg
+          - ch
+          - ci
+          - ck
+          - cl
+          - cm
+          - cn
+          - co
+          - cr
+          - cu
+          - cv
+          - cw
+          - cx
+          - cy
+          - cz
+          - de
+          - dj
+          - dk
+          - dm
+          - do
+          - dz
+          - ec
+          - ee
+          - eg
+          - eh
+          - er
+          - es
+          - et
+          - fi
+          - fj
+          - fk
+          - fm
+          - fo
+          - fr
+          - ga
+          - gb
+          - gd
+          - ge
+          - gf
+          - gg
+          - gh
+          - gi
+          - gl
+          - gm
+          - gn
+          - gp
+          - gq
+          - gr
+          - gs
+          - gt
+          - gu
+          - gw
+          - gy
+          - hk
+          - hm
+          - hn
+          - hr
+          - ht
+          - hu
+          - id
+          - ie
+          - il
+          - im
+          - in
+          - io
+          - iq
+          - ir
+          - is
+          - it
+          - je
+          - jm
+          - jo
+          - jp
+          - ke
+          - kg
+          - kh
+          - ki
+          - km
+          - kn
+          - kp
+          - kr
+          - kw
+          - ky
+          - kz
+          - la
+          - lb
+          - lc
+          - li
+          - lk
+          - lr
+          - ls
+          - lt
+          - lu
+          - lv
+          - ly
+          - ma
+          - mc
+          - md
+          - me
+          - mf
+          - mg
+          - mh
+          - mk
+          - ml
+          - mm
+          - mn
+          - mo
+          - mp
+          - mq
+          - mr
+          - ms
+          - mt
+          - mu
+          - mv
+          - mw
+          - mx
+          - my
+          - mz
+          - na
+          - nc
+          - ne
+          - nf
+          - ng
+          - ni
+          - nl
+          - 'no'
+          - np
+          - nr
+          - nu
+          - nz
+          - om
+          - ot
+          - pa
+          - pe
+          - pf
+          - pg
+          - ph
+          - pk
+          - pl
+          - pm
+          - pn
+          - pr
+          - ps
+          - pt
+          - pw
+          - py
+          - qa
+          - re
+          - ro
+          - rs
+          - ru
+          - rw
+          - sa
+          - sb
+          - sc
+          - sd
+          - se
+          - sg
+          - sh
+          - si
+          - sj
+          - sk
+          - sl
+          - sm
+          - sn
+          - so
+          - sr
+          - ss
+          - st
+          - sv
+          - sx
+          - sy
+          - sz
+          - tc
+          - td
+          - tf
+          - tg
+          - th
+          - tj
+          - tk
+          - tm
+          - tn
+          - to
+          - tp
+          - tr
+          - tt
+          - tv
+          - tw
+          - tz
+          - ua
+          - ug
+          - um
+          - us
+          - uy
+          - uz
+          - va
+          - vc
+          - ve
+          - vg
+          - vi
+          - vn
+          - vu
+          - wf
+          - ws
+          - ye
+          - yt
+          - yu
+          - za
+          - zm
+          - zr
+          - zw
+          description: This represents the Country Code as prescribed by AS4590 and inherited from ISO 3166.
+          example: au
+          type: string
+          default: au
+        postCode:
+          description: The descriptor for a postal delivery area, aligned with locality, suburb or place. Can be used for an Australian or non-Australian address.
+          example: 3000
+          type: string
+      description: This will hold the specific information relating to the address of the payee. Can be either the Residential or Postal Address Details.
+      type:
+      - object
+      - 'null'
+      required:
+      - line1
+      - localityName
+      - postCode
+    SuperannuationFund:
+      properties:
+        memberAccount:
+          description: This is a unique account number allocated by a provider to a member's superannuation contributions.
+          type: string
+        uniqueSuperannuationIdentifier:
+          description: The unique superannuation identifier is used for identifying the product within the fund which the member account belongs to.
+          type: string
+      type:
+      - object
+      - 'null'
+    StapledFundRequestOutcome:
+      properties:
+        reasonCode:
+          enum:
+          - Unmatched
+          - Excluded client
+          - Choice fund
+          - Choice SMSF
+          - Stapled fund
+          - Stapled SMSF
+          - Use default
+          - No active payee/payer link
+          example: Unmatched
+          type: string
+      type: object
+    StapledSuperFundRequest:
+      properties:
+        payee:
+          $ref: '#/components/schemas/Payee'
+        declaration:
+          $ref: '#/components/schemas/Declaration'
+      description: The information needed for the stapled superfund request payload structure
+      type: object
+      required:
+      - payee
+      - declaration
+    PersonDemographic:
+      properties:
+        birthDm:
+          example: 31
+          description: The date of the day in the month in which an individual was born.
+          type: integer
+          minimum: 1
+          maximum: 31
+        birthM:
+          example: 10
+          description: The month in which an individual was born.
+          type: integer
+          minimum: 1
+          maximum: 12
+        birthY:
+          example: 2000
+          description: The year in which an individual was born.
+          type: integer
+          minimum: 1800
+          maximum: 9999
+      required:
+      - birthDm
+      - birthM
+      - birthY
+    PersonName:
+      properties:
+        familyName:
+          example: Martin
+          description: The person's last name or surname. The name by which a family group is identified.
+          type: string
+          pattern: ^([0-9a-zA-Z \.,\?\(\)\[\]:;'\-=\/@$%\*&!"])*$
+          maxLength: 40
+        givenName:
+          example: Mark
+          description: The name given to a person which is that person's identifying name within the family group or the name by which the person is uniquely socially identified; the name borne by an individual, often assigned by his or her parents shortly after birth, as opposed to the inherited surname.
+          type: string
+          pattern: ^([0-9a-zA-Z \.,\?\(\)\[\]:;'\-=\/@$%\*&!"])*$
+          maxLength: 40
+        otherGivenName:
+          example: Matthew
+          description: The middle name given to a person which complements that person's identifying name within the family group or the name by which the person is uniquely socially identified.
+          type:
+          - string
+          - 'null'
+          maxLength: 40
+          pattern: ^([0-9a-zA-Z \.,\?\(\)\[\]:;'\-=\/@$%\*&!"])*$
+      description: This will hold the specific information relating to the name details for the payee.
+      type: object
+      required:
+      - familyName
+      - givenName
+    ApiError:
+      description: This will hold the response error details.
+      type: object
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: regex '^[0-9]{4}$' does not match input string '12345'
+          type:
+          - string
+          - 'null'
+        code:
+          description: An application-specific error code.
+          example: RSF.00000
+          type:
+          - string
+          - 'null'
+        source:
+          $ref: '#/components/schemas/Source'
+      title: ApiError
+    ApiErrorsResponse:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+      description: ''
+    StapledSuperFundResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/StapledSuperFund'
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+    Payee:
+      properties:
+        payeePayrollId:
+          example: ERN12345467
+          description: The Employment Payroll Number. Number allocated by the payer payroll system to identify a payee. This identifier will be quoted on any correspondence regarding the payee's declaration to assist correct identification of the payee.
+          type:
+          - string
+          - 'null'
+          maxLength: 200
+        personName:
+          $ref: '#/components/schemas/PersonName'
+        personDemographic:
+          $ref: '#/components/schemas/PersonDemographic'
+        addressResidential:
+          $ref: '#/components/schemas/Address'
+        addressPostal:
+          $ref: '#/components/schemas/Address'
+      description: This will hold the specific information related to the payee (employee)
+      type: object
+      required:
+      - personName
+      - personDemographic
+    StapledSuperFund:
+      description: This holds the stapled super fund details.
+      properties:
+        requestOutcome:
+          $ref: '#/components/schemas/StapledFundRequestOutcome'
+        payee:
+          properties:
+            personName:
+              properties:
+                familyName:
+                  example: Martin
+                  description: The person's last name or surname. The name by which a family group is identified.
+                  type: string
+                givenName:
+                  example: Mark
+                  description: The name given to a person which is that person's identifying name within the family group or the name by which the person is uniquely socially identified; the name borne by an individual, often assigned by his or her parents shortly after birth, as opposed to the inherited surname.
+                  type: string
+                otherGivenName:
+                  example: Matthew
+                  description: The middle name given to a person which complements that person's identifying name within the family group or the name by which the person is uniquely socially identified.
+                  type:
+                  - string
+                  - 'null'
+            payeePayrollId:
+              type: string
+          type: object
+        superfund:
+          properties:
+            australianBusinessNumber:
+              description: A unique public identifier issued to all entities registered in the Australian Business Register (ABR), to be used in their dealings with government. Companies registered under the Corporations Law and business entities carrying on an enterprise in Australia are entitled to an ABN.
+              example: 50110219460
+              type: string
+            organisationalName:
+              description: The full name by which an organisation is known.
+              type: string
+            superannuationProduct:
+              $ref: '#/components/schemas/SuperannuationProduct'
+            superannuationFund:
+              $ref: '#/components/schemas/SuperannuationFund'
+          description: The information that gets populated for the stapled superfund response payload structure
+          type: object
+    SuperannuationProduct:
+      properties:
+        name:
+          description: This is the name of the superannuation fund's product.
+          type: string
+      type:
+      - object
+      - 'null'
+    Declaration:
+      properties:
+        statementAcceptedIndicator:
+          description: Indicates that the terms stated in the Declaration Text have been accepted or declined.
+          type: boolean
+      description: This will hold the specific information relating to the declaration text for the stapled superfund request.
+      type: object
+      required:
+      - statementAcceptedIndicator
+  examples:
+    NonSMSFStapledSuperFundResponse:
+      summary: Non SMSF Stapled Super Fund response
+      description: Example Non SMSF Stapled Super Fund response
+      value: "{\n  \"data\":{\n    \"requestOutcome\": {\n      \"reasonCode\": \"Stapled fund\"\n    },\n    \"payee\": {\n      \"payeePayrollId\": \"123456789\",\n      \"personName\": {\n        \"familyName\": \"Doe\",\n        \"givenName\": \"John\",\n        \"otherGivenName\": \"Louis Rey\"\n      }\n    },\n    \"superfund\": {\n      \"australianBusinessNumber\": \"12345678901\",\n      \"organisationalName\": \"Australian Super Pty Ltd\",\n      \"superannuationProduct\": {\n        \"name\": \"Australian Super\"\n      },\n      \"superannuationFund\": {\n        \"uniqueSuperannuationIdentifier\": \"STA0100AU\",\n        \"memberAccount\": \"12345678901234\"\n      }\n    }\n    }\n}"
+    SMSFStapledSuperFundResponse:
+      summary: SMSF Stapled Super Fund response
+      description: Example SMSF Stapled Super Fund response
+      value: "{\n  \"data\": {\n    \"requestOutcome\": {\n      \"reasonCode\": \"Stapled SMSF\"\n    },\n    \"payee\": {\n      \"payeePayrollId\": \"123456789\",\n      \"personName\": {\n        \"familyName\": \"Doe\",\n        \"givenName\": \"John\",\n        \"otherGivenName\": \"Louis Rey\"\n      }\n    },\n    \"superfund\": {\n      \"australianBusinessNumber\": \"12345678901\",\n      \"organisationalName\": \"Australian Super Pty Ltd\",\n      \"superannuationProduct\": {\n        \"name\": \"\"\n      },\n      \"superannuationFund\": {\n        \"uniqueSuperannuationIdentifier\": \"\",\n        \"memberAccount\": \"\"\n      }\n    }\n  }\n}"
+    InternalServerErrorResponse:
+      summary: Internal Server Error response
+      description: Example Internal Server Error response
+      value: "{\n  \"errors\": [\n  {\n    \"code\": \"RSF.00003\",\n    \"detail\": \"Your request cannot be processed. Please try again later.  If the problem persists, please contact ATO\"\n  }\n  ]\n}"
+    SchemaBadRequestResponse:
+      summary: Schema Bad Request response
+      description: Example Schema Bad Request response
+      value: "{\n  \"errors\": [\n  {\n    \"code\": \"RSF.00000\",\n    \"detail\": \"regex '^[0-9]{4}$' does not match input string '12345'\",\n    \"source\": {\n      \"pointer\": \"/payee/addressResidential/postCode\"\n    }\n  }\n  ]\n}"
+    TFNExemptionAddressResponse:
+      summary: Exempt TFN Code Address response
+      description: Example Exempt TFN Code Address response
+      value: "{\n  \"errors\": [\n    {\n      \"code\": \"ADDR.00001\",\n      \"detail\": \"If an exempted TFN code is present, Payee residential address or Payee postal address must be provided.\"\n    }\n  ]\n}"
+  parameters:
+    contextParam:
+      name: context
+      required: false
+      in: query
+      description: "\nThe `context` parameter specifies the ABN of the intermediary, the Tax Agent Number (TAN),\nor Registered Agent Number(RAN)\n\n-\tWhen a payer is submitting request for its newly joined payee: context not required.\n-\tWhen an intermediary that is not an agent is acting on behalf of the payer requesting\n  stapled super fund of the newly joined payee:\n  `context=\"ABN={abn_intermediary}\";` note the intermediary does not have a TAN or a RAN as it is not an agent\n-\tWhen an agent is acting on behalf of the payer requesting stapled super fund of the newly joined payee,\n  TAN or RAN of the intermediary has to be provided in the context, e.g.: `context=\"TAN={TAN}\"` or `context=\"RAN={RAN}\"`.\n  \n"
+      schema:
+        type: string
+      examples:
+        tan:
+          value: '"TAN=17801003"'
+          summary: Tax agent – TAN
+        ran:
+          value: '"RAN=17801003"'
+          summary: Tax agent – RAN
+        abn_intermediary:
+          value: '"ABN=18083973826"'
+          summary: Intermediary that is not a tax agent
+    umcParam:
+      name: unableToMakeContribution
+      required: false
+      in: query
+      description: "\nStapled super fund previously notified by the ATO cannot accept contributions. \nUse to indicate that employer is unable to make contributions to accounts previously notified in staple super fund request outcome.\n"
+      schema:
+        type: boolean
+        example: true
+  headers:
+    ReceiptHeader:
+      description: The receipt number for the super fund details interaction.
+      schema:
+        type: string
+        pattern: '[0-9]{13}'
+        example: 6300000000014
+  securitySchemes:
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.evte.ato.gov.au/core2/connect/token
+          scopes:
+            ato.super.stapledsuperfund.c,r: Grants ability to POST and GET a Stapled Super Fund
+x-refined-from:
+- stapled-super-fund-v1_16.yaml
+- australian-taxation-office-stapled-super-fund-openapi.yml

@@ -1,0 +1,858 @@
+openapi: 3.2.0
+info:
+  title: Australian Taxation Office GST Property Settlement Date…
+  version: 1.0.1
+  contact:
+    name: ATO Digital Partnership Office
+    email: DPO@ato.gov.au
+  termsOfService: https://apiportal.ato.gov.au/conditions-use
+  x-status:
+    status: Proposed
+  description: 'Operations tagged GST Property Settlement Date Confirmation across 2 of this provider''s published API definitions: dsg-gst-property-settlement-v1_2.yaml, australian-taxation-office-gst-property-settlement-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{env}/propertySettlementGoodsServicesTax/v1
+  description: 'GST Property Settlements
+
+    '
+  variables:
+    env:
+      default: api.ato.gov.au
+      description: 'this is the environment that is going to be used to hit the API
+
+        '
+      enum:
+      - sandbox.api.ato.gov.au
+      - api.ato.gov.au
+security:
+- ScopeAuth:
+  - ato.apGSTPropertySettlement
+- ApiKeyAuth: []
+tags:
+- name: GST Property Settlement Date Confirmation
+paths:
+  /clients/ABN/{identifierValue}/changeOfPropertySettlements:
+    post:
+      parameters:
+      - $ref: '#/components/parameters/identifierValue'
+      tags:
+      - GST Property Settlement Date Confirmation
+      summary: This endpoint will allow you to submit a GST Property Settlement Date…
+      description: 'This endpoint validates your payload and, if it passes all checks, lodges the GST property settlement date confirmation with the ATO.
+
+
+        Ensure the request data is correct before submitting.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GSTPropertySettlementDateConfirmationRequest'
+            examples:
+              Representative:
+                $ref: '#/components/examples/DateConfirmationRepresentative'
+        required: true
+      responses:
+        '204':
+          $ref: '#/components/responses/204DateConfirmationSubmitSuccessResponse'
+        '400':
+          $ref: '#/components/responses/400ErrorResponse'
+        '401':
+          $ref: '#/components/responses/401ErrorResponse'
+        '403':
+          $ref: '#/components/responses/403ErrorResponse'
+        '404':
+          $ref: '#/components/responses/404ErrorResponse'
+        '405':
+          $ref: '#/components/responses/405ErrorResponse'
+        '406':
+          $ref: '#/components/responses/406ErrorResponse'
+        '415':
+          $ref: '#/components/responses/415ErrorResponse'
+        '422':
+          $ref: '#/components/responses/422ErrorResponse'
+        '429':
+          $ref: '#/components/responses/429ErrorResponse'
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+        '503':
+          $ref: '#/components/responses/503ErrorResponse'
+        '504':
+          $ref: '#/components/responses/504ErrorResponse'
+      operationId: postClientsABNByIdentifierValueChangeOfPropertySettlements
+      x-operation-id-source: derived
+    servers:
+    - url: https://{env}/propertySettlementGoodsServicesTax/v1
+      description: 'GST Property Settlements
+
+        '
+      variables:
+        env:
+          default: api.ato.gov.au
+          description: 'this is the environment that is going to be used to hit the API
+
+            '
+          enum:
+          - sandbox.api.ato.gov.au
+          - api.ato.gov.au
+  /clients/ABN/{identifierValue}/changeOfPropertySettlements/validationResults:
+    post:
+      parameters:
+      - $ref: '#/components/parameters/identifierValue'
+      tags:
+      - GST Property Settlement Date Confirmation
+      summary: This endpoint will allow you to validate the lodgment data for GST Property…
+      description: 'This endpoint performs validation only.
+
+
+        The API returns validation errors if present; otherwise, the payload is valid and no lodgment or downstream processing is performed.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GSTPropertySettlementDateConfirmationRequest'
+            examples:
+              Representative:
+                $ref: '#/components/examples/DateConfirmationRepresentative'
+      responses:
+        '204':
+          $ref: '#/components/responses/204ValidateSuccessResponse'
+        '400':
+          $ref: '#/components/responses/400ErrorResponse'
+        '401':
+          $ref: '#/components/responses/401ErrorResponse'
+        '403':
+          $ref: '#/components/responses/403ErrorResponse'
+        '404':
+          $ref: '#/components/responses/404ErrorResponse'
+        '405':
+          $ref: '#/components/responses/405ErrorResponse'
+        '406':
+          $ref: '#/components/responses/406ErrorResponse'
+        '415':
+          $ref: '#/components/responses/415ErrorResponse'
+        '422':
+          $ref: '#/components/responses/422ErrorResponse'
+        '429':
+          $ref: '#/components/responses/429ErrorResponse'
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+        '503':
+          $ref: '#/components/responses/503ErrorResponse'
+        '504':
+          $ref: '#/components/responses/504ErrorResponse'
+      operationId: postClientsABNByIdentifierValueChangeOfPropertySettlementsValidationResults
+      x-operation-id-source: derived
+    servers:
+    - url: https://{env}/propertySettlementGoodsServicesTax/v1
+      description: 'GST Property Settlements
+
+        '
+      variables:
+        env:
+          default: api.ato.gov.au
+          description: 'this is the environment that is going to be used to hit the API
+
+            '
+          enum:
+          - sandbox.api.ato.gov.au
+          - api.ato.gov.au
+components:
+  examples:
+    UseCaseNotFoundExample:
+      summary: Use Case Not Found response
+      description: 'Example use case Not Found response
+
+        '
+      value:
+        errors:
+        - code: GSTPS.00001
+          detail: No use case is configured for the requested path {request.path}
+    InternalServerErrorResponseExample:
+      summary: Internal Server Error response - Generic response
+      description: 'Example Generic Internal Server Error response
+
+        '
+      value:
+        errors:
+        - code: 500-01
+          detail: internal server error
+    GstLambdaInternalServerErrorResponseExample:
+      summary: Internal Server Error – API Internal Server Error Response
+      description: 'API Internal Server Error Response
+
+        '
+      value:
+        errors:
+        - code: GSTPS.ERROR
+          detail: Your request cannot be processed. Please try again later. If the problem persists, please contact ATO.
+    RateLimitingErrorExample:
+      summary: Rate Limit Exhausted Response
+      description: 'Example Rate Limit Exhausted Response
+
+        '
+      value:
+        errors:
+        - code: 429-02-001
+          detail: rate limit has been exhausted
+    MethodNotAllowedExample:
+      summary: 405 Method Not Allowed
+      description: 'This error occurs when the client calls the endpoint using an HTTP method
+
+        that is not supported.
+
+        '
+      value:
+        errors:
+        - code: 405-01
+          detail: HTTP method is not allowed for this endpoint.
+    DateConfirmationRepresentative:
+      summary: Lodgment is submitted by the purchaser's representative
+      value:
+        data:
+          prerequisiteCheckIndicator: true
+          lodgedBy: REPRESENTATIVE
+          lodgmentChangedIndicator: false
+          contactDetails:
+            title: MR
+            personName:
+              givenName: Alex
+              familyName: Smith
+            representativeBusinessName: Legal Pty Ltd
+            telephoneAreaCode: '03'
+            telephoneNumber: '98765432'
+            emailCorrespondenceIndicator: true
+            electronicMailAddress: contact@legal.com.au
+            digitalSettlementServiceProvider: ABC Digital Service
+            digitalSettlementFileNumber: '123456789'
+          transaction:
+            lodgmentReferenceNumber: '1234567890123'
+            paymentReferenceNumber: '123456789012345678'
+            actualSettlementDate: '2025-07-15'
+          declaration:
+            statementAcceptedIndicator: true
+    ServerTimeoutResponse:
+      summary: 504 Server Timeout
+      description: 'Returned when a timeout occurs on the server while processing the request.
+
+        '
+      value:
+        errors:
+        - code: 504-01
+          detail: The server timed out while processing the request. Please try again later.
+    ClientIdentiferErrorExample:
+      summary: Unprocessable Entity Error
+      description: 'Client identifier error
+
+        '
+      value:
+        errors:
+        - code: PYID.00005
+          detail: TFN is invalid
+          source:
+            parameter: TFNBusiness
+    BadRequestGeneralExample:
+      description: "A general 400 Bad Request error. Returned when the server identifies a request \nas malformed or unsafe, including scenarios such as malformed JSON or SQL threat \npatterns.\n"
+      value:
+        errors:
+        - code: 400-01
+          detail: bad request
+    BadRequestOasValidationExample:
+      description: "Returned when the request payload fails OpenAPI schema validation. \n"
+      value:
+        errors:
+        - code: OAS.VAL.00000
+          detail: Object has missing required properties (['emailCorrespondenceIndicator'])
+    InvalidApiKeyExample:
+      summary: Schema Unauthorised Request - Invalid API Key response
+      description: 'Returned when the client provides an API key that is missing, invalid, revoked,
+
+        or not recognised by the API gateway.
+
+        '
+      value:
+        errors:
+        - code: 401-01
+          detail: api key is invalid
+    UnsupportedContentTypeExample:
+      summary: 415 Unsupported Content Type
+      description: 'Returned when the client sends a Content-Type that the server does not support.
+
+        '
+      value:
+        errors:
+        - code: 415-01
+          detail: Content-Type not supported
+    TestScenarioNotFoundExample:
+      summary: Test Scenario Not Found response
+      description: 'Example test scenario Not Found response
+
+        '
+      value:
+        errors:
+        - code: GSTPS.00000
+          detail: The requested test scenario does not exist
+    UnsupportedAcceptHeaderExample:
+      summary: 406 Not Acceptable
+      description: 'Returned when the client''s Accept header does not include a type
+
+        supported by this resource. This API only supports application/json.
+
+        '
+      value:
+        errors:
+        - code: 406-01
+          detail: The requested type in the Accept header is not supported.
+    ForbiddenExample:
+      summary: Schema Forbidden Request response
+      description: 'Example Schema Forbidden Request response
+
+        '
+      value:
+        errors:
+        - code: 403-01
+          detail: Forbidden
+    InvalidCredentialsExample:
+      summary: Schema Unauthorised Request - Invalid Credentials response
+      description: 'Returned when the authentication credentials (e.g., client assertion, JWT, signature, or token)
+
+        fail verification or are expired.
+
+        '
+      value:
+        errors:
+        - code: 401-01
+          detail: invalid credential
+    ServerUnavailableResponse:
+      description: 'Returned when the server is unable to process the request or is temporarily unavailable.
+
+        '
+      value:
+        errors:
+        - code: 503-01
+          detail: Server is temporarily unavailable. Please retry the request later.
+  schemas:
+    Source:
+      title: Source
+      type: object
+      properties:
+        pointer:
+          type:
+          - string
+          - 'null'
+          description: JSON Pointer [RFC6901] to the associated entity in the request document.
+        parameter:
+          type:
+          - string
+          - 'null'
+          description: 'A string indicating which URI query parameter caused the error.
+
+            '
+      description: 'An object containing references to the source of the error.
+
+        '
+    GSTPropertySettlementDateConfirmationRequest:
+      description: This object will hold the data of the request payload of GST Property Settlement Date Confirmation.
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GSTPropertySettlementDateConfirmation'
+    PersonName:
+      type: object
+      properties:
+        givenName:
+          type: string
+          description: 'First given name
+
+            '
+          maxLength: 40
+          pattern: ^[A-Za-z0-9' -]+$
+          example: John
+        familyName:
+          description: 'Family name
+
+            '
+          type: string
+          maxLength: 40
+          pattern: ^[A-Za-z0-9' -]+$
+          example: Doe
+      required:
+      - givenName
+      - familyName
+    ApiError:
+      title: ApiError
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+          description: 'A human-readable explanation specific to this occurrence of the problem.
+
+            '
+        code:
+          type:
+          - string
+          - 'null'
+          description: 'An application-specific error code.
+
+            '
+        source:
+          $ref: '#/components/schemas/Source'
+      description: 'This will hold the response error details.
+
+        '
+    DeclarationDateConfirmation:
+      type: object
+      properties:
+        statementAcceptedIndicator:
+          type: boolean
+          description: "You are accepting the following declaration with the identification details you used to log-in to submit the lodgment.\n            \nIf you are submitting the lodgment as a purchaser's representative, you are accepting the following declaration.\n  - I am authorised by the purchaser/s listed above to complete this form and submit it to the Commissioner of Taxation\n  - This form has been prepared in accordance with the information supplied by the purchaser/s\n  - I have received a declaration from the purchaser/s, stating that the information provided to me is true and correct\n  - I have also included information in this form as provided by the supplier/s\n  - I acknowledge that the ATO may contact the supplier/s or the supplier's representative to confirm the information provided by them\n\nA choice of TRUE/FALSE values.\n\ntrue = Indicates that the terms stated in the Declaration Text have been accepted.\n\nfalse = Indicates that the terms stated in the Declaration Text have been declined.\n\nPrivacy: For important information about your privacy see our **[Privacy notice](https://www.ato.gov.au/privacy)**.\n"
+          example: true
+      required:
+      - statementAcceptedIndicator
+    ApiErrorsResponse:
+      description: 'Full error payload returned to client. Will contain multiple errors if there are multiple that get returned.
+
+        '
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+    TransactionDateConfirmation:
+      description: When you submitted the GST property settlement withholding notification, you were provided with a payment reference number (PRN) and a lodgment reference number (LRN). Use both reference numbers in order for us to correctly match the details.
+      type: object
+      required:
+      - lodgmentReferenceNumber
+      - paymentReferenceNumber
+      - actualSettlementDate
+      properties:
+        lodgmentReferenceNumber:
+          description: 'You can find the Lodgment Reference Number (LRN) from either:
+
+
+            - the email we issued to you when you lodged a GST Property Settlement Withholding Notification.
+
+            - the receipt in the API response header returned when you submit the withholding notification using the ATO GST Property Settlement Withholding Notification API.
+
+            '
+          type: string
+          minLength: 13
+          maxLength: 13
+          pattern: ^[0-9]+$
+          example: '1234567890123'
+        paymentReferenceNumber:
+          description: "You can find the payment reference number (PRN) on either:\n\n  - the email we issued to you when you lodged a GST Property Settlement Withholding Notification.\n  - the API response returned when you submit the withholding notification using ATO GST Property Settlement Withholding Notification API\n"
+          type: string
+          maxLength: 18
+          pattern: ^[0-9]+$
+          example: '123456789012345678'
+        actualSettlementDate:
+          description: The settlement date is the date of settlement for the sale. If it is an instalment contract, it is the date you pay the first instalment (not the date you paid the deposit).
+          type: string
+          format: date
+          example: '2025-06-30'
+    GSTPropertySettlementDateConfirmation:
+      description: 'This object will hold all information about GST Property Settlement Date Confirmation.
+
+        '
+      type: object
+      required:
+      - prerequisiteCheckIndicator
+      - lodgedBy
+      - lodgmentChangedIndicator
+      - contactDetails
+      - transaction
+      - declaration
+      properties:
+        prerequisiteCheckIndicator:
+          description: Have you completed the GST property settlement withholding notification form?
+          type: boolean
+          example: true
+        lodgedBy:
+          type: string
+          enum:
+          - REPRESENTATIVE
+          description: 'Are you completing this form as a purchaser of the property or the purchaser''s representative?
+
+            '
+          example: REPRESENTATIVE
+        lodgmentChangedIndicator:
+          description: "Have the purchaser/supplier details changed since the GST withholding notification was lodged? \n\nYou must contact us to cancel the incorrect withholding notification and complete and submit another GST property settlement withholding notification before you can lodge this.\n"
+          type: boolean
+          example: true
+        contactDetails:
+          $ref: '#/components/schemas/ContactDetails'
+        transaction:
+          $ref: '#/components/schemas/TransactionDateConfirmation'
+        declaration:
+          $ref: '#/components/schemas/DeclarationDateConfirmation'
+    ContactDetails:
+      type: object
+      description: 'This will hold all the contact information for the lodging entity who is lodging the form.
+
+
+        You must provide contact details of the person completing the lodgment. This allows us to resolve any issues and process the form in a timely manner.
+
+        '
+      properties:
+        title:
+          description: 'Title of contact person
+
+            '
+          type: string
+          enum:
+          - MR
+          - MRS
+          - MISS
+          - MS
+          - OTHER
+          example: MR
+        personName:
+          $ref: '#/components/schemas/PersonName'
+        representativeBusinessName:
+          type: string
+          description: 'Representative''s business name
+
+
+            This is required for the purchaser''s representative completing this lodgment.
+
+            '
+          maxLength: 200
+          pattern: ^[A-Za-z0-9 \-`!@%#\$&\(\)_=\[\]\{\}\\\|;:'",\.\?\/]+$
+          example: Precision Settlement Services
+        telephoneAreaCode:
+          type: string
+          description: 'Telephone area code of the contact person
+
+            '
+          maxLength: 4
+          pattern: ^[0-9]+$
+          example: '03'
+        telephoneNumber:
+          type: string
+          description: 'Telephone number of the contact person. Don''t include brackets or spaces in your phone number.
+
+            '
+          minLength: 7
+          maxLength: 15
+          pattern: ^[0-9]+$
+          example: '12345678'
+        emailCorrespondenceIndicator:
+          type: boolean
+          description: 'Would you like ATO to communicate with you via email?
+
+
+            By providing an email address, you are authorising the ATO to communicate with you by email about this form. If an email address is not provided, a confirmation email will not be sent.
+
+            '
+          example: true
+        electronicMailAddress:
+          type: string
+          description: "Email address of the contact person.\n\nThe email address should comply with RFC 5322.\n\nIf you provide your email address, we will email you a copy of the notification confirmation. \n\nYou should be aware that the internet is not a secure environment. The ATO does not control the path of inbound and outbound emails, so the privacy of personal information sent by unencrypted email cannot be guaranteed.\n"
+          minLength: 5
+          maxLength: 100
+          example: bob@example.com
+        digitalSettlementServiceProvider:
+          type: string
+          maxLength: 200
+          description: 'This is the name of the digital platform or service provider used to complete the property settlement.
+
+            '
+          pattern: ^[A-Za-z0-9 \-`!@%#\$&\(\)_=\[\]\{\}\\\|;:'",\.\?\/]+$
+          example: ABC Digital Service
+        digitalSettlementFileNumber:
+          type: string
+          maxLength: 200
+          description: 'This is the unique Workspace ID/number for the digital settlement file created in the Electronic Lodgment Network (ELN).
+
+            '
+          example: '123456789'
+      required:
+      - title
+      - personName
+      - telephoneAreaCode
+      - telephoneNumber
+      - emailCorrespondenceIndicator
+      - digitalSettlementServiceProvider
+      - representativeBusinessName
+  responses:
+    500ErrorResponse:
+      description: 'Internal Server Error
+
+        '
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            InternalServerErrorResponseExample:
+              $ref: '#/components/examples/InternalServerErrorResponseExample'
+            GstLambdaInternalServerErrorResponseExample:
+              $ref: '#/components/examples/GstLambdaInternalServerErrorResponseExample'
+    405ErrorResponse:
+      description: Method Not Allowed
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            MethodNotAllowedExample:
+              $ref: '#/components/examples/MethodNotAllowedExample'
+    504ErrorResponse:
+      description: 'Server Timeout
+
+        '
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            ServerTimeoutResponse:
+              $ref: '#/components/examples/ServerTimeoutResponse'
+    406ErrorResponse:
+      description: Accept header Type Not Supported.
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            UnsupportedAcceptHeaderExample:
+              $ref: '#/components/examples/UnsupportedAcceptHeaderExample'
+    403ErrorResponse:
+      description: Forbidden
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            ForbiddenExample:
+              $ref: '#/components/examples/ForbiddenExample'
+    415ErrorResponse:
+      description: Content-Type Not Supported.
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            UnsupportedContentTypeExample:
+              $ref: '#/components/examples/UnsupportedContentTypeExample'
+    401ErrorResponse:
+      description: Unauthorised
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            InvalidApiKeyExample:
+              $ref: '#/components/examples/InvalidApiKeyExample'
+            InvalidCredentialsExample:
+              $ref: '#/components/examples/InvalidCredentialsExample'
+    429ErrorResponse:
+      description: 'Rate limit has been exhausted
+
+        '
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            RateLimitingErrorExample:
+              $ref: '#/components/examples/RateLimitingErrorExample'
+    204ValidateSuccessResponse:
+      description: 'Successful response from a GST Property Settlement call to validate lodgment data.
+
+        '
+      headers:
+        receipt:
+          description: "This is the BET transaction ID that is associated with the submitted request. \n"
+          schema:
+            type: string
+        Content-Type:
+          description: 'Media type of the response body. All successful responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+    503ErrorResponse:
+      description: 'Server Unavailable
+
+        '
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            ServerUnavailableResponse:
+              $ref: '#/components/examples/ServerUnavailableResponse'
+    422ErrorResponse:
+      description: Unprocessable Entity
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            ClientIdentiferErrorExample:
+              $ref: '#/components/examples/ClientIdentiferErrorExample'
+    204DateConfirmationSubmitSuccessResponse:
+      description: 'Successful response from a GST Property Settlement Date Confirmation call
+
+        '
+      headers:
+        receipt:
+          description: "This is the BET transaction ID that is associated with the submitted request. \n"
+          schema:
+            type: string
+        Content-Type:
+          description: 'Media type of the response body. All successful responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+    404ErrorResponse:
+      description: Not Found
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            TestScenarioNotFound:
+              $ref: '#/components/examples/TestScenarioNotFoundExample'
+            UseCaseNotFound:
+              $ref: '#/components/examples/UseCaseNotFoundExample'
+    400ErrorResponse:
+      description: 'Bad Request
+
+        '
+      headers:
+        Content-Type:
+          description: 'Media type of the response body. All responses return application/json.
+
+            '
+          schema:
+            type: string
+            example: application/json
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorsResponse'
+          examples:
+            BadRequestGeneralExample:
+              $ref: '#/components/examples/BadRequestGeneralExample'
+            BadRequestOasValidationExample:
+              $ref: '#/components/examples/BadRequestOasValidationExample'
+  parameters:
+    identifierValue:
+      name: identifierValue
+      required: true
+      in: path
+      description: "This will be the value of the ABN being passed which must be the same ABN used to generate the Access Token to call the API. \n\nThis is to be passed in the URI path.\n"
+      schema:
+        type: string
+        pattern: ^[0-9]{9,11}$
+        maxLength: 11
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: "API key is assigned when you register to the ATO API Portal.  \n\nSee more details about the registration process in **[Getting started | ATO API Portal](https://apiportal.ato.gov.au/getting-started#toc-how-to-start-using-our-api-portal-services)**.\n"
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: '{env}/core2/connect/token'
+          scopes:
+            ato.apGSTPropertySettlement: Grants ability to lodge GST on Property Settlement Forms
+x-refined-from:
+- dsg-gst-property-settlement-v1_2.yaml
+- australian-taxation-office-gst-property-settlement-openapi.yml

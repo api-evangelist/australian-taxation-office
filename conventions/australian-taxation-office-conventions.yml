@@ -1,0 +1,57 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/client-authentication
+docs:
+- https://apiportal.ato.gov.au/client-authentication
+- https://apiportal.ato.gov.au/common-response-messages
+- https://apiportal.ato.gov.au/api-products/property-settlement-service
+auth:
+  style: 'Every call to the ATO Digital Services Gateway carries two headers - "Authorization: Bearer <access token>" and "apikey: <consumer key (API key)>". Access tokens come from the ATO SSO/IdP via OAuth 2.0 client credentials (directly connected software) or JWT bearer grant (online service providers), authenticated with a private key JWT signed by an ATO M2M credential.'
+  see: authentication/australian-taxation-office-authentication.yml
+idempotency:
+  coverage: none
+  note: No idempotency key or replay-protection mechanism is documented in the portal or declared in the OpenAPI contracts.
+dry_run:
+  supported: partial
+  description: The GST Property Settlement API exposes validation endpoints (POST .../propertySettlements/validationResults and .../changeOfPropertySettlements/validationResults, 204 on success) to "perform a precheck of the lodgment data" before lodging Form one and Form two.
+  source: https://apiportal.ato.gov.au/api-products/property-settlement-service
+asynchronous_pattern:
+  description: Stapled Super Fund requests return a receipt number in the HTTP header; the outcome is retrieved with a later GET /{receipt} call.
+  operations: [requestStapledSuperFundForPayeeWithAbn, requestStapledSuperFundForPayeeWithReceiptNumberAndAbn]
+request_id:
+  header: receipt
+  note: Test scenarios show responses carrying a "receipt" HTTP header (e.g. receipt 630000000nnnn).
+  source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-test-scenarios
+pagination:
+  style: none
+  note: No pagination convention is documented.
+versioning:
+  style: URI major version (/healthcheck/v1, /super/v1, /idp/v1, /payment/v1); each API product page carries Status, Last modified and dated release notes.
+  see: lifecycle/australian-taxation-office-lifecycle.yml
+errors:
+  envelope: '{ "errors": [ { "code", "detail", "source": { "parameter" } } ] }'
+  see: errors/australian-taxation-office-error-codes.yml
+rate_limit_signaling:
+  status: 429
+  code: 429.02.001
+  headers: []
+  see: rate-limits/australian-taxation-office-rate-limits.yml
+transport: The docs recommend enabling TLS 1.3 to transact with ATO systems (https://apiportal.ato.gov.au/getting-started).
+reversibility:
+  write_surfaces:
+  - surface: GST property settlement Form one / Form two lodgment
+    reversal_operation: null
+    reversal_channel: out-of-band (call the ATO, or DSP software guidance on the DSP Hub)
+    window: Form one can only be cancelled where the withholding amount has not been paid (and it is not on its way to the ATO)
+    note: No cancellation operation exists in the API; if both forms or just Form two needs to be cancelled, the docs say to call the ATO.
+    source: https://apiportal.ato.gov.au/api-products/property-settlement-service
+    grade: documented
+  - surface: Global and domestic minimum tax return lodgment
+    reversal_operation: null
+    note: No reversal path documented.
+  - surface: OAuth dynamic client registration (postClientRegistration)
+    reversal_operation: null
+    note: The docs say the registration access token and registration client URI are kept "for future lifecycle management of the software instance registration" (RFC 7592), but the published contract only declares the POST.
+  - surface: Stapled super fund request
+    reversal_operation: null
+    note: A request; subsequent requests can exclude a previously notified fund but nothing is reversed.

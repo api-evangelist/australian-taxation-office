@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist overlay for SMSF Alias lookup API
+  version: 1.0.0
+extends: ../openapi/_original/australian-taxation-office-smsf-alias-lookup-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-api-evangelist:
+      provider: australian-taxation-office
+      portal: https://apiportal.ato.gov.au/
+      profiled: '2026-10-22'
+- target: $.paths['/providers'].get
+  description: agent hints (read-only flag)
+  update:
+    x-agent-read-only: true
+- target: $.paths['/'].get
+  description: agent hints (read-only flag)
+  update:
+    x-agent-read-only: true
+- target: $.paths['/specs/yaml'].get
+  description: agent hints (read-only flag)
+  update:
+    x-agent-read-only: true
+- target: $.paths['/specs/spec.yaml'].get
+  description: agent hints (read-only flag)
+  update:
+    x-agent-read-only: true

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-stapled-super-fund-response-schema.json",
+  "title": "StapledSuperFundResponse",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/StapledSuperFundResponse",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/StapledSuperFund"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/ApiError"
+      },
+      "type": "array"
+    }
+  },
+  "$defs": {
+    "ApiError": {
+      "description": "This will hold the response error details.",
+      "type": "object",
+      "properties": {
+        "detail": {
+          "description": "A human-readable explanation specific to this occurrence of the problem.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {
+          "description": "An application-specific error code.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "title": "ApiError"
+    },
+    "Source": {
+      "description": "An object containing references to the source of the error.",
+      "type": "object",
+      "properties": {
+        "pointer": {
+          "description": "JSON Pointer [RFC6901] to the associated entity in the request document.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parameter": {
+          "description": "A string indicating which URI query parameter caused the error.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "Source"
+    },
+    "StapledFundRequestOutcome": {
+      "properties": {
+        "reasonCode": {
+          "enum": [
+            "Unmatched",
+            "Excluded client",
+            "Choice fund",
+            "Choice SMSF",
+            "Stapled fund",
+            "Stapled SMSF",
+            "Use default",
+            "No active payee/payer link"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "StapledSuperFund": {
+      "description": "This holds the stapled super fund details.",
+      "properties": {
+        "requestOutcome": {
+          "$ref": "#/$defs/StapledFundRequestOutcome"
+        },
+        "payee": {
+          "properties": {
+            "personName": {
+              "properties": {
+                "familyName": {
+                  "description": "The person's last name or surname. The name by which a family group is identified.",
+                  "type": "string"
+                },
+                "givenName": {
+                  "description": "The name given to a person which is that person's identifying name within the family group or the name by which the person is uniquely socially identified; the name borne by an individual, often assigned by his or her parents shortly after birth, as opposed to the inherited surname.",
+                  "type": "string"
+                },
+                "otherGivenName": {
+                  "description": "The middle name given to a person which complements that person's identifying name within the family group or the name by which the person is uniquely socially identified.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "payeePayrollId": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "superfund": {
+          "properties": {
+            "australianBusinessNumber": {
+              "description": "A unique public identifier issued to all entities registered in the Australian Business Register (ABR), to be used in their dealings with government. Companies registered under the Corporations Law and business entities carrying on an enterprise in Australia are entitled to an ABN.",
+              "type": "string"
+            },
+            "organisationalName": {
+              "description": "The full name by which an organisation is known.",
+              "type": "string"
+            },
+            "superannuationProduct": {
+              "$ref": "#/$defs/SuperannuationProduct"
+            },
+            "superannuationFund": {
+              "$ref": "#/$defs/SuperannuationFund"
+            }
+          },
+          "description": "The information that gets populated for the stapled superfund response payload structure",
+          "type": "object"
+        }
+      }
+    },
+    "SuperannuationFund": {
+      "properties": {
+        "memberAccount": {
+          "description": "This is a unique account number allocated by a provider to a member's superannuation contributions.",
+          "type": "string"
+        },
+        "uniqueSuperannuationIdentifier": {
+          "description": "The unique superannuation identifier is used for identifying the product within the fund which the member account belongs to.",
+          "type": "string"
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "SuperannuationProduct": {
+      "properties": {
+        "name": {
+          "description": "This is the name of the superannuation fund's product.",
+          "type": "string"
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  }
+}

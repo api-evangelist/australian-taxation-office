@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist overlay for Payment Reference Number API
+  version: 1.0.0
+extends: ../openapi/_original/australian-taxation-office-payment-reference-number-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-api-evangelist:
+      provider: australian-taxation-office
+      portal: https://apiportal.ato.gov.au/
+      profiled: '2026-10-22'
+- target: $.paths['/'].get
+  description: agent hints (read-only flag)
+  update:
+    x-agent-read-only: true

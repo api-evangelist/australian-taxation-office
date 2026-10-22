@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: Australian Taxation Office Spec API
+  x-status:
+    status: Active
+  version: '1.0'
+  description: 'Operations tagged Spec across 4 of this provider''s published API definitions: dsg-health-check-v1_10_0_0.yaml, dsg-smsfaliaslookup-v1-prod_0_0.yaml, australian-taxation-office-health-check-openapi.yml, australian-taxation-office-smsf-alias-lookup-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{env}/healthcheck/v1
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+- url: https://{env}/dsg-smsfaliaslookup/v1
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+tags:
+- name: Spec
+  description: This will allow the specs to be viewed either in a browser or do a file download of the API spec
+paths:
+  /specs/yaml:
+    get:
+      tags:
+      - Spec
+      summary: Allows you to view the API spec in YAML format
+      description: Allows you to view the YAML contents of the API straight within your browser without downloading
+      operationId: GetSpecYaml
+      responses:
+        '200':
+          $ref: '#/components/responses/RawSchemaResponse'
+      security:
+      - ScopeAuth:
+        - ato.healthcheck.*.*
+    servers:
+    - url: https://{env}/healthcheck/v1
+      description: Production Environment
+      variables:
+        env:
+          default: api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+  /specs/spec.yaml:
+    get:
+      tags:
+      - Spec
+      summary: Allows you to download the API spec in YAML format
+      description: This will allow you to download the API in yaml format
+      operationId: DownloadSpecYaml
+      responses:
+        '200':
+          $ref: '#/components/responses/DownloadSchemaResponse'
+      security:
+      - ScopeAuth:
+        - ato.healthcheck.*.*
+    servers:
+    - url: https://{env}/healthcheck/v1
+      description: Production Environment
+      variables:
+        env:
+          default: api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+components:
+  examples:
+    SpecResponse:
+      summary: Example API Response
+      description: Example OAS 3.0 yaml
+      value: "openapi: 3.0.0 info:\n  title: ATO API Name\n  description: A short description about the API.\n  termsOfService: http://softwaredevelopers.ato.gov.au/api/terms-of-use\n  contact:\n    name: ATO DPO Support\n    url: http://softwaredevelopers.ato.gov.au/support\n    email: dpo@ato.gov.au\n  license:\n    name: Apache 2.0\n    url: http://www.apache.org/licenses/LICENSE-2.0.html\n  version: 1.0.0\nservers: - url: \"https://api.ato.gov.au/ato-api-name/v1\"\n  description: Production Envrionment\n...  "
+    SpecResponse_2:
+      summary: Example API Response
+      description: Example OAS 3.0 yaml
+      value: "openapi: 3.0.0 info:\n  title: ATO API Name\n  description: A short description about the API.\n  termsOfService: http://softwaredevelopers.ato.gov.au/api/terms-of-use\n  contact:\n    name: ATO DPO Support\n    url: http://softwaredevelopers.ato.gov.au/support\n    email: dpo@ato.gov.au\n  license:\n    name: Apache 2.0\n    url: http://www.apache.org/licenses/LICENSE-2.0.html\n  version: 1.0.0\nservers: - url: \"https://api.ato.gov.au/ato-api-name/v1\"\n  description: Production Envrionment\n... "
+    SpecResponse_3:
+      summary: Example API Response
+      description: Example OAS 3.0 yaml
+      value: "openapi: 3.0.0 info:\n  title: ATO API Name\n  description: A short description about the API.\n  termsOfService: http://softwaredevelopers.ato.gov.au/api/terms-of-use\n  contact:\n    name: ATO DPO Support\n    url: http://softwaredevelopers.ato.gov.au/support\n    email: dpo@ato.gov.au\n  license:\n    name: Apache 2.0\n    url: http://www.apache.org/licenses/LICENSE-2.0.html\n  version: 1.0.0\nservers: - url: \"https://api.ato.gov.au/ato-api-name/v1\"\n  description: Production Envrionment\n... "
+  responses:
+    RawSchemaResponse:
+      description: ''
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/SpecResponse'
+          examples:
+            exampleSpecResponse:
+              $ref: '#/components/examples/SpecResponse'
+    DownloadSchemaResponse:
+      description: ''
+      headers:
+        Content-Deposition:
+          schema:
+            type: string
+          description: attachment; filename="spec.yaml"
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/SpecResponse'
+          examples:
+            exampleSpecResponse:
+              $ref: '#/components/examples/SpecResponse'
+  schemas:
+    SpecResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        specResponse:
+          type:
+          - string
+          - 'null'
+  securitySchemes:
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.ato.gov.au/core2/connect/token
+          scopes:
+            ato.healthcheck.*.*: Grants ability to access the Healthcheck API
+x-refined-from:
+- dsg-health-check-v1_10_0_0.yaml
+- dsg-smsfaliaslookup-v1-prod_0_0.yaml
+- australian-taxation-office-health-check-openapi.yml
+- australian-taxation-office-smsf-alias-lookup-openapi.yml

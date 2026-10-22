@@ -1,0 +1,345 @@
+# x-archived-from: australian-taxation-office-smsf-alias-lookup-openapi.yml
+# x-archived-on: 2026-10-22
+openapi: 3.0.0
+info:
+  title: SMSF Alias lookup API
+  description: |
+    This API returns a list of SMSF message providers 
+
+    **This API has the following endpoints:**
+
+    - `GET /`
+    Use this endpoint to get the current version and status of the SMSF Alias Lookup API.
+
+    - `GET /specs/yaml`
+    Use this endpoint to view the SMSF Alias Lookup API in YAML format.
+
+    - `GET /specs/spec.yaml`
+    Use this endpoint to download the SMSF Alias Lookup API in YAML format.
+
+    - `GET /providers`
+    Use this endpoint to get the full list of SMSF Alias messaging providers.
+
+  version: 1.0.67
+  x-status:
+      status: Active 
+servers:
+- url: "https://{env}/dsg-smsfaliaslookup/v1"
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+paths:
+
+  #
+  # PROXY SPECIFIC ENDPOINTS
+  #
+
+  /providers:
+
+    get:      
+      tags:
+      - Providers
+      summary: provide list of SMSF messaging providers
+      description: This resource returns a list of SMSF messaging providers
+      operationId: GetProviders
+      responses:
+        200:
+          description: ''
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProviderListResponse'
+              examples:
+                successful:
+                  $ref: '#/components/examples/ProviderListResponse'
+
+  #
+  # COMMON DSG PROXY ENDPOINTS
+  #
+
+  /:
+    get:
+      tags:
+      - ApiInfo
+      summary: Will give current status of this API
+      description: This will return the details specifically for this API and the status of the API
+      operationId: GetStatus
+      responses:
+        '200':
+          $ref: '#/components/responses/ApiInfoResponse'
+
+  /specs/yaml:
+    get:
+      tags:
+        - Spec
+      summary: Allows you to view the API spec in YAML format
+      description: Allows you to view the YAML contents of the API straight within your browser without downloading
+      operationId: GetSpecYaml
+      responses:
+        '200':
+          $ref: '#/components/responses/RawSchemaResponse'
+
+  /specs/spec.yaml:
+    get:
+      tags:
+        - Spec
+      summary: Allows you to download the API spec in YAML format
+      description: This will allow you to download the API in yaml format
+      operationId: DownloadSpecYaml
+      responses:
+        '200':
+          $ref: '#/components/responses/DownloadSchemaResponse'
+
+components:
+
+  responses:
+
+    ApiInfoResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiInfo'
+          examples:
+            successful:
+              summary: API Status Example
+              description: Example of the response that will be returned
+              value: >-
+                {
+                  "api_version": "1.0.0",
+                  "api_status": "Proposed"
+                }
+
+    RawSchemaResponse:
+      description: ''
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/SpecResponse'
+          examples:
+            exampleSpecResponse:
+              $ref: '#/components/examples/SpecResponse'
+
+    DownloadSchemaResponse:
+      description: ''
+      headers:
+        Content-Deposition:
+          schema:
+            type: string
+          description: attachment; filename="spec.yaml"
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/SpecResponse'
+          examples:
+            exampleSpecResponse:
+              $ref: '#/components/examples/SpecResponse'
+
+  schemas:
+    GatewayResponse:
+      description: List of Gateway details
+      properties:
+        organisationalName:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        electronicServiceAddressAlias:
+          type: string
+        electronicServiceAddress:
+          type: string
+        electronicContact:
+          $ref: '#/components/schemas/ElectronicContact'
+      required:
+        - electronicServiceAddressAlias
+        - electronicServiceAddress
+        - startDate
+        - endDate
+        - organisationalName
+        - electronicContact
+    ProviderResponse:
+      description: List of Provider details
+      properties:
+        organisationalName:
+          type: string
+        electronicContact:
+          $ref: '#/components/schemas/ElectronicContact'
+      required:
+        - organisationalName
+        - electronicContact
+    ProviderListResponse:
+      description: The list of SMSF  alias providers
+      properties:
+        providers:
+          type: array      
+          items: 
+            $ref: '#/components/schemas/Provider'
+
+    Provider: 
+      description: Alias provider details
+      type: object
+      properties:
+        gateway:
+          $ref: '#/components/schemas/GatewayResponse'
+        provider:
+          $ref: '#/components/schemas/ProviderResponse'
+        certifications:
+          type: array
+          items:
+            type: string
+      required:
+        - electronicServiceAddressAlias
+        - electronicServiceAddress
+        - startDate
+        - endDate
+        - organisationalName
+        - contactDetails
+    ElectronicContact:
+      description: gateway contact details
+      type: object
+      properties:
+        telephoneAreaCode:
+          type: string
+          nullable: true
+        telephoneNumber:
+          type: string
+          nullable: true
+        emailAddress:
+          type: string
+        webUniformResourceLocator:
+          type: string
+
+    ApiInfo:
+      description: This will hold infomation of the version of the API as well as the status
+      type: object
+      additionalProperties: false
+      properties:
+        api_version:
+          type: string
+          nullable: true
+          example: "1.0.0"
+        api_status:
+          type: string
+          nullable: true
+          enum:
+            - Proposed
+            - Cancelled
+            - Active
+            - Deprecated
+            - Deactivated
+          example: "Proposed"
+
+    ApiErrorDetails:
+      description: This will hold the response error details 
+      type: object
+      required: 
+        - code
+        - detail
+      properties:
+        code:
+          type: string
+          nullable: true
+          example: "400-01"
+        detail:
+          type: string
+          nullable: true
+          example: "bad request"
+
+    SpecResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        specResponse:
+          type: string
+          nullable: true
+        
+  examples:
+    SpecResponse:
+      summary: Example API Response
+      description: Example OAS 3.0 yaml
+      value: >-
+        openapi: 3.0.0
+        info:
+          title: ATO API Name
+          description: A short description about the API.
+          termsOfService: http://softwaredevelopers.ato.gov.au/api/terms-of-use
+          contact:
+            name: ATO DPO Support
+            url: http://softwaredevelopers.ato.gov.au/support
+            email: dpo@ato.gov.au
+          license:
+            name: Apache 2.0
+            url: http://www.apache.org/licenses/LICENSE-2.0.html
+          version: 1.0.0
+        servers:
+        - url: "https://api.ato.gov.au/ato-api-name/v1"
+          description: Production Envrionment
+        ... 
+    ProviderListResponse:
+      summary: Example Provider Response
+      description: Example provider response yaml
+      value: >-
+        {
+          "providers": [
+            {
+              "gateway": {
+              "organisationalName": "MessageXchange",
+                "startDate": "08/05/2022",
+                "endDate": "31/12/9999",
+                "electronicServiceAddressAlias": "AUSPOSTSMSF",
+                "electronicServiceAddress": "https://ebms3.messagexchange.com/sendmsg/ebms3/?PARAM=UHJvamVjdElEPTkxMA==",
+                "electronicContact": {
+                "telephoneAreaCode": "03",
+                "telephoneNumber": "86220200",
+                "emailAddress": "superannuation@auspost.com.au",
+                "webUniformResourceLocator": "http://www.auspost.com.au/business-solutions/self-managed-super-fund.html"
+                }
+                },
+                "provider": {
+                "organisationalName": "Australia Post",
+                "electronicContact": {
+                "emailAddress": "support@messagexchange.com",
+                "webUniformResourceLocator": "http://www.auspost.com.au/business-solutions/self-managed-super-fund.html"
+                }
+                },
+            "certifications": ["GROL3.0-X","ROLL3.0-X","CONT1.0-X"]
+            },
+            {
+              "gateway": {
+                "organisationalName": "MessageXchange",
+                "startDate": "09/04/2014",
+                "endDate": "31/12/9999",
+                "electronicServiceAddressAlias": "CFSCSSMSF",
+                "electronicServiceAddress": "https://ebms3.messagexchange.com/sendmsg/ebms3/?PARAM=UHJvamVjdElEPTkxMA==",
+                "electronicContact": {
+                  "telephoneAreaCode": "03",
+                  "telephoneNumber": "86220200",
+                  "emailAddress": "support@messagexchange.com",
+                  "webUniformResourceLocator": "https://www3.colonialfirststate.com.au/personal/products/firstwrap/smsf-information.html",
+                }
+              },
+              "provider": {
+                "organisationalName": "Colonial First State Custom Solutions",
+                "electronicContact": {
+                  "emailAddress": "Customercare@colonialfirststate.com.au",
+                  "webUniformResourceLocator": "https://www3.colonialfirststate.com.au/personal/products/firstwrap/smsf-information.html",
+                }
+              },
+              "certifications": ["CONT1.0-X"]
+            }
+          ]
+        }          
+
+
+tags:
+  - name: ApiInfo
+    description: This will return the status and version of the API
+  - name: Spec
+    description: This will allow the specs to be viewed either in a browser or do a file download of the API spec    
+  - name: Providers
+    description: This endpoint returns a list of SMSF messaging providers

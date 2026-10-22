@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json",
+  "title": "TransactionPaymentReferenceNumberResponse",
+  "description": "This is the response that is returned upon successful Retrieval of a Payment Reference Number for a transaction.\n",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-payment-reference-number-openapi.yml#/components/schemas/TransactionPaymentReferenceNumberResponse",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/TransactionPaymentReferenceNumber"
+    }
+  },
+  "$defs": {
+    "TransactionPaymentReferenceNumber": {
+      "description": "This will hold the payment reference number that will be sent back in the response for a transaction.\n",
+      "properties": {
+        "roleType": {
+          "description": "This is the type of tax payment that the client is obligated to make payments for to the ATO.\n",
+          "type": "string"
+        },
+        "transactionId": {
+          "description": "This is the Transaction ID identifier that the taxpayer uses to make payments to the ATO.\n",
+          "type": "string",
+          "pattern": "[0-9]{13}"
+        },
+        "paymentReferenceNumber": {
+          "description": "This is up to an 18 digit code to define the payment. A number which payment processing will use to determine\nwhere a client's payment will be allocated.\n",
+          "type": "string",
+          "maxLength": 18
+        }
+      }
+    }
+  }
+}

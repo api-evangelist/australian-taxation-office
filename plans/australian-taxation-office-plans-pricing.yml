@@ -1,0 +1,16 @@
+name: Australian Taxation Office pricing
+generated: '2026-10-22'
+method: none
+source: https://apiportal.ato.gov.au/getting-started
+checked:
+- https://apiportal.ato.gov.au/getting-started
+- https://apiportal.ato.gov.au/how-use-our-api-portal-services
+- https://apiportal.ato.gov.au/api-products
+audience: unclear
+pricing_basis: none
+published: false
+delivery:
+  delivery: managed
+plan_count: 0
+plans: []
+note: The ATO API Portal publishes no pricing or plans. Access is gated by registration as a digital service provider (Digital ID + RAM), the DSP Operational Framework security questionnaire and Digital Partnership Office approval for production, not by a paid tier.

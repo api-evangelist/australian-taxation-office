@@ -1,0 +1,288 @@
+generated: '2026-10-22'
+method: generated
+source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml,
+  openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml, openapi/australian-taxation-office-gst-property-settlement-openapi.yml,
+  openapi/australian-taxation-office-health-check-openapi.yml, openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml,
+  openapi/australian-taxation-office-payment-reference-number-openapi.yml, openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml,
+  openapi/australian-taxation-office-stapled-super-fund-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 20
+  by_action_class:
+    acting: 8
+    connected: 12
+  by_consequence:
+    write: 8
+    read: 12
+  human_in_the_loop_required: 0
+operations:
+- path: /clients/ABN/{identifierValue}/globalDomesticReturn/{transactionID}/groupEntity
+  method: post
+  operationId: requestGlobalDomesticGroupEntityTaxReturnForm
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /clients/ABN/{identifierValue}/globalDomesticReturn
+  method: post
+  operationId: requestGlobalDomesticMinimumTaxReturnFormABN
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /clients/ABN/{identifierValue}/propertySettlements
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - ato.apGSTPropertySettlement
+- path: /clients/ABN/{identifierValue}/propertySettlements/validationResults
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - ato.apGSTPropertySettlement
+- path: /clients/ABN/{identifierValue}/changeOfPropertySettlements
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - ato.apGSTPropertySettlement
+- path: /clients/ABN/{identifierValue}/changeOfPropertySettlements/validationResults
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - ato.apGSTPropertySettlement
+- path: /heartbeat
+  method: get
+  operationId: GetHeartbeat
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.healthcheck.*.*
+- path: /clients/ABN/{abn_business}/individuals/TFN/{tfn_individual}/heartbeat
+  method: get
+  operationId: GetHeartbeatABN
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.healthcheck.*.*
+- path: /clients/WPN/{wpn_business}/individuals/TFN/{tfn_individual}/heartbeat
+  method: get
+  operationId: GetHeartbeatWPN
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.healthcheck.*.*
+- path: /
+  method: get
+  operationId: GetStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.healthcheck.*.*
+- path: /specs/yaml
+  method: get
+  operationId: GetSpecYaml
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.healthcheck.*.*
+- path: /specs/spec.yaml
+  method: get
+  operationId: DownloadSpecYaml
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.healthcheck.*.*
+- path: /
+  method: post
+  operationId: postClientRegistration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /
+  method: get
+  operationId: retrievePaymentReferenceNumberFormat4
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /providers
+  method: get
+  operationId: GetProviders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /
+  method: get
+  operationId: GetStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /specs/yaml
+  method: get
+  operationId: GetSpecYaml
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /specs/spec.yaml
+  method: get
+  operationId: DownloadSpecYaml
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /
+  method: post
+  operationId: requestStapledSuperFundForPayeeWithAbn
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - ato.super.stapledsuperfund.c,r
+- path: /{receipt}
+  method: get
+  operationId: requestStapledSuperFundForPayeeWithReceiptNumberAndAbn
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - ato.super.stapledsuperfund.c,r

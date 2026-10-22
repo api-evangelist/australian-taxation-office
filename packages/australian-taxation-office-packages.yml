@@ -1,0 +1,14 @@
+generated: '2026-10-22'
+method: none
+source: https://registry.npmjs.org/ato-mcp
+checked:
+- https://apiportal.ato.gov.au/client-authentication
+- https://registry.npmjs.org/-/v1/search?text=australian%20taxation%20office
+- https://pypi.org/pypi/ato-sdk/json (404)
+- https://github.com/ato (a personal account, not the ATO)
+note: 'no first-party package: every candidate a model listed was unowned (harvest-packages.py --audit)'
+packages: []
+rejected:
+- name: ato-mcp
+  registry: npm
+  reason: 'official: false as written'

@@ -1,0 +1,98 @@
+openapi: 3.2.0
+info:
+  title: Australian Taxation Office API Info API
+  x-status:
+    status: Active
+  version: '1.0'
+  description: 'Operations tagged ApiInfo across 4 of this provider''s published API definitions: dsg-health-check-v1_10_0_0.yaml, dsg-smsfaliaslookup-v1-prod_0_0.yaml, australian-taxation-office-health-check-openapi.yml, australian-taxation-office-smsf-alias-lookup-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{env}/healthcheck/v1
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+- url: https://{env}/dsg-smsfaliaslookup/v1
+  description: Production Environment
+  variables:
+    env:
+      default: api.ato.gov.au
+      enum:
+      - api.ato.gov.au
+      - sandbox.api.ato.gov.au
+tags:
+- name: ApiInfo
+  description: This will return the status and version of the API
+paths:
+  /:
+    get:
+      tags:
+      - ApiInfo
+      summary: Will give current status of this API
+      description: This will return the details specifically for this API and the status of the API
+      operationId: GetStatus
+      responses:
+        '200':
+          $ref: '#/components/responses/ApiInfoResponse'
+      security:
+      - ScopeAuth:
+        - ato.healthcheck.*.*
+    servers:
+    - url: https://{env}/healthcheck/v1
+      description: Production Environment
+      variables:
+        env:
+          default: api.ato.gov.au
+          enum:
+          - api.ato.gov.au
+          - sandbox.api.ato.gov.au
+components:
+  responses:
+    ApiInfoResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiInfo'
+          examples:
+            successful:
+              summary: API Status Example
+              description: Example of the response that will be returned
+              value: "{\n  \"api_version\": \"1.0.0\",\n  \"api_status\": \"Proposed\"\n}"
+  schemas:
+    ApiInfo:
+      description: This will hold infomation of the version of the API as well as the status
+      type: object
+      additionalProperties: false
+      properties:
+        api_version:
+          type:
+          - string
+          - 'null'
+          example: 1.0.0
+        api_status:
+          type:
+          - string
+          - 'null'
+          enum:
+          - Proposed
+          - Cancelled
+          - Active
+          - Deprecated
+          - Deactivated
+          example: Proposed
+  securitySchemes:
+    ScopeAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.ato.gov.au/core2/connect/token
+          scopes:
+            ato.healthcheck.*.*: Grants ability to access the Healthcheck API
+x-refined-from:
+- dsg-health-check-v1_10_0_0.yaml
+- dsg-smsfaliaslookup-v1-prod_0_0.yaml
+- australian-taxation-office-health-check-openapi.yml
+- australian-taxation-office-smsf-alias-lookup-openapi.yml

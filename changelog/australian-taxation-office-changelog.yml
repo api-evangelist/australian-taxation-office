@@ -1,0 +1,52 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/api-products/property-settlement-service
+scheme: per-product dated release notes on each API product page
+docs: https://apiportal.ato.gov.au/api-products/property-settlement-service
+entries:
+- version: null
+  date: '2026-09-28'
+  product: Property Settlement Service
+  breaking: false
+  highlights:
+  - Go live release (Sandbox & Production)
+  - Updated DSP guidance to ensure correct LRN and PRN are used for Form two lodgment
+  - Removed cancellation step from Form 2 process flow diagram
+  - Added response messages GSTPS.EM751 GSTPS.EM61012 GSTPS.EM61035
+- version: null
+  date: '2026-08-27'
+  product: Property Settlement Service
+  breaking: false
+  highlights:
+  - Corrected test scenarios 2-4 HTTP reason to "No content"
+  - Test scenarios 10 and 11 status changed from 422 to 500 and error code to GSTPS.EMxxxxx
+  - countryCode enum values treated as strings (No API schema changes)
+- version: null
+  date: '2026-07-16'
+  product: Property Settlement Service
+  breaking: false
+  highlights:
+  - Added 1 API specific response message
+- version: null
+  date: '2026-05-29'
+  product: Stapled Super Fund
+  breaking: false
+  highlights:
+  - Authorisation section updated with guidance for Online Service Providers and Access Manager links for Intermediaries
+- version: 1.1.27
+  date: '2025-11-14'
+  product: Stapled Super Fund
+  breaking: false
+  highlights:
+  - Product page reorganised
+  - New query parameter unableToMakeContribution to request an alternate stapled super fund
+  - New version of Stapled super fund API released
+- version: null
+  date: '2023-03-22'
+  product: Stapled Super Fund
+  breaking: false
+  highlights:
+  - Fixed error in reason codes 2
+  - 3 and 8
+see_also:
+- https://apiportal.ato.gov.au/api-products/stapled-super-fund

@@ -1,0 +1,1073 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json",
+  "title": "GSTPropertySettlementWithholdingNotificationRequest",
+  "description": "This object will hold the data of the request payload of GST Property Settlement Withholding Notification.\n",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementWithholdingNotificationRequest",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/GSTPropertySettlementWithholdingNotification"
+    }
+  },
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "line1": {
+          "type": "string",
+          "maxLength": 38,
+          "description": "Address Line 1\n\nFirst line utilising free format, that is used to create a semi structured address.\n",
+          "pattern": "^[A-Za-z0-9&’'\\/\\-\\(\\) ]+$"
+        },
+        "line2": {
+          "type": "string",
+          "maxLength": 38,
+          "description": "Address Line 2\n\nSecond line utilising free format, that is used to create a semi structured address.\n",
+          "pattern": "^[A-Za-z0-9&’'\\/\\-\\(\\) ]+$"
+        },
+        "localityName": {
+          "type": "string",
+          "maxLength": 46,
+          "description": "Suburb/Town/Locality\n\nA word or combination of words, by which a geographic locality/suburb is designated or known.\n",
+          "pattern": "^[A-Za-z&’'\\/\\-,() ]+$"
+        },
+        "stateOrTerritory": {
+          "type": "string",
+          "maxLength": 3,
+          "enum": [
+            "ACT",
+            "NSW",
+            "NT",
+            "QLD",
+            "SA",
+            "TAS",
+            "VIC",
+            "WA"
+          ],
+          "description": "State of Territory\n\nSelect a valid state or territory code for Australian address.\n"
+        },
+        "postCode": {
+          "type": "string",
+          "maxLength": 12,
+          "description": "Postcode\n\nThe descriptor for a postal delivery area, aligned with locality, suburb or place. Can be used for an Australian address.\n",
+          "pattern": "^[A-Za-z0-9 -]+$"
+        }
+      },
+      "required": [
+        "line1",
+        "localityName"
+      ]
+    },
+    "BirthDate": {
+      "type": "object",
+      "description": "If the purchaser is an individual entity, provide the date of birth of the purchaser.\n",
+      "properties": {
+        "birthDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31,
+          "description": "This is the day in which an individual was born.\n"
+        },
+        "birthMonth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12,
+          "description": "This is the month in which an individual was born.\n"
+        },
+        "birthYear": {
+          "type": "integer",
+          "minimum": 1800,
+          "maximum": 9999,
+          "description": "This is the year in which an individual was born.\n"
+        }
+      },
+      "required": [
+        "birthDay",
+        "birthMonth",
+        "birthYear"
+      ]
+    },
+    "ContactDetails": {
+      "type": "object",
+      "description": "This will hold all the contact information for the lodging entity who is lodging the form.\n\nYou must provide contact details of the person completing the lodgment. This allows us to resolve any issues and process the form in a timely manner.\n",
+      "properties": {
+        "title": {
+          "description": "Title of contact person\n",
+          "type": "string",
+          "enum": [
+            "MR",
+            "MRS",
+            "MISS",
+            "MS",
+            "OTHER"
+          ]
+        },
+        "personName": {
+          "$ref": "#/$defs/PersonName"
+        },
+        "representativeBusinessName": {
+          "type": "string",
+          "description": "Representative's business name\n\nThis is required for the purchaser's representative completing this lodgment.\n",
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9 \\-`!@%#\\$&\\(\\)_=\\[\\]\\{\\}\\\\\\|;:'\",\\.\\?\\/]+$"
+        },
+        "telephoneAreaCode": {
+          "type": "string",
+          "description": "Telephone area code of the contact person\n",
+          "maxLength": 4,
+          "pattern": "^[0-9]+$"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "Telephone number of the contact person. Don't include brackets or spaces in your phone number.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^[0-9]+$"
+        },
+        "emailCorrespondenceIndicator": {
+          "type": "boolean",
+          "description": "Would you like ATO to communicate with you via email?\n\nBy providing an email address, you are authorising the ATO to communicate with you by email about this form. If an email address is not provided, a confirmation email will not be sent.\n"
+        },
+        "electronicMailAddress": {
+          "type": "string",
+          "description": "Email address of the contact person.\n\nThe email address should comply with RFC 5322.\n\nIf you provide your email address, we will email you a copy of the notification confirmation. \n\nYou should be aware that the internet is not a secure environment. The ATO does not control the path of inbound and outbound emails, so the privacy of personal information sent by unencrypted email cannot be guaranteed.\n",
+          "minLength": 5,
+          "maxLength": 100
+        },
+        "digitalSettlementServiceProvider": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "This is the name of the digital platform or service provider used to complete the property settlement.\n",
+          "pattern": "^[A-Za-z0-9 \\-`!@%#\\$&\\(\\)_=\\[\\]\\{\\}\\\\\\|;:'\",\\.\\?\\/]+$"
+        },
+        "digitalSettlementFileNumber": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "This is the unique Workspace ID/number for the digital settlement file created in the Electronic Lodgment Network (ELN).\n"
+        }
+      },
+      "required": [
+        "title",
+        "personName",
+        "telephoneAreaCode",
+        "telephoneNumber",
+        "emailCorrespondenceIndicator",
+        "digitalSettlementServiceProvider",
+        "representativeBusinessName"
+      ]
+    },
+    "DeclarationWithholdingNotification": {
+      "type": "object",
+      "properties": {
+        "statementAcceptedIndicator": {
+          "type": "boolean",
+          "description": "You are accepting the following declaration with the identification details you used to log-in to submit the lodgment.\n\nIf you are submitting the lodgment as a purchaser's representative, you are accepting the following declaration.\n- I am authorised by the purchaser/s listed above to complete this form and submit it to the Commissioner of Taxation\n- This form has been prepared in accordance with the information supplied by the purchaser/s\n- I have received a declaration from the purchaser/s, stating that the information provided to me is true and correct\n- I have also included information in this form as provided by the supplier/s\n- I acknowledge that the ATO may contact the supplier/s or the supplier’s representative to confirm the information provided by them\n\n\nA choice of TRUE/FALSE values.\n\ntrue = Indicates that the terms stated in the Declaration Text have been accepted.\n\nfalse = Indicates that the terms stated in the Declaration Text have been declined.\n\nPrivacy: For important information about your privacy see our **[Privacy notice](https://www.ato.gov.au/privacy)**.\n"
+        }
+      },
+      "required": [
+        "statementAcceptedIndicator"
+      ]
+    },
+    "GSTPropertySettlementWithholdingNotification": {
+      "type": "object",
+      "description": "This object will hold all information about GST Property Settlement Withholding Notification.\n",
+      "properties": {
+        "lodgedBy": {
+          "type": "string",
+          "enum": [
+            "REPRESENTATIVE"
+          ],
+          "description": "Are you completing this form as a purchaser of the property or the purchaser's representative?\n"
+        },
+        "contactDetails": {
+          "$ref": "#/$defs/ContactDetails"
+        },
+        "properties": {
+          "type": "array",
+          "maxItems": 10,
+          "minItems": 1,
+          "description": "This will hold all the information of the property being purchased.  \n\nThe property details should be listed in the contract you signed. Mandatory fields vary depending on the state or territory where you purchased the property.\n\nYou can enter up to 10 properties in one lodgment, but this is only recommended where:\n- you have purchased multiple properties under the one contract\n- the properties are all settling on the same day\n\nIf there are more than 10 properties to be entered on the form, you need to complete and lodge another set of forms.\n",
+          "items": {
+            "$ref": "#/$defs/Property"
+          }
+        },
+        "transaction": {
+          "$ref": "#/$defs/TransactionWithholdingNotification"
+        },
+        "purchasers": {
+          "type": "array",
+          "maxItems": 10,
+          "minItems": 1,
+          "description": "This will hold all information of the property purchasers.\n\nThe purchaser details are the details of the entity purchasing the property. This can include details of an entity that is an individual, a company, a trust or another entity (for example, a superannuation fund). If there is more than one purchaser for this transaction then provide the details of each additional purchaser, ensuring the percentage of asset ownership is correct for each purchaser and doesn’t exceed 100%.\n\nIf there are more than 10 purchasers, complete and lodge with details of 10 of the purchasers. Then phone us after 48 hours on 13 28 66 (Fast Key Code 3 4) to provide the additional purchaser details. You need to wait 48 hours after the form has been lodged so we can process it.\n\nWe are authorised by the Taxation Administration Act 1953 to collect the TFN. It is not an offence to decline to quote a TFN.\n",
+          "items": {
+            "$ref": "#/$defs/Purchaser"
+          }
+        },
+        "suppliers": {
+          "type": "array",
+          "maxItems": 10,
+          "minItems": 1,
+          "description": "You must notify us of the supplier who is required to report GST on this sale.\n\nProvide details of all suppliers.\n\nThe supplier details you provide to us may be different to the supplier you contracted with. The supplier is the entity that is required to report the GST on this sale. For example, the supplier you contracted with may be part of a GST group (group member), whereas the supplier required to report the GST on this sale is the group representative.\n\nFor partnerships – enter the name of the partnership. You don't need to list individual partner's names.\n\nIf there is more than one supplier of the property, provide the details of each additional supplier, ensuring the proportion of withholding payment is correct for each supplier.\n\nIf there are more than 10 suppliers, you must submit additional lodgments until you have included all suppliers.\n",
+          "items": {
+            "$ref": "#/$defs/Supplier"
+          }
+        },
+        "withholdingTotalAmount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999999,
+          "description": "Total withholding payment amount is a total amount of all the proportions of withholding payments\n"
+        },
+        "declaration": {
+          "$ref": "#/$defs/DeclarationWithholdingNotification"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "lodgedBy",
+        "contactDetails",
+        "properties",
+        "transaction",
+        "purchasers",
+        "suppliers",
+        "withholdingTotalAmount",
+        "declaration"
+      ]
+    },
+    "PersonName": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "type": "string",
+          "description": "First given name\n",
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9' -]+$"
+        },
+        "familyName": {
+          "description": "Family name\n",
+          "type": "string",
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9' -]+$"
+        }
+      },
+      "required": [
+        "givenName",
+        "familyName"
+      ]
+    },
+    "Property": {
+      "description": "This will hold all information of a property\n",
+      "type": "object",
+      "properties": {
+        "propertyType": {
+          "type": "string",
+          "description": "Property Type\n",
+          "enum": [
+            "UNIT",
+            "HOUSE",
+            "LAND"
+          ]
+        },
+        "address": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "countryCode": {
+                  "description": "Country Code must be AU because the purchase relates to an Australian property.",
+                  "type": "string",
+                  "default": "AU",
+                  "enum": [
+                    "AU"
+                  ]
+                }
+              },
+              "required": [
+                "countryCode"
+              ]
+            }
+          ]
+        },
+        "lot": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Lot\n",
+          "pattern": "^[A-Za-z0-9&'\\/\\-\\(\\) ]+$"
+        },
+        "block": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Section or block\n",
+          "pattern": "^[A-Za-z0-9&'\\/\\-\\(\\) ]+$"
+        },
+        "plan": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Plan\n",
+          "pattern": "^[A-Za-z0-9&'\\/\\-\\(\\) ]+$"
+        },
+        "planType": {
+          "type": "string",
+          "maxLength": 11,
+          "description": "Plan Type\n",
+          "pattern": "^[A-Za-z0-9&'\\/\\-\\(\\) ]+$"
+        },
+        "volume": {
+          "type": "string",
+          "maxLength": 15,
+          "description": "Volume\n",
+          "pattern": "^[A-Za-z0-9&'\\/\\-\\(\\) ]+$"
+        },
+        "folio": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Folio\n",
+          "pattern": "^[A-Za-z0-9&'\\/\\-\\(\\) ]+$"
+        }
+      },
+      "required": [
+        "propertyType",
+        "address"
+      ]
+    },
+    "Purchaser": {
+      "type": "object",
+      "description": "This will hold all information of a property purchaser.\n",
+      "properties": {
+        "entityType": {
+          "type": "string",
+          "enum": [
+            "INDIVIDUAL",
+            "NON-INDIVIDUAL"
+          ],
+          "description": "This is the Entity Type of the purchaser who can be an individual or non-individual like a company, a trust or another entity (for example, a superannuation fund).\n"
+        },
+        "entityName": {
+          "type": "string",
+          "description": "If the purchaser is a non-individual entity, provide the Purchaser Entity Name.\n",
+          "pattern": "^[A-Za-z0-9 \\-`!@%#\\$&\\(\\)_=\\[\\]\\{\\}\\\\\\|;:'\",\\.\\?\\/]+$"
+        },
+        "purchaserName": {
+          "$ref": "#/$defs/PurchaserName"
+        },
+        "birthDate": {
+          "$ref": "#/$defs/BirthDate"
+        },
+        "australianBusinessNumber": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 11,
+          "description": "This is the purchaser's Australian Business Number.\n\nYou're not required to provide your Australian business number (ABN) or tax file number (TFN) but providing them helps us identify you in our records. This means we can process your lodgment faster.\n",
+          "pattern": "^[0-9]+$"
+        },
+        "taxFileNumber": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 9,
+          "description": "This is the purchaser's Tax Reference Number.\n\nYou're not required to provide your Australian business number (ABN) or tax file number (TFN) but providing them helps us identify you in our records. This means we can process your lodgment faster.\n",
+          "pattern": "^[0-9]+$"
+        },
+        "telephoneAreaCode": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4,
+          "description": "This is the purchaser's telephone area code.\n",
+          "pattern": "^[0-9]+$"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "minLength": 7,
+          "maxLength": 15,
+          "description": "This is the purchaser's telephone number. Don't include brackets or spaces in your phone number.\n",
+          "pattern": "^[0-9]+$"
+        },
+        "address": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "countryCode": {
+                  "description": "Country code\n\nThis represents the Country Code as prescribed by AS4590 and inherited from ISO 3166.\n",
+                  "type": "string",
+                  "enum": [
+                    "AD",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AI",
+                    "AL",
+                    "AM",
+                    "AN",
+                    "AO",
+                    "AQ",
+                    "AR",
+                    "AS",
+                    "AT",
+                    "AU",
+                    "AW",
+                    "AX",
+                    "AZ",
+                    "BA",
+                    "BB",
+                    "BD",
+                    "BE",
+                    "BF",
+                    "BG",
+                    "BH",
+                    "BI",
+                    "BJ",
+                    "BL",
+                    "BM",
+                    "BN",
+                    "BO",
+                    "BQ",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "BV",
+                    "BW",
+                    "BY",
+                    "BZ",
+                    "CA",
+                    "CC",
+                    "CF",
+                    "CG",
+                    "CH",
+                    "CI",
+                    "CK",
+                    "CL",
+                    "CM",
+                    "CN",
+                    "CO",
+                    "CR",
+                    "CU",
+                    "CV",
+                    "CW",
+                    "CX",
+                    "CY",
+                    "CZ",
+                    "DE",
+                    "DJ",
+                    "DK",
+                    "DM",
+                    "DO",
+                    "DZ",
+                    "EC",
+                    "EE",
+                    "EG",
+                    "EH",
+                    "ER",
+                    "ES",
+                    "ET",
+                    "FI",
+                    "FJ",
+                    "FK",
+                    "FM",
+                    "FO",
+                    "FR",
+                    "GA",
+                    "GB",
+                    "GD",
+                    "GE",
+                    "GF",
+                    "GG",
+                    "GH",
+                    "GI",
+                    "GL",
+                    "GM",
+                    "GN",
+                    "GP",
+                    "GQ",
+                    "GR",
+                    "GS",
+                    "GT",
+                    "GU",
+                    "GW",
+                    "GY",
+                    "HK",
+                    "HM",
+                    "HN",
+                    "HR",
+                    "HT",
+                    "HU",
+                    "ID",
+                    "IE",
+                    "IL",
+                    "IM",
+                    "IN",
+                    "IO",
+                    "IQ",
+                    "IR",
+                    "IS",
+                    "IT",
+                    "JE",
+                    "JM",
+                    "JO",
+                    "JP",
+                    "KE",
+                    "KG",
+                    "KH",
+                    "KI",
+                    "KM",
+                    "KN",
+                    "KP",
+                    "KR",
+                    "KW",
+                    "KY",
+                    "KZ",
+                    "LA",
+                    "LB",
+                    "LC",
+                    "LI",
+                    "LK",
+                    "LR",
+                    "LS",
+                    "LT",
+                    "LU",
+                    "LV",
+                    "LY",
+                    "MA",
+                    "MC",
+                    "MD",
+                    "ME",
+                    "MF",
+                    "MG",
+                    "MH",
+                    "MK",
+                    "ML",
+                    "MM",
+                    "MN",
+                    "MO",
+                    "MP",
+                    "MQ",
+                    "MR",
+                    "MS",
+                    "MT",
+                    "MU",
+                    "MV",
+                    "MW",
+                    "MX",
+                    "MY",
+                    "MZ",
+                    "NA",
+                    "NC",
+                    "NE",
+                    "NF",
+                    "NG",
+                    "NI",
+                    "NL",
+                    "NO",
+                    "NP",
+                    "NR",
+                    "NU",
+                    "NZ",
+                    "OM",
+                    "OT",
+                    "PA",
+                    "PE",
+                    "PF",
+                    "PG",
+                    "PH",
+                    "PK",
+                    "PL",
+                    "PM",
+                    "PN",
+                    "PR",
+                    "PS",
+                    "PT",
+                    "PW",
+                    "PY",
+                    "QA",
+                    "RE",
+                    "RO",
+                    "RS",
+                    "RU",
+                    "RW",
+                    "SA",
+                    "SB",
+                    "SC",
+                    "SD",
+                    "SE",
+                    "SG",
+                    "SH",
+                    "SI",
+                    "SJ",
+                    "SK",
+                    "SL",
+                    "SM",
+                    "SN",
+                    "SO",
+                    "SR",
+                    "SS",
+                    "ST",
+                    "SV",
+                    "SX",
+                    "SY",
+                    "SZ",
+                    "TC",
+                    "TD",
+                    "TF",
+                    "TG",
+                    "TH",
+                    "TJ",
+                    "TK",
+                    "TM",
+                    "TN",
+                    "TO",
+                    "TP",
+                    "TR",
+                    "TT",
+                    "TV",
+                    "TW",
+                    "TZ",
+                    "UA",
+                    "UG",
+                    "UM",
+                    "US",
+                    "UY",
+                    "UZ",
+                    "VA",
+                    "VC",
+                    "VE",
+                    "VG",
+                    "VI",
+                    "VN",
+                    "VU",
+                    "WF",
+                    "WS",
+                    "YE",
+                    "YT",
+                    "YU",
+                    "ZA",
+                    "ZM",
+                    "ZR",
+                    "ZW"
+                  ]
+                }
+              },
+              "required": [
+                "countryCode"
+              ]
+            }
+          ]
+        },
+        "ownershipPercentage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Supply the percentage of the property that the purchaser will legally own. This information is usually specified in your property transfer form or the equivalent in your State or Territory. Only use whole percentages.\n\nWhen submitting the form for joint tenants, enter an equal share in the property. For example, if there are two purchasers, enter 50% for each purchaser. If there are four purchasers, enter 25% for each purchaser. If there are three purchasers, enter 33% for first purchaser and second purchaser and 34% for the third purchaser. The total ownership percentage must equal 100%.\n\nWhen submitting the form for tenants in common, enter the defined share in the property. For example, Purchaser 1 would state 25% and Purchaser 2 would state 75%. The total ownership percentage must equal 100%.\n"
+        }
+      },
+      "required": [
+        "entityType",
+        "telephoneAreaCode",
+        "telephoneNumber",
+        "address",
+        "ownershipPercentage"
+      ]
+    },
+    "PurchaserName": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "type": "string",
+          "description": "First given name\n",
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9' -]+$"
+        },
+        "otherGivenName": {
+          "type": "string",
+          "description": "Middle name\n",
+          "maxLength": 40
+        },
+        "familyName": {
+          "description": "Family name\n",
+          "type": "string",
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9' -]+$"
+        }
+      },
+      "required": [
+        "givenName",
+        "familyName"
+      ]
+    },
+    "Supplier": {
+      "type": "object",
+      "description": "This will hold all information of a supplier.\n",
+      "properties": {
+        "entityType": {
+          "type": "string",
+          "description": "This is the Entity Type of the supplier who can be an individual or non-individual like a company.\n",
+          "enum": [
+            "INDIVIDUAL",
+            "NON-INDIVIDUAL"
+          ]
+        },
+        "entityName": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "If the supplier is a non-individual entity, provide the Supplier's Entity Name in full.\n",
+          "pattern": "^[A-Za-z0-9 `!@%#\\$&()_\\-=\\[\\]\\{\\}\\\\|;:'\",\\.\\/\\?]+$"
+        },
+        "personName": {
+          "$ref": "#/$defs/PersonName"
+        },
+        "australianBusinessNumber": {
+          "type": "string",
+          "maxLength": 11,
+          "description": "Australian Business Number of the supplier\n",
+          "pattern": "^[0-9]+$"
+        },
+        "gstBranchNumber": {
+          "type": "string",
+          "maxLength": 3,
+          "description": "GST branch number\n",
+          "pattern": "^[0-9]+$"
+        },
+        "representativeName": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Supplier's representative\n",
+          "pattern": "^[A-Za-z0-9 \\-`!@%#\\$&\\(\\)_=\\[\\]\\{\\}\\\\\\|;:'\",\\.\\?\\/]+$"
+        },
+        "telephoneAreaCode": {
+          "type": "string",
+          "maxLength": 4,
+          "description": "This is the supplier's telephone area code\n",
+          "pattern": "^[0-9]+$"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "maxLength": 15,
+          "description": "This is the supplier's telephone number.\n\nEnter the supplier's phone number with area code or mobile number – don't include brackets or spaces in your entry.\n",
+          "pattern": "^[0-9]+$"
+        },
+        "address": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "countryCode": {
+                  "description": "Country code\n\nThis represents the Country Code as prescribed by AS4590 and inherited from ISO 3166.\n",
+                  "type": "string",
+                  "enum": [
+                    "AD",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AI",
+                    "AL",
+                    "AM",
+                    "AN",
+                    "AO",
+                    "AQ",
+                    "AR",
+                    "AS",
+                    "AT",
+                    "AU",
+                    "AW",
+                    "AX",
+                    "AZ",
+                    "BA",
+                    "BB",
+                    "BD",
+                    "BE",
+                    "BF",
+                    "BG",
+                    "BH",
+                    "BI",
+                    "BJ",
+                    "BL",
+                    "BM",
+                    "BN",
+                    "BO",
+                    "BQ",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "BV",
+                    "BW",
+                    "BY",
+                    "BZ",
+                    "CA",
+                    "CC",
+                    "CF",
+                    "CG",
+                    "CH",
+                    "CI",
+                    "CK",
+                    "CL",
+                    "CM",
+                    "CN",
+                    "CO",
+                    "CR",
+                    "CU",
+                    "CV",
+                    "CW",
+                    "CX",
+                    "CY",
+                    "CZ",
+                    "DE",
+                    "DJ",
+                    "DK",
+                    "DM",
+                    "DO",
+                    "DZ",
+                    "EC",
+                    "EE",
+                    "EG",
+                    "EH",
+                    "ER",
+                    "ES",
+                    "ET",
+                    "FI",
+                    "FJ",
+                    "FK",
+                    "FM",
+                    "FO",
+                    "FR",
+                    "GA",
+                    "GB",
+                    "GD",
+                    "GE",
+                    "GF",
+                    "GG",
+                    "GH",
+                    "GI",
+                    "GL",
+                    "GM",
+                    "GN",
+                    "GP",
+                    "GQ",
+                    "GR",
+                    "GS",
+                    "GT",
+                    "GU",
+                    "GW",
+                    "GY",
+                    "HK",
+                    "HM",
+                    "HN",
+                    "HR",
+                    "HT",
+                    "HU",
+                    "ID",
+                    "IE",
+                    "IL",
+                    "IM",
+                    "IN",
+                    "IO",
+                    "IQ",
+                    "IR",
+                    "IS",
+                    "IT",
+                    "JE",
+                    "JM",
+                    "JO",
+                    "JP",
+                    "KE",
+                    "KG",
+                    "KH",
+                    "KI",
+                    "KM",
+                    "KN",
+                    "KP",
+                    "KR",
+                    "KW",
+                    "KY",
+                    "KZ",
+                    "LA",
+                    "LB",
+                    "LC",
+                    "LI",
+                    "LK",
+                    "LR",
+                    "LS",
+                    "LT",
+                    "LU",
+                    "LV",
+                    "LY",
+                    "MA",
+                    "MC",
+                    "MD",
+                    "ME",
+                    "MF",
+                    "MG",
+                    "MH",
+                    "MK",
+                    "ML",
+                    "MM",
+                    "MN",
+                    "MO",
+                    "MP",
+                    "MQ",
+                    "MR",
+                    "MS",
+                    "MT",
+                    "MU",
+                    "MV",
+                    "MW",
+                    "MX",
+                    "MY",
+                    "MZ",
+                    "NA",
+                    "NC",
+                    "NE",
+                    "NF",
+                    "NG",
+                    "NI",
+                    "NL",
+                    "NO",
+                    "NP",
+                    "NR",
+                    "NU",
+                    "NZ",
+                    "OM",
+                    "OT",
+                    "PA",
+                    "PE",
+                    "PF",
+                    "PG",
+                    "PH",
+                    "PK",
+                    "PL",
+                    "PM",
+                    "PN",
+                    "PR",
+                    "PS",
+                    "PT",
+                    "PW",
+                    "PY",
+                    "QA",
+                    "RE",
+                    "RO",
+                    "RS",
+                    "RU",
+                    "RW",
+                    "SA",
+                    "SB",
+                    "SC",
+                    "SD",
+                    "SE",
+                    "SG",
+                    "SH",
+                    "SI",
+                    "SJ",
+                    "SK",
+                    "SL",
+                    "SM",
+                    "SN",
+                    "SO",
+                    "SR",
+                    "SS",
+                    "ST",
+                    "SV",
+                    "SX",
+                    "SY",
+                    "SZ",
+                    "TC",
+                    "TD",
+                    "TF",
+                    "TG",
+                    "TH",
+                    "TJ",
+                    "TK",
+                    "TM",
+                    "TN",
+                    "TO",
+                    "TP",
+                    "TR",
+                    "TT",
+                    "TV",
+                    "TW",
+                    "TZ",
+                    "UA",
+                    "UG",
+                    "UM",
+                    "US",
+                    "UY",
+                    "UZ",
+                    "VA",
+                    "VC",
+                    "VE",
+                    "VG",
+                    "VI",
+                    "VN",
+                    "VU",
+                    "WF",
+                    "WS",
+                    "YE",
+                    "YT",
+                    "YU",
+                    "ZA",
+                    "ZM",
+                    "ZR",
+                    "ZW"
+                  ]
+                }
+              },
+              "required": [
+                "countryCode"
+              ]
+            }
+          ]
+        },
+        "withholdingProportionAmount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999999,
+          "description": "Proportion of withholding payment amount. Enter the amount on the supplier's written notification (rounded down to the nearest dollar).\n\nProviding incorrect amounts may cause a delay in processing. \n\nEnsure withholding payments and or contract price entered are correct. Total withholding payment is generally either:\n\n- 1/11th of the contract price - fully taxable supplies\n- 7% of the contract price - for margin scheme supplies\n- 10% of GST exclusive market value of the supply - for supplies between associates\n"
+        }
+      },
+      "required": [
+        "entityType",
+        "australianBusinessNumber",
+        "telephoneAreaCode",
+        "telephoneNumber",
+        "address",
+        "withholdingProportionAmount"
+      ]
+    },
+    "TransactionWithholdingNotification": {
+      "type": "object",
+      "description": "This will hold all information of the property purchase transaction.\n\nRefer to the contract of sale for details to assist in completing this section.\n",
+      "properties": {
+        "contractDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This is the contract date (YYYY-MM-DD) of the property purchase.\n"
+        },
+        "expectedSettlementDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This is the expected settlement date (YYYY-MM-DD) for the property purchase.\n"
+        },
+        "contractPrice": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999999,
+          "description": "This is the contract price including GST.\n\nThe contract price is the GST-inclusive price of the supply as listed in the contract. The contract price may be varied by the parties before settlement. Normal settlement day adjustments can be disregarded (for example, adjustments to reflect apportionment of council rates or water rates).\n\nIf, however, the contract includes non-monetary consideration (for example, land swaps) the contract price is the sum of the monetary consideration (including GST) plus the GST inclusive market value of the non-monetary consideration.\n"
+        }
+      },
+      "required": [
+        "contractDate",
+        "expectedSettlementDate",
+        "contractPrice"
+      ]
+    }
+  }
+}

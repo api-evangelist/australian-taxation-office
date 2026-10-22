@@ -1,0 +1,60 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/common-response-messages
+docs:
+- https://apiportal.ato.gov.au/common-response-messages
+- https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages
+format: custom-json
+envelope:
+  shape: '{ "errors": [ { "code": "AUTH.10001", "detail": "...", "source": { "parameter": "..." } } ] }'
+  fields: ["errors[].code", "errors[].detail", "errors[].source.parameter"]
+  note: Common envelope for all APIs in the ATO API catalogue. The OAuth DCR API instead uses the RFC 6749/7591 shape { "error", "error_description" }. Each API product page also links API-specific response messages (e.g. GSTPS.EM* codes for the GST Property Settlement API).
+problems:
+- {status: 400, code: OAS.VAL.00000, title: OpenAPI schema validation failure, description: Exact message will be provided as per OAS schema validation., remediation: Refer to error message provided by OAS Validation to outline where the issue is being picked up}
+- {status: 400, code: 400-01, title: Bad request, remediation: Refer to OAS for correct syntax}
+- {status: 401, code: 401-01, title: API key is invalid, remediation: Provide a valid apikey}
+- {status: 401, code: 401-01, title: Invalid credential, remediation: Provide a valid access token}
+- {status: 403, code: 403-01, title: Forbidden, remediation: Provide valid scope and identifiers}
+- {status: 403, code: AUTH.10001, title: The agent number used with your ABN or credential is not related., remediation: Provide the correct agent number}
+- {status: 403, code: AUTH.10002, title: You are not authorised to lodge on behalf of this client., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10003, title: Your credential is not linked to this registered agent number in Access Manager., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10004, title: You do not have the correct permission for this action., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10005, title: You are not authorised to lodge on behalf of this client., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10006, title: The client you transmitted is not associated with the agent number you supplied and cannot be authorised., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10007, title: An unexpected error has occurred. Please contact the Tax Office., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10008, title: You are not authorised to submit this request. Review permissions in Access Manager and try again., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10010, title: Unauthorised to view the client record., remediation: Check authorisation details in Relationship Authorisation Manager (RAM)}
+- {status: 403, code: AUTH.10011, title: Invalid context, remediation: Ensure context query parameters are provided in the correct format}
+- {status: 403, code: AUTH.10012, title: Invalid path parameter, remediation: Ensure URI path parameters are provided in the correct format}
+- {status: 415, code: 415-01, title: Content-Type not supported, remediation: Provide valid Content-Type header}
+- {status: 422, code: ADDR.00001, title: Postcode must be in the range of 0200-9999 for an Australian address, remediation: Provide valid value.}
+- {status: 422, code: ADDR.00002, title: State/Territory code must be provided for an Australian address, remediation: Provide the required information.}
+- {status: 422, code: ADDR.00003, title: "{field_title} must not contain only 'AS ABOVE'", remediation: This validation is applicable to Address line 1 and Address line 2.}
+- {status: 422, code: ADDR.00004, title: Suburb/Town/Locality must not contain any Australian state codes for an Australian address}
+- {status: 422, code: ADDR.00005, title: State/Territory code must not be provided for an overseas address}
+- {status: 422, code: ADDR.00006, title: "Address line 2 must be provided if address line 1 starts with a 'Care of' term"}
+- {status: 422, code: ADDR.00007, title: "Address line 2 must not start with a Post Office Reference if address line 1 does not start with a 'Care of' term"}
+- {status: 422, code: ADDR.00008, title: "{field_title} must not contain only numbers, spaces, hyphens (-) and forward slashes (/)"}
+- {status: 422, code: ADDR.00009, title: "{field_title} must not contain 3 or more repeated consecutive alphabetic or special characters"}
+- {status: 422, code: ADDR.00010, title: Suburb/town/locality cannot contain repeated hyphen, apostrophe, or space characters, remediation: Provide valid value.}
+- {status: 422, code: EMAIL.00001, title: Email address is invalid, remediation: Provide a valid value. The email address should comply with RFC 5322.}
+- {status: 422, code: NAME.00001, title: "{field_title} must contain at least one alphabetical character"}
+- {status: 422, code: NAME.00002, title: "{field_title} cannot contain 'Exec for', 'Rep for' or 'Trustee for'"}
+- {status: 422, code: NAME.00003, title: "{field_title} cannot contain repeated hyphen, apostrophe, or space characters"}
+- {status: 422, code: NAME.00004, title: "{field_title} must not contain only 'AS ABOVE'"}
+- {status: 422, code: ORGNAME.00001, title: "{field_title} must not contain only 'AS ABOVE'"}
+- {status: 422, code: ORGNAME.00002, title: "{field_title} cannot contain repeated hyphen, apostrophe, or space characters"}
+- {status: 422, code: PYID.00001, title: ABN is invalid, remediation: Provide valid ABN}
+- {status: 422, code: PYID.00002, title: RAN is invalid, remediation: Provide valid RAN}
+- {status: 422, code: PYID.00003, title: TAN is invalid, remediation: Provide valid TAN}
+- {status: 422, code: PYID.00004, title: WPN is invalid, remediation: Provide valid WPN}
+- {status: 422, code: PYID.00005, title: TFN is invalid, remediation: Provide valid TFN}
+- {status: 429, code: 429.02.001, title: Rate limit has been exhausted, remediation: Rate limit has been exceeded wait approximately a minute before hitting API again}
+- {status: 500, code: 500-01, title: Internal Server Error, remediation: Contact the ATO}
+- {status: 500, code: AUTH.10009, title: An unexpected error has occurred. Please try again. If the problem persists, please contact the Tax Office, remediation: Try again. Contact ATO if the problem persists.}
+- {status: 400, code: invalid_request, api: OAuth Dynamic Client Registration API, title: "The {attribute} field is required / {attribute} is read-only / {attribute} is not valid or expired", source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages}
+- {status: 400, code: invalid_redirect_uri, api: OAuth Dynamic Client Registration API, title: "Selected grant_type cannot be used with {attribute} value", remediation: Select a valid grant type, source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages}
+- {status: 400, code: invalid_client_metadata, api: OAuth Dynamic Client Registration API, title: "{attribute} is invalid", source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages}
+- {status: 400, code: DCR.00001, api: OAuth Dynamic Client Registration API, title: ato_api_key is not the same as the apiKey in the header., source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages}
+- {status: 401, code: invalid_token, api: OAuth Dynamic Client Registration API, title: Unauthorised, remediation: Client not authorised to access service, source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages}
+- {status: 403, code: insufficient_scope, api: OAuth Dynamic Client Registration API, title: The scope provided is invalid for this operation, remediation: Client not authorised to perform this operation, source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-response-messages}

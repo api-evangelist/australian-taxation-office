@@ -1,0 +1,798 @@
+{
+  "@context": {
+    "@vocab": "https://ato.gov.au/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "australian": "https://ato.gov.au/schema#",
+    "TANContext": "australian:TANContext",
+    "TAN": {
+      "@id": "australian:TAN",
+      "@type": "xsd:string"
+    },
+    "RANContext": "australian:RANContext",
+    "RAN": {
+      "@id": "australian:RAN",
+      "@type": "xsd:string"
+    },
+    "GlobalDomesticMinimumGroupEntityTaxReturnRequest": "australian:GlobalDomesticMinimumGroupEntityTaxReturnRequest",
+    "reportingFiscalYear": {
+      "@id": "australian:reportingFiscalYear",
+      "@type": "@id"
+    },
+    "groupEntity": {
+      "@id": "australian:groupEntity",
+      "@type": "@id"
+    },
+    "ReportingFiscalYear": "australian:ReportingFiscalYear",
+    "periodStartDate": {
+      "@id": "australian:periodStartDate",
+      "@type": "xsd:date"
+    },
+    "periodEndDate": {
+      "@id": "australian:periodEndDate",
+      "@type": "xsd:date"
+    },
+    "transactionTypeCode": {
+      "@id": "australian:transactionTypeCode",
+      "@type": "xsd:string"
+    },
+    "GroupEntity": "australian:GroupEntity",
+    "groupEntityName": {
+      "@id": "australian:groupEntityName",
+      "@type": "xsd:string"
+    },
+    "groupEntityType": {
+      "@id": "australian:groupEntityType",
+      "@type": "xsd:string"
+    },
+    "identifierDetails": {
+      "@id": "australian:identifierDetails",
+      "@container": "@list"
+    },
+    "businessAddress": {
+      "@id": "australian:businessAddress"
+    },
+    "foreignLodgementNotificationIndicator": {
+      "@id": "australian:foreignLodgementNotificationIndicator",
+      "@type": "xsd:boolean"
+    },
+    "continueGlobalDomesticMinimumReturnIndicator": {
+      "@id": "australian:continueGlobalDomesticMinimumReturnIndicator",
+      "@type": "xsd:boolean"
+    },
+    "domesticMinimumTaxReturn": {
+      "@id": "australian:domesticMinimumTaxReturn",
+      "@type": "@id"
+    },
+    "incomeInclusionRuleTaxReturn": {
+      "@id": "australian:incomeInclusionRuleTaxReturn",
+      "@type": "@id"
+    },
+    "undertaxedProfitRuleTaxReturn": {
+      "@id": "australian:undertaxedProfitRuleTaxReturn",
+      "@type": "@id"
+    },
+    "groupEntityAssociateDetails": {
+      "@id": "australian:groupEntityAssociateDetails",
+      "@type": "@id"
+    },
+    "IdentifierDetails": "australian:IdentifierDetails",
+    "identifierType": {
+      "@id": "australian:identifierType",
+      "@type": "xsd:string"
+    },
+    "identifierValue": {
+      "@id": "australian:identifierValue",
+      "@type": "xsd:string"
+    },
+    "Address": "australian:Address",
+    "line1": {
+      "@id": "australian:line1",
+      "@type": "xsd:string"
+    },
+    "line2": {
+      "@id": "australian:line2",
+      "@type": "xsd:string"
+    },
+    "localityName": {
+      "@id": "australian:localityName",
+      "@type": "xsd:string"
+    },
+    "stateOrTerritoryCode": {
+      "@id": "australian:stateOrTerritoryCode",
+      "@type": "xsd:string"
+    },
+    "countryCode": {
+      "@id": "australian:countryCode",
+      "@type": "xsd:string"
+    },
+    "postCode": {
+      "@id": "australian:postCode",
+      "@type": "xsd:string"
+    },
+    "DomesticMinimumTaxReturn": "australian:DomesticMinimumTaxReturn",
+    "domesticTopUpTaxIndicator": {
+      "@id": "australian:domesticTopUpTaxIndicator",
+      "@type": "xsd:boolean"
+    },
+    "domesticTopUpTaxAmount": {
+      "@id": "australian:domesticTopUpTaxAmount",
+      "@type": "xsd:integer"
+    },
+    "IncomeInclusionRuleReturn": "australian:IncomeInclusionRuleReturn",
+    "incomeInclusionTopUpTaxIndicator": {
+      "@id": "australian:incomeInclusionTopUpTaxIndicator",
+      "@type": "xsd:boolean"
+    },
+    "incomeInclusionTopUpTaxAmount": {
+      "@id": "australian:incomeInclusionTopUpTaxAmount",
+      "@type": "xsd:integer"
+    },
+    "parentEntityType": {
+      "@id": "australian:parentEntityType",
+      "@type": "xsd:string"
+    },
+    "UndertaxedProfitRuleReturn": "australian:UndertaxedProfitRuleReturn",
+    "undertaxedProfitsTopUpTaxIndicator": {
+      "@id": "australian:undertaxedProfitsTopUpTaxIndicator",
+      "@type": "xsd:boolean"
+    },
+    "undertaxedProfitsTopUpTaxAmount": {
+      "@id": "australian:undertaxedProfitsTopUpTaxAmount",
+      "@type": "xsd:integer"
+    },
+    "GroupEntityAssociateDetails": "australian:GroupEntityAssociateDetails",
+    "associateEntityName": {
+      "@id": "australian:associateEntityName",
+      "@type": "xsd:string"
+    },
+    "taxFileNumber": {
+      "@id": "australian:taxFileNumber",
+      "@type": "xsd:string"
+    },
+    "telephoneAreaCode": {
+      "@id": "australian:telephoneAreaCode",
+      "@type": "xsd:string"
+    },
+    "telephoneNumber": {
+      "@id": "australian:telephoneNumber",
+      "@type": "xsd:string"
+    },
+    "postalAddress": {
+      "@id": "australian:postalAddress",
+      "@type": "@id"
+    },
+    "GlobalDomesticMinimumGroupEntityTaxReturnResponse": "australian:GlobalDomesticMinimumGroupEntityTaxReturnResponse",
+    "data": {
+      "@id": "australian:data",
+      "@type": "@id"
+    },
+    "GlobalDomesticGroupEntityForm": "australian:GlobalDomesticGroupEntityForm",
+    "message": {
+      "@id": "australian:message",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "australian:date",
+      "@type": "xsd:dateTime"
+    },
+    "entityName": {
+      "@id": "australian:entityName",
+      "@type": "xsd:string"
+    },
+    "australianBusinessNumber": {
+      "@id": "australian:australianBusinessNumber",
+      "@type": "xsd:string"
+    },
+    "paymentAmount": {
+      "@id": "australian:paymentAmount",
+      "@type": "xsd:integer"
+    },
+    "paymentReferenceNumber": {
+      "@id": "australian:paymentReferenceNumber",
+      "@type": "xsd:string"
+    },
+    "ApiError": "australian:ApiError",
+    "detail": {
+      "@id": "australian:detail",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "australian:code",
+      "@type": "xsd:string"
+    },
+    "source": {
+      "@id": "australian:source",
+      "@type": "@id"
+    },
+    "Source": "australian:Source",
+    "pointer": {
+      "@id": "australian:pointer",
+      "@type": "xsd:string"
+    },
+    "parameters": {
+      "@id": "australian:parameters",
+      "@type": "xsd:string"
+    },
+    "ApiErrorsResponse": "australian:ApiErrorsResponse",
+    "errors": {
+      "@id": "australian:errors",
+      "@container": "@list"
+    },
+    "CombinedMinimumGlobalDomesticReturnRequest": "australian:CombinedMinimumGlobalDomesticReturnRequest",
+    "lodgingEntity": {
+      "@id": "australian:lodgingEntity",
+      "@type": "@id"
+    },
+    "groupEntities": {
+      "@id": "australian:groupEntities",
+      "@container": "@list"
+    },
+    "ultimateParentEntity": {
+      "@id": "australian:ultimateParentEntity",
+      "@type": "@id"
+    },
+    "girLodgmentDetails": {
+      "@id": "australian:girLodgmentDetails",
+      "@type": "@id"
+    },
+    "foreignLodgmentNotification": {
+      "@id": "australian:foreignLodgmentNotification",
+      "@type": "@id"
+    },
+    "girForexDetails": {
+      "@id": "australian:girForexDetails",
+      "@type": "@id"
+    },
+    "declaration": {
+      "@id": "australian:declaration",
+      "@type": "@id"
+    },
+    "LodgingEntity": "australian:LodgingEntity",
+    "lodgingEntityCode": {
+      "@id": "australian:lodgingEntityCode",
+      "@type": "xsd:string"
+    },
+    "lodgingEntityName": {
+      "@id": "australian:lodgingEntityName",
+      "@type": "xsd:string"
+    },
+    "lodgingEntityAuthorisedContact": {
+      "@id": "australian:lodgingEntityAuthorisedContact",
+      "@type": "@id"
+    },
+    "lodgingEntityType": {
+      "@id": "australian:lodgingEntityType",
+      "@type": "xsd:string"
+    },
+    "lodgingEntityAssociateDetails": {
+      "@id": "australian:lodgingEntityAssociateDetails",
+      "@type": "@id"
+    },
+    "LodgingEntityAuthorisedContact": "australian:LodgingEntityAuthorisedContact",
+    "fullName": {
+      "@id": "australian:fullName",
+      "@type": "xsd:string"
+    },
+    "telephoneCountryCode": {
+      "@id": "australian:telephoneCountryCode",
+      "@type": "xsd:string"
+    },
+    "electronicMailAddress": {
+      "@id": "australian:electronicMailAddress",
+      "@type": "xsd:string"
+    },
+    "LodgingEntityAssociateDetails": "australian:LodgingEntityAssociateDetails",
+    "EntityTypes": "australian:EntityTypes",
+    "CountryCodes": "australian:CountryCodes",
+    "IncomeInclusionRuleTaxReturn": "australian:IncomeInclusionRuleTaxReturn",
+    "UndertaxedProfitRuleTaxReturn": "australian:UndertaxedProfitRuleTaxReturn",
+    "UltimateParentEntity": "australian:UltimateParentEntity",
+    "lodgingEntitySameAsUPEIndicator": {
+      "@id": "australian:lodgingEntitySameAsUPEIndicator",
+      "@type": "xsd:boolean"
+    },
+    "ultimateParentEntityDetails": {
+      "@id": "australian:ultimateParentEntityDetails",
+      "@type": "@id"
+    },
+    "UltimateParentEntityContact": "australian:UltimateParentEntityContact",
+    "ultimateParentEntityName": {
+      "@id": "australian:ultimateParentEntityName",
+      "@type": "xsd:string"
+    },
+    "jurisdictionCountryCode": {
+      "@id": "australian:jurisdictionCountryCode",
+      "@type": "xsd:string"
+    },
+    "GIRLodgmentDetails": "australian:GIRLodgmentDetails",
+    "girLodgeOptions": {
+      "@id": "australian:girLodgeOptions",
+      "@type": "xsd:string"
+    },
+    "domesticGirLodgeDate": {
+      "@id": "australian:domesticGirLodgeDate",
+      "@type": "xsd:date"
+    },
+    "upeGirReceivingIndicator": {
+      "@id": "australian:upeGirReceivingIndicator",
+      "@type": "xsd:boolean"
+    },
+    "upeGirLodgeDate": {
+      "@id": "australian:upeGirLodgeDate",
+      "@type": "xsd:date"
+    },
+    "DesignatedFilingEntity": "australian:DesignatedFilingEntity",
+    "designatedFilingEntityFullName": {
+      "@id": "australian:designatedFilingEntityFullName",
+      "@type": "xsd:string"
+    },
+    "dfeGirReceivingIndicator": {
+      "@id": "australian:dfeGirReceivingIndicator",
+      "@type": "xsd:boolean"
+    },
+    "dfeGirLodgeDate": {
+      "@id": "australian:dfeGirLodgeDate",
+      "@type": "xsd:date"
+    },
+    "GIRForexDetails": "australian:GIRForexDetails",
+    "currencyUsedForGir": {
+      "@id": "australian:currencyUsedForGir",
+      "@type": "xsd:string"
+    },
+    "exchangeRateUsedForGir": {
+      "@id": "australian:exchangeRateUsedForGir",
+      "@type": "xsd:decimal"
+    },
+    "convertForeignCurrencyMethodology": {
+      "@id": "australian:convertForeignCurrencyMethodology",
+      "@type": "xsd:string"
+    },
+    "CurrencyCodes": "australian:CurrencyCodes",
+    "Declaration": "australian:Declaration",
+    "declarationStatementAcceptance": {
+      "@id": "australian:declarationStatementAcceptance",
+      "@type": "xsd:string"
+    },
+    "taxAgentDetails": {
+      "@id": "australian:taxAgentDetails",
+      "@type": "@id"
+    },
+    "declarationDate": {
+      "@id": "australian:declarationDate",
+      "@type": "xsd:date"
+    },
+    "TaxAgent": "australian:TaxAgent",
+    "clientReference": {
+      "@id": "australian:clientReference",
+      "@type": "xsd:string"
+    },
+    "agentFullName": {
+      "@id": "australian:agentFullName",
+      "@type": "xsd:string"
+    },
+    "agentTelephoneAreaCode": {
+      "@id": "australian:agentTelephoneAreaCode",
+      "@type": "xsd:string"
+    },
+    "agentTelephoneNumber": {
+      "@id": "australian:agentTelephoneNumber",
+      "@type": "xsd:string"
+    },
+    "GlobalDomesticMinimumTaxReturnResponse": "australian:GlobalDomesticMinimumTaxReturnResponse",
+    "GSTPropertySettlementWithholdingNotificationRequest": "australian:GSTPropertySettlementWithholdingNotificationRequest",
+    "GSTPropertySettlementWithholdingNotification": "australian:GSTPropertySettlementWithholdingNotification",
+    "lodgedBy": {
+      "@id": "australian:lodgedBy",
+      "@type": "xsd:string"
+    },
+    "contactDetails": {
+      "@id": "australian:contactDetails",
+      "@type": "@id"
+    },
+    "properties": {
+      "@id": "australian:properties",
+      "@container": "@list"
+    },
+    "transaction": {
+      "@id": "australian:transaction",
+      "@type": "@id"
+    },
+    "purchasers": {
+      "@id": "australian:purchasers",
+      "@container": "@list"
+    },
+    "suppliers": {
+      "@id": "australian:suppliers",
+      "@container": "@list"
+    },
+    "withholdingTotalAmount": {
+      "@id": "australian:withholdingTotalAmount",
+      "@type": "xsd:integer"
+    },
+    "GSTPropertySettlementDateConfirmationRequest": "australian:GSTPropertySettlementDateConfirmationRequest",
+    "GSTPropertySettlementDateConfirmation": "australian:GSTPropertySettlementDateConfirmation",
+    "prerequisiteCheckIndicator": {
+      "@id": "australian:prerequisiteCheckIndicator",
+      "@type": "xsd:boolean"
+    },
+    "lodgmentChangedIndicator": {
+      "@id": "australian:lodgmentChangedIndicator",
+      "@type": "xsd:boolean"
+    },
+    "ContactDetails": "australian:ContactDetails",
+    "title": {
+      "@id": "australian:title",
+      "@type": "xsd:string"
+    },
+    "personName": {
+      "@id": "australian:personName",
+      "@type": "@id"
+    },
+    "representativeBusinessName": {
+      "@id": "australian:representativeBusinessName",
+      "@type": "xsd:string"
+    },
+    "emailCorrespondenceIndicator": {
+      "@id": "australian:emailCorrespondenceIndicator",
+      "@type": "xsd:boolean"
+    },
+    "digitalSettlementServiceProvider": {
+      "@id": "australian:digitalSettlementServiceProvider",
+      "@type": "xsd:string"
+    },
+    "digitalSettlementFileNumber": {
+      "@id": "australian:digitalSettlementFileNumber",
+      "@type": "xsd:string"
+    },
+    "Property": "australian:Property",
+    "propertyType": {
+      "@id": "australian:propertyType",
+      "@type": "xsd:string"
+    },
+    "address": {
+      "@id": "australian:address"
+    },
+    "lot": {
+      "@id": "australian:lot",
+      "@type": "xsd:string"
+    },
+    "block": {
+      "@id": "australian:block",
+      "@type": "xsd:string"
+    },
+    "plan": {
+      "@id": "australian:plan",
+      "@type": "xsd:string"
+    },
+    "planType": {
+      "@id": "australian:planType",
+      "@type": "xsd:string"
+    },
+    "volume": {
+      "@id": "australian:volume",
+      "@type": "xsd:string"
+    },
+    "folio": {
+      "@id": "australian:folio",
+      "@type": "xsd:string"
+    },
+    "TransactionWithholdingNotification": "australian:TransactionWithholdingNotification",
+    "contractDate": {
+      "@id": "australian:contractDate",
+      "@type": "xsd:date"
+    },
+    "expectedSettlementDate": {
+      "@id": "australian:expectedSettlementDate",
+      "@type": "xsd:date"
+    },
+    "contractPrice": {
+      "@id": "australian:contractPrice",
+      "@type": "xsd:integer"
+    },
+    "TransactionDateConfirmation": "australian:TransactionDateConfirmation",
+    "lodgmentReferenceNumber": {
+      "@id": "australian:lodgmentReferenceNumber",
+      "@type": "xsd:string"
+    },
+    "actualSettlementDate": {
+      "@id": "australian:actualSettlementDate",
+      "@type": "xsd:date"
+    },
+    "Purchaser": "australian:Purchaser",
+    "entityType": {
+      "@id": "australian:entityType",
+      "@type": "xsd:string"
+    },
+    "purchaserName": {
+      "@id": "australian:purchaserName",
+      "@type": "@id"
+    },
+    "birthDate": {
+      "@id": "australian:birthDate",
+      "@type": "@id"
+    },
+    "ownershipPercentage": {
+      "@id": "australian:ownershipPercentage",
+      "@type": "xsd:integer"
+    },
+    "Supplier": "australian:Supplier",
+    "gstBranchNumber": {
+      "@id": "australian:gstBranchNumber",
+      "@type": "xsd:string"
+    },
+    "representativeName": {
+      "@id": "australian:representativeName",
+      "@type": "xsd:string"
+    },
+    "withholdingProportionAmount": {
+      "@id": "australian:withholdingProportionAmount",
+      "@type": "xsd:integer"
+    },
+    "DeclarationWithholdingNotification": "australian:DeclarationWithholdingNotification",
+    "statementAcceptedIndicator": {
+      "@id": "australian:statementAcceptedIndicator",
+      "@type": "xsd:boolean"
+    },
+    "DeclarationDateConfirmation": "australian:DeclarationDateConfirmation",
+    "PurchaserName": "australian:PurchaserName",
+    "givenName": {
+      "@id": "australian:givenName",
+      "@type": "xsd:string"
+    },
+    "otherGivenName": {
+      "@id": "australian:otherGivenName",
+      "@type": "xsd:string"
+    },
+    "familyName": {
+      "@id": "australian:familyName",
+      "@type": "xsd:string"
+    },
+    "PersonName": "australian:PersonName",
+    "BirthDate": "australian:BirthDate",
+    "birthDay": {
+      "@id": "australian:birthDay",
+      "@type": "xsd:integer"
+    },
+    "birthMonth": {
+      "@id": "australian:birthMonth",
+      "@type": "xsd:integer"
+    },
+    "birthYear": {
+      "@id": "australian:birthYear",
+      "@type": "xsd:integer"
+    },
+    "GSTPropertySettlementWithholdingNotificationResponse": "australian:GSTPropertySettlementWithholdingNotificationResponse",
+    "GSTPropertySettlementWithholdingNotificationResponseData": "australian:GSTPropertySettlementWithholdingNotificationResponseData",
+    "ApiInfo": "australian:ApiInfo",
+    "api_version": {
+      "@id": "australian:api_version",
+      "@type": "xsd:string"
+    },
+    "api_status": {
+      "@id": "australian:api_status",
+      "@type": "xsd:string"
+    },
+    "SpecResponse": "australian:SpecResponse",
+    "specResponse": {
+      "@id": "australian:specResponse",
+      "@type": "xsd:string"
+    },
+    "HeartbeatInfo": "australian:HeartbeatInfo",
+    "systemTimeUTC": {
+      "@id": "australian:systemTimeUTC",
+      "@type": "xsd:dateTime"
+    },
+    "HeartbeatInfoResponse": "australian:HeartbeatInfoResponse",
+    "messages": {
+      "@id": "australian:messages",
+      "@container": "@list"
+    },
+    "ApiMessage": "australian:ApiMessage",
+    "severity": {
+      "@id": "australian:severity",
+      "@type": "xsd:string"
+    },
+    "RelyingParty": "australian:RelyingParty",
+    "client_name": {
+      "@id": "australian:client_name",
+      "@type": "xsd:string"
+    },
+    "ato_api_key": {
+      "@id": "australian:ato_api_key",
+      "@type": "xsd:string"
+    },
+    "x509_certificate": {
+      "@id": "australian:x509_certificate",
+      "@type": "xsd:string"
+    },
+    "grant_types": {
+      "@id": "australian:grant_types",
+      "@container": "@list"
+    },
+    "contacts": {
+      "@id": "australian:contacts",
+      "@container": "@list"
+    },
+    "software_id": {
+      "@id": "australian:software_id",
+      "@type": "xsd:string"
+    },
+    "software_version": {
+      "@id": "australian:software_version",
+      "@type": "xsd:string"
+    },
+    "client_id": {
+      "@id": "australian:client_id",
+      "@type": "xsd:string"
+    },
+    "client_id_issued_at": {
+      "@id": "australian:client_id_issued_at",
+      "@type": "xsd:string"
+    },
+    "registration_client_uri": {
+      "@id": "australian:registration_client_uri",
+      "@type": "xsd:string"
+    },
+    "registration_access_token": {
+      "@id": "australian:registration_access_token",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "australian:scope",
+      "@type": "xsd:string"
+    },
+    "token_endpoint_auth_method": {
+      "@id": "australian:token_endpoint_auth_method",
+      "@type": "xsd:string"
+    },
+    "ErrorResponse": "australian:ErrorResponse",
+    "error": {
+      "@id": "australian:error",
+      "@type": "xsd:string"
+    },
+    "error_description": {
+      "@id": "australian:error_description",
+      "@type": "xsd:string"
+    },
+    "TransactionPaymentReferenceNumberResponse": "australian:TransactionPaymentReferenceNumberResponse",
+    "TransactionPaymentReferenceNumber": "australian:TransactionPaymentReferenceNumber",
+    "roleType": {
+      "@id": "australian:roleType",
+      "@type": "xsd:string"
+    },
+    "transactionId": {
+      "@id": "australian:transactionId",
+      "@type": "xsd:string"
+    },
+    "GatewayResponse": "australian:GatewayResponse",
+    "organisationalName": {
+      "@id": "australian:organisationalName",
+      "@type": "xsd:string"
+    },
+    "startDate": {
+      "@id": "australian:startDate",
+      "@type": "xsd:string"
+    },
+    "endDate": {
+      "@id": "australian:endDate",
+      "@type": "xsd:string"
+    },
+    "electronicServiceAddressAlias": {
+      "@id": "australian:electronicServiceAddressAlias",
+      "@type": "xsd:string"
+    },
+    "electronicServiceAddress": {
+      "@id": "australian:electronicServiceAddress",
+      "@type": "xsd:string"
+    },
+    "electronicContact": {
+      "@id": "australian:electronicContact",
+      "@type": "@id"
+    },
+    "ProviderResponse": "australian:ProviderResponse",
+    "ProviderListResponse": "australian:ProviderListResponse",
+    "providers": {
+      "@id": "australian:providers",
+      "@container": "@list"
+    },
+    "Provider": "australian:Provider",
+    "gateway": {
+      "@id": "australian:gateway",
+      "@type": "@id"
+    },
+    "provider": {
+      "@id": "australian:provider",
+      "@type": "@id"
+    },
+    "certifications": {
+      "@id": "australian:certifications",
+      "@container": "@list"
+    },
+    "ElectronicContact": "australian:ElectronicContact",
+    "emailAddress": {
+      "@id": "australian:emailAddress",
+      "@type": "xsd:string"
+    },
+    "webUniformResourceLocator": {
+      "@id": "australian:webUniformResourceLocator",
+      "@type": "xsd:string"
+    },
+    "ApiErrorDetails": "australian:ApiErrorDetails",
+    "StapledSuperFundRequest": "australian:StapledSuperFundRequest",
+    "payee": {
+      "@id": "australian:payee",
+      "@type": "@id"
+    },
+    "Payee": "australian:Payee",
+    "payeePayrollId": {
+      "@id": "australian:payeePayrollId",
+      "@type": "xsd:string"
+    },
+    "personDemographic": {
+      "@id": "australian:personDemographic",
+      "@type": "@id"
+    },
+    "addressResidential": {
+      "@id": "australian:addressResidential",
+      "@type": "@id"
+    },
+    "addressPostal": {
+      "@id": "australian:addressPostal",
+      "@type": "@id"
+    },
+    "PersonDemographic": "australian:PersonDemographic",
+    "birthDm": {
+      "@id": "australian:birthDm",
+      "@type": "xsd:integer"
+    },
+    "birthM": {
+      "@id": "australian:birthM",
+      "@type": "xsd:integer"
+    },
+    "birthY": {
+      "@id": "australian:birthY",
+      "@type": "xsd:integer"
+    },
+    "StapledSuperFundResponse": "australian:StapledSuperFundResponse",
+    "StapledSuperFund": "australian:StapledSuperFund",
+    "requestOutcome": {
+      "@id": "australian:requestOutcome",
+      "@type": "@id"
+    },
+    "superfund": {
+      "@id": "australian:superfund"
+    },
+    "StapledFundRequestOutcome": "australian:StapledFundRequestOutcome",
+    "reasonCode": {
+      "@id": "australian:reasonCode",
+      "@type": "xsd:string"
+    },
+    "SuperannuationProduct": "australian:SuperannuationProduct",
+    "name": {
+      "@id": "australian:name",
+      "@type": "xsd:string"
+    },
+    "SuperannuationFund": "australian:SuperannuationFund",
+    "memberAccount": {
+      "@id": "australian:memberAccount",
+      "@type": "xsd:string"
+    },
+    "uniqueSuperannuationIdentifier": {
+      "@id": "australian:uniqueSuperannuationIdentifier",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Australian Taxation Office API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Australian Taxation Office's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-22) from openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml, openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml, openapi/australian-taxation-office-gst-property-settlement-openapi.yml.",
+  "dcterms:created": "2026-10-22",
+  "dcterms:source": [
+    "openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml",
+    "openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml",
+    "openapi/australian-taxation-office-gst-property-settlement-openapi.yml",
+    "openapi/australian-taxation-office-health-check-openapi.yml",
+    "openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml"
+  ]
+}

@@ -1,0 +1,565 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json",
+  "title": "GlobalDomesticMinimumGroupEntityTaxReturnRequest",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GlobalDomesticMinimumGroupEntityTaxReturnRequest",
+  "properties": {
+    "reportingFiscalYear": {
+      "$ref": "#/$defs/ReportingFiscalYear"
+    },
+    "groupEntity": {
+      "$ref": "#/$defs/GroupEntity"
+    }
+  },
+  "required": [
+    "reportingFiscalYear",
+    "groupEntity"
+  ],
+  "$defs": {
+    "Address": {
+      "description": "This will hold the specific information relating to the address of the group entity lodging the Combined Global and Domestic Tax Return. Can be either the Business or Postal Address Details.\n",
+      "properties": {
+        "line1": {
+          "description": "First line of address using free form format, that is used to create a semi structured address.\n",
+          "type": "string",
+          "pattern": "^(?!unknown$|as\\s*above$)(?!c\\/o|c\\/|care\\s*of)[a-zA-Z0-9 !@$%&*()\\-\\=\\[\\]:;'\",.?\\/]+$"
+        },
+        "line2": {
+          "description": "Second line of address using free form format, that is used to create a semi structured address.\n",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?!unknown$|as\\s*above$)(?!c\\/o|c\\/|care\\s*of)[a-zA-Z0-9 !@$%&*()\\-\\=\\[\\]:;'\",.?\\/]+$"
+        },
+        "localityName": {
+          "description": "A word or combination of words, by which a geographic locality/suburb is designated or known.\n",
+          "type": "string",
+          "pattern": "^(?!unknown$)[a-zA-Z0-9 !@$%&*()\\-\\=\\[\\]:;'\",.?\\/]+$"
+        },
+        "stateOrTerritoryCode": {
+          "description": "The code that is assigned to each Australian State or Territory\n",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "ACT",
+            "NSW",
+            "NT",
+            "QLD",
+            "SA",
+            "TAS",
+            "VIC",
+            "WA"
+          ]
+        },
+        "countryCode": {
+          "description": "This is the code of the country in which the address resides in. This represents the country code as prescribed by AS4590 and inherited from ISO 3166.\n",
+          "type": "string",
+          "enum": [
+            "AD",
+            "AE",
+            "AF",
+            "AG",
+            "AI",
+            "AL",
+            "AM",
+            "AN",
+            "AO",
+            "AQ",
+            "AR",
+            "AS",
+            "AT",
+            "AU",
+            "AW",
+            "AX",
+            "AZ",
+            "BA",
+            "BB",
+            "BD",
+            "BE",
+            "BF",
+            "BG",
+            "BH",
+            "BI",
+            "BJ",
+            "BL",
+            "BM",
+            "BN",
+            "BO",
+            "BQ",
+            "BR",
+            "BS",
+            "BT",
+            "BV",
+            "BW",
+            "BY",
+            "BZ",
+            "CA",
+            "CC",
+            "CF",
+            "CG",
+            "CH",
+            "CI",
+            "CK",
+            "CL",
+            "CM",
+            "CN",
+            "CO",
+            "CR",
+            "CU",
+            "CV",
+            "CW",
+            "CX",
+            "CY",
+            "CZ",
+            "DE",
+            "DJ",
+            "DK",
+            "DM",
+            "DO",
+            "DZ",
+            "EC",
+            "EE",
+            "EG",
+            "EH",
+            "ER",
+            "ES",
+            "ET",
+            "FI",
+            "FJ",
+            "FK",
+            "FM",
+            "FO",
+            "FR",
+            "GA",
+            "GB",
+            "GD",
+            "GE",
+            "GF",
+            "GG",
+            "GH",
+            "GI",
+            "GL",
+            "GM",
+            "GN",
+            "GP",
+            "GQ",
+            "GR",
+            "GS",
+            "GT",
+            "GU",
+            "GW",
+            "GY",
+            "HK",
+            "HM",
+            "HN",
+            "HR",
+            "HT",
+            "HU",
+            "ID",
+            "IE",
+            "IL",
+            "IM",
+            "IN",
+            "IO",
+            "IQ",
+            "IR",
+            "IS",
+            "IT",
+            "JE",
+            "JM",
+            "JO",
+            "JP",
+            "KE",
+            "KG",
+            "KH",
+            "KI",
+            "KM",
+            "KN",
+            "KP",
+            "KR",
+            "KW",
+            "KY",
+            "KZ",
+            "LA",
+            "LB",
+            "LC",
+            "LI",
+            "LK",
+            "LR",
+            "LS",
+            "LT",
+            "LU",
+            "LV",
+            "LY",
+            "MA",
+            "MC",
+            "MD",
+            "ME",
+            "MF",
+            "MG",
+            "MH",
+            "MK",
+            "ML",
+            "MM",
+            "MN",
+            "MO",
+            "MP",
+            "MQ",
+            "MR",
+            "MS",
+            "MT",
+            "MU",
+            "MV",
+            "MW",
+            "MX",
+            "MY",
+            "MZ",
+            "NA",
+            "NC",
+            "NE",
+            "NF",
+            "NG",
+            "NI",
+            "NL",
+            "NO",
+            "NP",
+            "NR",
+            "NU",
+            "NZ",
+            "OM",
+            "PA",
+            "PE",
+            "PF",
+            "PG",
+            "PH",
+            "PK",
+            "PL",
+            "PM",
+            "PN",
+            "PR",
+            "PS",
+            "PT",
+            "PW",
+            "PY",
+            "QA",
+            "RE",
+            "RO",
+            "RS",
+            "RU",
+            "RW",
+            "SA",
+            "SB",
+            "SC",
+            "SD",
+            "SE",
+            "SG",
+            "SH",
+            "SI",
+            "SJ",
+            "SK",
+            "SL",
+            "SM",
+            "SN",
+            "SO",
+            "SR",
+            "SS",
+            "ST",
+            "SV",
+            "SX",
+            "SY",
+            "SZ",
+            "TC",
+            "TD",
+            "TF",
+            "TG",
+            "TH",
+            "TJ",
+            "TK",
+            "TM",
+            "TN",
+            "TO",
+            "TP",
+            "TR",
+            "TT",
+            "TV",
+            "TW",
+            "TZ",
+            "UA",
+            "UG",
+            "UM",
+            "US",
+            "UY",
+            "UZ",
+            "VA",
+            "VC",
+            "VE",
+            "VG",
+            "VI",
+            "VN",
+            "VU",
+            "WF",
+            "WS",
+            "YE",
+            "YT",
+            "YU",
+            "ZA",
+            "ZM",
+            "ZR",
+            "ZW"
+          ]
+        },
+        "postCode": {
+          "description": "The descriptor for a postal delivery area, aligned with locality, suburb or place. Can be used for an Australian or non-Australian address.\n",
+          "type": "string"
+        }
+      },
+      "required": [
+        "line1",
+        "localityName",
+        "countryCode"
+      ]
+    },
+    "DomesticMinimumTaxReturn": {
+      "description": "Will contain whether the group entity has to report domestic top up tax and if so what that amount is.\n\n**Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`.\nOtherwise, you can skip passing in details for this object.**\n",
+      "properties": {
+        "domesticTopUpTaxIndicator": {
+          "description": "Indicate whether the group entity has the obligation to report a domestic top up tax amount.\n\n - If `domesticTopUpTaxIndicator` is set to false then there will be no need to pass any Domestic Top-up Tax Amount in the request.\n",
+          "type": "boolean"
+        },
+        "domesticTopUpTaxAmount": {
+          "description": "The domestic top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.\n\n**Note - This field only needs to be present in the request if the answer to `domesticTopUpTaxIndicator` is set to `true`. \n",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 99999999999
+        }
+      },
+      "required": [
+        "domesticTopUpTaxIndicator"
+      ]
+    },
+    "GroupEntity": {
+      "description": "This will hold the information related to the group entity.\n",
+      "properties": {
+        "groupEntityName": {
+          "description": "This is the full name of the group entity.\n",
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "groupEntityType": {
+          "description": "This is the entity type for the group entity that the Combined Global and Domestic Minimum Tax Return is being lodged for.\n\n**Entity Type Description Table**\n|Entity Type Code| Description                                                                                            |\n|----------------|--------------------------------------------------------------------------------------------------------|                                                                                     \n|COMPY           | Company                                                                                                |\n|GPRTN           | GloBE partnership                                                                                      |\n|TRUST           | Trust                                                                                                  |\n|MCOMP           | Main entity of a GloBE permanent establishment that is a company                                       |\n|NCOMP           | Main entity of a GloBE permanent establishment that is not a company                                   |\n|JVOTH           | GloBE joint venture                                                                                    |\n|JVPRT           | Unincorporated GloBE joint venture that is a GloBE partnership                                         |\n|JVNTP           | Unincorporated GloBE joint venture that is not a trust or GloBE partnership                            |\n|JSPRT           | Unincorporated GloBE joint venture subsidiary where the subsidiary is a GloBE partnership              |\n|JSNTP           | Unincorporated GloBE joint venture subsidiary where the subsidiary is not a trust or GloBE partnership |\n|UENTP           | Unincorporated Group Entity that is not a trust or a GloBE partnership                                 |\n",
+          "type": "string",
+          "enum": [
+            "COMPY",
+            "GPRTN",
+            "TRUST",
+            "MCOMP",
+            "NCOMP",
+            "JVOTH",
+            "JVPRT",
+            "JVNTP",
+            "JSPRT",
+            "JSNTP",
+            "UENTP"
+          ]
+        },
+        "identifierDetails": {
+          "description": "At least one of the following identifiers are to be provided TFN/ABN/ARN. If providing both TFN and ABN make sure\nthis is for the same group entity.\n",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IdentifierDetails"
+          }
+        },
+        "businessAddress": {
+          "description": "This is the business address of the group entity.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            }
+          ]
+        },
+        "foreignLodgementNotificationIndicator": {
+          "description": "This is to indicate whether the lodger has lodged the Foreign Lodgment Notification on behalf of this group entity.\n",
+          "type": "boolean"
+        },
+        "continueGlobalDomesticMinimumReturnIndicator": {
+          "description": "This is to indicate whether the lodger will complete the Australian IIR/UTPR and Australian DMT Tax Return on behalf of this group entity.\n",
+          "type": "boolean"
+        },
+        "domesticMinimumTaxReturn": {
+          "$ref": "#/$defs/DomesticMinimumTaxReturn"
+        },
+        "incomeInclusionRuleTaxReturn": {
+          "$ref": "#/$defs/IncomeInclusionRuleReturn"
+        },
+        "undertaxedProfitRuleTaxReturn": {
+          "$ref": "#/$defs/UndertaxedProfitRuleReturn"
+        },
+        "groupEntityAssociateDetails": {
+          "$ref": "#/$defs/GroupEntityAssociateDetails"
+        }
+      },
+      "required": [
+        "groupEntityName",
+        "businessAddress",
+        "identifierDetails",
+        "groupEntityType",
+        "foreignLodgementNotificationIndicator",
+        "continueGlobalDomesticMinimumReturnIndicator"
+      ]
+    },
+    "GroupEntityAssociateDetails": {
+      "description": "This will hold the speific information related to the primary associate entity for the group entity. \n\n**Note the `groupEntityAssociateDetails` information will not need to be passed\nif `groupEntityType` is passed in as any of the below options:**\n\n- `Company`\n\n- `Main Entity of a GloBE Permanenet Establishment that is a Company`\n\n- `GloBE Joint Venture`\n",
+      "properties": {
+        "associateEntityName": {
+          "description": "This is the full name of the associate entity\n",
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "taxFileNumber": {
+          "description": "This is the tax file number of the associate entity\n",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 8,
+          "maxLength": 9
+        },
+        "telephoneAreaCode": {
+          "description": "Telephone area code of the associate entity.\n",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 4,
+          "pattern": "^\\d+$"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "This is the phone number of the associate entity.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^\\d+$"
+        },
+        "postalAddress": {
+          "description": "This is the postal address of the assciate entity.\n",
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "required": [
+        "associateEntityName",
+        "telephoneAreaCode",
+        "telephoneNumber",
+        "postalAddress"
+      ]
+    },
+    "IdentifierDetails": {
+      "properties": {
+        "identifierType": {
+          "description": "This will hold the different identifying type information for the group entity in this return.\n",
+          "type": "string",
+          "enum": [
+            "TFN",
+            "ABN",
+            "ARN"
+          ]
+        },
+        "identifierValue": {
+          "type": "string",
+          "description": "This will hold the value of the type of identifier selected in identifierType.\n",
+          "minLength": 5,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9 `!@%#\\$&()_\\-=\\[\\]\\{\\}\\\\|;:'\",\\.\\/\\?]+$"
+        }
+      },
+      "required": [
+        "identifierType",
+        "identifierValue"
+      ]
+    },
+    "IncomeInclusionRuleReturn": {
+      "description": "Will contain whether the group entity has to report IIR top up tax and if so what that amount is and the parent entity type subject to the tax.\n\n**Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`.\nOtherwise, you can skip passing in details for this object.**\n",
+      "properties": {
+        "incomeInclusionTopUpTaxIndicator": {
+          "description": "Indicate whether the group entity has the obligation to report a IIR top up tax amount.\n\n - If `incomeInclusionTopUpTaxIndicator` is set to false then there will be no need to pass any IIR Top-Up Tax Amount and \n associated parent entity in the request.\n",
+          "type": "boolean"
+        },
+        "incomeInclusionTopUpTaxAmount": {
+          "description": "The IIR top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.\n\nNote - This field only needs to be present in the request if the answer to `incomeInclusionTopUpTaxIndicator` is set to `true`.\n",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 99999999999
+        },
+        "parentEntityType": {
+          "description": "The parent entity type of the group entity subject to the IIR tax.\n\nNote - This field only needs to be present in the request if the answer to `incomeInclusionTopUpTaxIndicator` is set to `true`. \n\n**Parent Entity Type Description Table**\n|Parent Entity Type Code| Description                   |\n|-----------------------|-------------------------------|\n|UPE                    | Ultimate parent entity        |\n|IPE                    | Intermediate parent entity    |\n|POPE                   | Partially owned parent entity |\n",
+          "type": "string",
+          "enum": [
+            "UPE",
+            "IPE",
+            "POPE"
+          ]
+        }
+      },
+      "required": [
+        "incomeInclusionTopUpTaxIndicator"
+      ]
+    },
+    "ReportingFiscalYear": {
+      "description": "This will hold the start and end date of the fiscal year that the Combined Global and Domestic Tax Return is lodged for.\n",
+      "properties": {
+        "periodStartDate": {
+          "description": "This is the start date of the fiscal year the Combined Global and Domestic Tax Return is lodged for.\n",
+          "type": "string",
+          "format": "date"
+        },
+        "periodEndDate": {
+          "description": "This is the end date of the fiscal year the Combined Global and Domestic Tax Return is lodged for.\n",
+          "type": "string",
+          "format": "date"
+        },
+        "transactionTypeCode": {
+          "description": "This will hold the transaction type of the parent form whether it is an original or amended form.\n\n  **Transaction Type Description Table**\n|Transaction Type Code| Description                                                                                                       |\n|---------------------|-------------------------------------------------------------------------------------------------------------------|\n|ORIGINAL             | Select this for submitting an original lodgment of the Combined Global and Domestic Minimum Tax Return            |\n|AMENDMENT            | Select this for submitting an amendment to update the previously submitted information.                           |\n",
+          "type": "string",
+          "enum": [
+            "ORIGINAL",
+            "AMENDMENT"
+          ]
+        }
+      },
+      "required": [
+        "periodStartDate",
+        "periodEndDate",
+        "transactionTypeCode"
+      ]
+    },
+    "UndertaxedProfitRuleReturn": {
+      "description": "Will contain whether the group entity has to report UTPR top up tax and if so what that amount is.\n\n**Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`\nand `periodStartDate` is on or after 01/01/2025. Otherwise, you can skip passing in details for this object.**\n",
+      "properties": {
+        "undertaxedProfitsTopUpTaxIndicator": {
+          "description": "Indicate whether the group entity has the obligation to report a UTPR top up tax amount.\n\n - If `undertaxedProfitsTopUpTaxIndicator` is set to false then there will be no need to pass any UTPR Top-up Tax Amount in the request.\n",
+          "type": "boolean"
+        },
+        "undertaxedProfitsTopUpTaxAmount": {
+          "description": "The UTPR top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.\n\nNote - This field only needs to be present in the request if the answer to `undertaxedProfitsTopUpTaxIndicator` is set to `true`.\n",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999999
+        }
+      },
+      "required": [
+        "undertaxedProfitsTopUpTaxIndicator"
+      ]
+    }
+  }
+}

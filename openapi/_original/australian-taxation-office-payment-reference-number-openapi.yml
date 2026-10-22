@@ -1,0 +1,237 @@
+# x-archived-from: australian-taxation-office-payment-reference-number-openapi.yml
+# x-archived-on: 2026-10-22
+openapi: 3.0.0
+info:
+  description: |
+    This API will be used to get a Payment Reference Number (PRN).
+  version: 1.0.19
+  x-status: Proposed
+  title: Payment Reference Number API
+servers:
+- url: https://{env}/payment/v1/paymentReferenceNumber
+  description: Payment Reference Number
+  variables:
+    env:
+      default: sandbox.api.ato.gov.au
+      description: This is the environment host that is going to be used to hit the API.
+      enum:
+      - sandbox.api.ato.gov.au
+      - api.ato.gov.au
+paths:
+  /:
+    get:
+      tags:
+      - Get Payment Reference Number
+      parameters:
+      - $ref: '#/components/parameters/transactionIdParam'
+      - $ref: '#/components/parameters/roleTypeParam'
+      summary: |
+        This endpoint will allow you to get a Payment Reference Number (PRN) for a transaction
+      description: |
+        In order to retrieve a Payment Reference Number you need to provide the below information.
+
+        **1. Transaction ID**
+
+        **2. Role Type**
+      operationId: retrievePaymentReferenceNumberFormat4
+      responses:
+        "200":
+          description: Payment Reference Number Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionPaymentReferenceNumberResponse'
+              examples:
+                SuccessfulPaymentReferenceNumberResponse:
+                  $ref: '#/components/examples/PaymentReferenceNumberTransactionResponse'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                BadRequestResponseExample:
+                  $ref: '#/components/examples/BadRequestResponseExample'
+        "401":
+          description: Unauthorised
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                UnauthorisedResponseExample:
+                  $ref: '#/components/examples/UnauthorisedResponseExample'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                ForbiddenResponseExample:
+                  $ref: '#/components/examples/ForbiddenResponseExample'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                NotFoundResponseExample:
+                  $ref: '#/components/examples/NotFoundResponseExample'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                InternalServerErrorResponseExample:
+                  $ref: '#/components/examples/InternalServerErrorResponseExample'
+components:
+  parameters:
+    transactionIdParam:
+      name: transactionId
+      required: true
+      in: query
+      description: "The `transactionId` parameter specifies the Transaction Id generated when a transaction is lodged. \n  - The `transactionId` would be returned in the `receipt` response header when submitting a transaction.\n\n  Use this as the transactionId you will pass into this call.\n\n  Query Parameter Example: `transactionId=6300000000001`\n"
+      schema:
+        type: string
+        pattern: '[0-9]{13}'
+        maxLength: 13
+        minLength: 13
+      examples:
+        TransactionId:
+          value: transactionId=6300000000001
+    roleTypeParam:
+      name: roleType
+      required: true
+      in: query
+      description: "The `roletype` parameter specifies the Role type code that indicates the client's tax obligation. \nWhen you are sending Role Type in the request, please use one of the Role Type Codes listed in the table below. \n\nQuery Parameter Example: `roleType=GDMT`\n\n**Role Type Code and Description Table**\n|Role Type Code| Description    |\n|--------------|----------------|\n|GDMT         |	Global and Domestic Minimum Tax |\n"
+      schema:
+        type: string
+        enum:
+        - GDMT
+  schemas:
+    TransactionPaymentReferenceNumberResponse:
+      description: |
+        This is the response that is returned upon successful Retrieval of a Payment Reference Number for a transaction.
+      properties:
+        data:
+          $ref: '#/components/schemas/TransactionPaymentReferenceNumber'
+    TransactionPaymentReferenceNumber:
+      description: |
+        This will hold the payment reference number that will be sent back in the response for a transaction.
+      properties:
+        roleType:
+          description: |
+            This is the type of tax payment that the client is obligated to make payments for to the ATO.
+          type: string
+          example: GLOBE
+        transactionId:
+          description: |
+            This is the Transaction ID identifier that the taxpayer uses to make payments to the ATO.
+          type: string
+          pattern: '[0-9]{13}'
+          example: "6300000000001"
+        paymentReferenceNumber:
+          description: |
+            This is up to an 18 digit code to define the payment. A number which payment processing will use to determine
+            where a client's payment will be allocated.
+          type: string
+          maxLength: 18
+          example: "123456789098765432"
+    ApiErrorsResponse:
+      description: |
+        Full error payload returned to client. Will contain multiple errors if there are multiple that get returned.
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+    ApiError:
+      title: ApiError
+      type: object
+      properties:
+        detail:
+          type: string
+          description: |
+            A human-readable explanation specific to this occurrence of the problem.
+          nullable: true
+        code:
+          type: string
+          description: |
+            An application-specific error code.
+          nullable: true
+        source:
+          $ref: '#/components/schemas/Source'
+      description: |
+        This will hold the response error details.
+    Source:
+      title: Source
+      type: object
+      properties:
+        pointer:
+          type: string
+          description: |
+            'JSON Pointer [RFC6901] to the associated entity in the request document.'
+          nullable: true
+        parameter:
+          type: string
+          description: |
+            A string indicating which URI query parameter caused the error.
+          nullable: true
+      description: |
+        An object containing references to the source of the error.
+  examples:
+    PaymentReferenceNumberTransactionResponse:
+      summary: Successful Payment Reference Number Response
+      description: |
+        Example Successful Payment Reference Number Response
+      value:
+        data:
+          roleType: GDMT
+          transactionId: "6300000000001"
+          paymentReferenceNumber: "123456789123456789"
+    BadRequestResponseExample:
+      summary: Bad Request Response
+      description: |
+        Example Bad Request Response
+      value:
+        errors:
+        - code: OAS.VAL.00000
+          detail: Object has missing required properties (['transactionId'])
+    UnauthorisedResponseExample:
+      summary: Unauthorised Response
+      description: |
+        Example Unauthorised Response
+      value:
+        errors:
+        - code: 401-01
+          detail: api key is invalid
+    ForbiddenResponseExample:
+      summary: Forbidden Response
+      description: |
+        Example Forbidden Response
+      value:
+        errors:
+        - code: 403-01
+          detail: Forbidden
+    NotFoundResponseExample:
+      summary: Not Found Response
+      description: |
+        Example Not Found Response
+      value:
+        errors:
+        - code: 404-01
+          detail: No API path found that matches request '{request.uri}'
+    InternalServerErrorResponseExample:
+      summary: Internal Server Error Response
+      description: |
+        Example Internal Server Error Response
+      value:
+        errors:
+        - code: 500-01
+          detail: Your request cannot be processed. Please try again later.  If the problem persists, please contact ATO
+

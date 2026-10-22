@@ -1,0 +1,28 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/client-authentication
+standards:
+- id: oauth2
+  conforms: true
+  evidence: '"For M2M authentication, we use the OAuth 2.0 protocol: client credentials grant type (see RFC-6749) for directly connected software"
+    - https://apiportal.ato.gov.au/client-authentication'
+- id: rfc7523
+  conforms: true
+  evidence: '"JSON Web Token (JWT) bearer grant type (see RFC 7523) for online service providers" - https://apiportal.ato.gov.au/client-authentication'
+- id: oidc-private-key-jwt
+  conforms: true
+  evidence: '"The ATO SSO/IdP requires consuming applications to authenticate themselves via the exchange of a signed private key JWT. This is
+    outlined in section 9 of the Open Id Connect 1.0 standard." - https://apiportal.ato.gov.au/client-authentication'
+- id: rfc7591
+  conforms: true
+  evidence: '"This is based on the OAuth 2.0 Dynamic Client Registration Standard." / "The API is based on the Dynamic Registration Protocol and
+    Dynamic Client Registration Management Protocol." - https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api'
+- id: rfc9457
+  conforms: false
+  evidence: Errors use a bespoke errors[] envelope with code, detail and source fields, not application/problem+json - https://apiportal.ato.gov.au/common-response-messages
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key documented in docs or contracts.
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.0

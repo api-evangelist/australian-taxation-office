@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json",
+  "title": "GlobalDomesticMinimumTaxReturnResponse",
+  "description": "This is the response for the Combined Global and Domestic Minimum Tax Return when successfully submitted.\n",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/GlobalDomesticMinimumTaxReturnResponse",
+  "properties": {
+    "message": {
+      "description": "Response message to let the lodger know their lodgment was successful\n",
+      "type": "string"
+    },
+    "date": {
+      "description": "Timestamp for when the lodgement was completed\n",
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "message",
+    "date"
+  ]
+}

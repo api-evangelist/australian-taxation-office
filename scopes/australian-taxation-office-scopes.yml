@@ -1,0 +1,52 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/client-authentication
+schemes:
+- name: ScopeAuth
+  source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: '{env}/core2/connect/token'
+- name: ScopeAuth
+  source: openapi/australian-taxation-office-health-check-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.ato.gov.au/core2/connect/token
+- name: ScopeAuth
+  source: openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.ato.gov.au/core2/connect/token
+- name: ScopeAuth
+  source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.evte.ato.gov.au/core2/connect/token
+scopes:
+- scope: ato.apGSTPropertySettlement
+  description: Grants ability to lodge GST on Property Settlement Forms
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/australian-taxation-office-gst-property-settlement-openapi.yml
+- scope: ato.healthcheck.*.*
+  description: Grants ability to access the Healthcheck API
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/australian-taxation-office-health-check-openapi.yml
+- scope: ato.idp.relyingParties.c
+  description: Grants ability to register (POST) a new software application
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml
+- scope: ato.super.stapledsuperfund.c,r
+  description: Grants ability to POST and GET a Stapled Super Fund
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/australian-taxation-office-stapled-super-fund-openapi.yml
+docs: https://apiportal.ato.gov.au/client-authentication
+note: '"Scopes will vary for each API and will be available in the corresponding API documentation of each API" and "Scopes will be the same for sandbox testing and production use." Product pages confirm
+  ato.healthcheck.*.* (Health Check) and ato.idp.relyingParties.c (OAuth DCR).'

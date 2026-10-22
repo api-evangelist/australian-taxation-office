@@ -1,0 +1,54 @@
+generated: '2026-10-22'
+method: searched
+probe: true
+source: https://apiportal.ato.gov.au/privacy
+scope_note: >-
+  Read from the ATO API Portal's own legal pages (privacy, conditions-use, end-user-agreement,
+  accessibility; all HTTP 200 on 2026-10-22). The main-site pages https://www.ato.gov.au/privacy and
+  https://www.ato.gov.au/accessibility answered HTTP 403 "Access Denied" to both a plain and a rendered
+  fetch, so the ATO-wide privacy policy itself was not read.
+signals:
+  data_subject_request:
+    url: https://apiportal.ato.gov.au/privacy
+    section: Privacy
+    channel: 'Privacy Hotline 1300 661 542; Australian Taxation Office, GPO Box 9990 (capital city)'
+    rights_named: [access, correction, complaint under the Australian Privacy Principles]
+    evidence:
+    - source: https://apiportal.ato.gov.au/privacy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: "The ATO’s privacy policy contains important information about your privacy, including how: you can access and correct information we hold about you"
+    - source: https://apiportal.ato.gov.au/privacy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: "We are authorised by the Privacy Act 1988 (Cth) (Privacy Act) to collect your personal information for the purposes of administering and managing the ATO API Portal."
+    note: >-
+      The portal's privacy notice establishes collection under the Privacy Act 1988 and points to the
+      ATO-wide privacy policy for access and correction rights and complaints; portal account data can be
+      viewed under 'My account'. No request API or stated response time is published on the portal page,
+      and the ATO-wide policy it defers to was not readable (403).
+  data_retention:
+    url: https://apiportal.ato.gov.au/end-user-agreement
+    section: '3. (Use of information)'
+    evidence:
+    - source: https://apiportal.ato.gov.au/end-user-agreement
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: "The relevant channel will record in audit logs the fact that the transmission occurred but will not retain the content of the transmissions. Some personal information may be stored in the logs only for audit purposes."
+    note: >-
+      A retention statement for the ATO Digital Wholesale Services (SBR channel and API Portal): transmission
+      content is not retained by the channel, only audit-log records of the transmission. No retention
+      period is stated.
+  accessibility_conformance:
+    url: https://apiportal.ato.gov.au/accessibility
+    section: Accessibility
+    standard: [WCAG 2.0 AA]
+    evidence:
+    - source: https://apiportal.ato.gov.au/accessibility
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: "The ATO API Portal aims to meet Level AA success criteria from the Web Content Accessibility Guidelines (WCAG) 2.0."
+    note: >-
+      A published accessibility target (aim, not a claim of audited conformance) for the developer portal,
+      framed by Australian disability discrimination law; contact DPO@ato.gov.au. No VPAT or conformance
+      report is linked.

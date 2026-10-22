@@ -1,0 +1,19 @@
+name: Australian Taxation Office rate limits
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/common-response-messages
+limit_count: 1
+limits:
+- name: Gateway rate limit exhaustion (all catalogue APIs)
+  scope: per-api
+  limit_text: Rate limit has been exceeded wait approximately a minute before hitting API again
+  status_on_exhaustion: 429
+  error_code: 429.02.001
+  note: No numeric limit or window is published; the remediation text only advises waiting about a minute. No X-RateLimit-* or Retry-After headers are documented.
+per_product_statements:
+- {api: Health Check API, statement: Appropriate rate limits are applied to prevent misuse or overuse of the API., source: https://apiportal.ato.gov.au/api-products/health-check-api}
+- {api: OAuth Dynamic Client Registration API, statement: Not applicable., source: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api}
+- {api: Stapled Super Fund, statement: Not applicable., source: https://apiportal.ato.gov.au/api-products/stapled-super-fund}
+- {api: Property Settlement Service, statement: Not Applicable, source: https://apiportal.ato.gov.au/api-products/property-settlement-service}
+headers: []
+note: The GST Property Settlement OpenAPI declares a 429 response; no rate-limit headers are documented anywhere in the portal.

@@ -1,23 +1,888 @@
 aid: australian-taxation-office
+
 name: Australian Taxation Office
-description: 'Australian Taxation Office is a company surfaced via the API Evangelist harvest backlog
-  (source: australia-apidays-2026) and added to the network as a stub for full-pipeline profiling.'
+
+description: The Australian Taxation Office (ATO) is the Australian Government's principal revenue collection agency, administering the tax and
+  superannuation systems. Through the ATO API Portal (apiportal.ato.gov.au) it gives digital service providers (DSPs) an API product catalogue
+  with documentation and subscriptions, listing APIs such as SMSF Alias Lookup, the Digital Services Gateway Health Check, Stapled Super Fund,
+  OAuth Dynamic Client Registration, Global and Domestic Minimum Tax lodgment and the GST Property Settlement Service.
+
 url: https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:australia-apidays-2026
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-22 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-22'
+
 modified: '2026-10-22'
+
 tags:
 - Company
-apis: []
+- Government
+- Taxation
+- Superannuation
+- Australia
+- Digital Service Providers
+- Public Sector
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
+image: https://apiportal.ato.gov.au/themes/custom/b5_apigee/logo.svg
+
 common:
+- type: AgenticAccess
+  url: agentic-access/australian-taxation-office-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/australian-taxation-office-rate-limits.yml
+- type: Spectral
+  url: rules/australian-taxation-office-rules.yml
+- type: JSONLD
+  url: json-ld/australian-taxation-office-context.jsonld
+- type: Vocabulary
+  url: vocabulary/australian-taxation-office-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/australian-taxation-office-data-model.yml
+- type: ChangeLog
+  url: changelog/australian-taxation-office-changelog.yml
+- type: Conventions
+  url: conventions/australian-taxation-office-conventions.yml
+- type: Sandbox
+  url: sandbox/australian-taxation-office-sandbox.yml
+- type: Lifecycle
+  url: lifecycle/australian-taxation-office-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/australian-taxation-office-error-codes.yml
+- type: ErrorCatalog
+  url: errors/australian-taxation-office-problem-types.yml
+- type: Conformance
+  url: conformance/australian-taxation-office-conformance.yml
+- type: Overlay
+  url: overlays/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-overlay.yaml
+- type: SecurityTxt
+  url: well-known/australian-taxation-office-apiportal-security.txt
+- type: SecurityTxt
+  url: well-known/australian-taxation-office-api-security.txt
+- type: WellKnown
+  url: well-known/australian-taxation-office-well-known.yml
+- type: Hosts
+  url: hosts/australian-taxation-office-hosts.yml
+- type: Vendors
+  url: vendors/australian-taxation-office-vendors.yml
+- type: OAuthScopes
+  url: scopes/australian-taxation-office-scopes.yml
+- type: Authentication
+  url: authentication/australian-taxation-office-authentication.yml
+- type: DomainSecurity
+  url: security/australian-taxation-office-domain-security.yml
 - type: Website
   url: https://ato.gov.au/
+- type: DeveloperPortal
+  url: https://apiportal.ato.gov.au/
+- type: APIReference
+  url: https://apiportal.ato.gov.au/api-products
+- type: GettingStarted
+  url: https://apiportal.ato.gov.au/getting-started
+- type: Support
+  url: https://apiportal.ato.gov.au/contact-us
+- type: TermsOfService
+  url: https://apiportal.ato.gov.au/conditions-use
+- type: PrivacyPolicy
+  url: https://apiportal.ato.gov.au/privacy
+
+apis:
+- aid: australian-taxation-office:australian-taxation-office-apiinfo-api
+  name: Australian Taxation Office API Info API
+  description: This will return the status and version of the API
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - ApiInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-taxation-office-apiinfo-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-combined-global-and-domestic-group-entity-tax-return-api
+  name: Australian Taxation Office Combined Global and Domestic Group Entity Tax Return API
+  description: >-
+    The Combined Global and Domestic Group Entity Tax Return API from Australian Taxation Office — 1 operation(s)
+    for combined global and domestic group entity tax return.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Combined Global and Domestic Group Entity Tax Return
+  properties:
+  - type: OpenAPI
+    url: >-
+      openapi/australian-taxation-office-combined-global-and-domestic-group-entity-tax-return-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-combined-global-and-domestic-minimum-tax-return-api
+  name: Australian Taxation Office Combined Global and Domestic Minimum Tax Return API
+  description: >-
+    The Combined Global and Domestic Minimum Tax Return API from Australian Taxation Office — 1 operation(s)
+    for combined global and domestic minimum tax return.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Combined Global and Domestic Minimum Tax Return
+  properties:
+  - type: OpenAPI
+    url: >-
+      openapi/australian-taxation-office-combined-global-and-domestic-minimum-tax-return-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-get-payee-stapled-super-fund-for-receipt-api
+  name: Australian Taxation Office Get Payee Stapled Super Fund for Receipt API
+  description: >-
+    The Get Payee Stapled Super Fund for Receipt API from Australian Taxation Office — 1 operation(s)
+    for get payee stapled super fund for receipt.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Get Payee Stapled Super Fund for Receipt
+  properties:
+  - type: OpenAPI
+    url: >-
+      openapi/australian-taxation-office-get-payee-stapled-super-fund-for-receipt-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: australian-taxation-office:australian-taxation-office-get-payment-reference-number-api
+  name: Australian Taxation Office Get Payment Reference Number API
+  description: >-
+    The Get Payment Reference Number API from Australian Taxation Office — 1 operation(s) for get payment
+    reference number.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Get Payment Reference Number
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-taxation-office-get-payment-reference-number-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-gst-property-settlement-date-confirmation-api
+  name: Australian Taxation Office GST Property Settlement Date Confirmation API
+  description: >-
+    The GST Property Settlement Date Confirmation API from Australian Taxation Office — 2 operation(s)
+    for gst property settlement date confirmation.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - GST Property Settlement Date Confirmation
+  properties:
+  - type: OpenAPI
+    url: >-
+      openapi/australian-taxation-office-gst-property-settlement-date-confirmation-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-gst-property-settlement-withholding-notification-api
+  name: Australian Taxation Office GST Property Settlement Withholding Notification API
+  description: >-
+    The GST Property Settlement Withholding Notification API from Australian Taxation Office — 2 operation(s)
+    for gst property settlement withholding notification.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - GST Property Settlement Withholding Notification
+  properties:
+  - type: OpenAPI
+    url: >-
+      openapi/australian-taxation-office-gst-property-settlement-withholding-notification-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: australian-taxation-office:australian-taxation-office-heartbeat-api
+  name: Australian Taxation Office Heartbeat API
+  description: >-
+    This will make sure the DSG is running successfully and will return a successful response
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Heartbeat
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-taxation-office-heartbeat-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: australian-taxation-office:australian-taxation-office-providers-api
+  name: Australian Taxation Office Providers API
+  description: This endpoint returns a list of SMSF messaging providers
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-taxation-office-providers-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-register-a-new-software-application-instance-api
+  name: Australian Taxation Office Register a new software application instance API
+  description: >-
+    The Register a new software application instance API from Australian Taxation Office — 1 operation(s)
+    for register a new software application instance.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Register a new software application instance
+  properties:
+  - type: OpenAPI
+    url: >-
+      openapi/australian-taxation-office-register-a-new-software-application-instance-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: >-
+    australian-taxation-office:australian-taxation-office-request-stapled-super-fund-for-payee-api
+  name: Australian Taxation Office Request Stapled Super Fund for Payee API
+  description: >-
+    The Request Stapled Super Fund for Payee API from Australian Taxation Office — 1 operation(s) for
+    request stapled super fund for payee.
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Request Stapled Super Fund for Payee
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-taxation-office-request-stapled-super-fund-for-payee-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+- aid: australian-taxation-office:australian-taxation-office-spec-api
+  name: Australian Taxation Office Spec API
+  description: >-
+    This will allow the specs to be viewed either in a browser or do a file download of the API spec
+  humanURL: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  baseURL: https://api.ato.gov.au/idp/v1/relyingparties
+  tags:
+  - Spec
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-taxation-office-spec-api-openapi.yml
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/oauth-dynamic-client-registration-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-relying-party-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-tax-return-response-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/global-and-domestic-minimum-constituent-entity-tax-return-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-response-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-request-schema.json
+  - type: Documentation
+    url: >-
+      https://apiportal.ato.gov.au/api-products/global-and-domestic-minimum-tax/payment-reference-number-api
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-transaction-payment-reference-number-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/property-settlement-service
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-withholding-notification-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/australian-taxation-office-gstproperty-settlement-date-confirmation-request-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/health-check-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-heartbeat-info-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/smsf-alias-lookup-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-provider-list-response-schema.json
+  - type: Documentation
+    url: https://apiportal.ato.gov.au/api-products/stapled-super-fund/stapled-super-fund-api
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-request-schema.json
+  - type: JSONSchema
+    url: json-schema/australian-taxation-office-stapled-super-fund-response-schema.json
+x-coverage:
+  state: covered
+  reason: front-door-bot-challenge-portal-readable
+  detail: https://ato.gov.au/ redirects (302) to https://www.ato.gov.au/, which answered a browser User-Agent with HTTP 403 (bot challenge); kept
+    as Website since the redirect is same-domain. Identity and pointers were read from the ATO API Portal, which serves readable HTML. softwaredevelopers.ato.gov.au
+    failed at the transport level (HTTP/2 INTERNAL_ERROR) and was not recorded.
+  evidence:
+  - url: https://ato.gov.au/
+    status: 302
+  - url: https://www.ato.gov.au/
+    status: 403
+  - url: https://apiportal.ato.gov.au/
+    status: 200
+  - url: https://apiportal.ato.gov.au/api-products
+    status: 200
+  - url: https://apiportal.ato.gov.au/getting-started
+    status: 200
+  - url: https://apiportal.ato.gov.au/contact-us
+    status: 200
+  - url: https://apiportal.ato.gov.au/conditions-use
+    status: 200
+  - url: https://apiportal.ato.gov.au/privacy
+    status: 200
+  - url: https://apiportal.ato.gov.au/themes/custom/b5_apigee/logo.svg
+    status: 200
+  - url: https://softwaredevelopers.ato.gov.au/
+    status: 0
+x-enrichment:
+  date: '2026-10-22'
+  status: enriched
+  artifacts_added: 68
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

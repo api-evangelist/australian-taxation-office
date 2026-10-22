@@ -1,0 +1,33 @@
+generated: '2026-10-22'
+method: searched
+source: https://apiportal.ato.gov.au/client-authentication
+description: Every ATO API Portal team application gets a sandbox consumer key (API key) as soon as it is created. Testing is done in the sandbox environment with non-production data, against the test ATO SSO/IdP token endpoint, using ATO-published test M2M credentials. A successful sandbox call to the Health Check API is one of the requirements for production access.
+docs:
+- https://apiportal.ato.gov.au/how-use-our-api-portal-services
+- https://apiportal.ato.gov.au/client-authentication
+- https://apiportal.ato.gov.au/authorisation-test-scenarios
+- https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-test-scenarios
+- https://apiportal.ato.gov.au/gst-property-settlement-api-test-scenarios
+environments:
+  sandbox:
+    token_endpoint: https://auth.evte.ato.gov.au/core2/connect/token
+    api_host_observed_in_docs: https://sandbox.api.ato.gov.au
+    registration_client_id: ato_registration_client_id_eve
+  production:
+    token_endpoint: https://auth.ato.gov.au/core2/connect/token
+    registration_client_id: ato_registration_client_id
+keys:
+  test_vs_live: Separate sandbox and production consumer (API) keys sit in the same team application; the production key appears only after the Digital Partnership Office approves production access.
+test_credentials:
+  source: https://apiportal.ato.gov.au/client-authentication
+  note: The M2M keystore with these credentials is distributed via the Digital Partnership Office's ShareFile, available after creating an API portal Team.
+  credentials:
+  - {role: Online service provider, credential_name: LACIMA121, abn: '51009679127', tan: N/A, client_id: 'https://testclientapp.ato.gov.au/jwtbearer', ssid: N/A}
+  - {role: Business (self-lodge or client), credential_name: Depace555, abn: '17088268884', tan: N/A, client_id: 'https://testclientapp.ato.gov.au', ssid: '6543210988'}
+  - {role: Tax agent, credential_name: Adalta312, abn: '78330347529', tan: '17801003', client_id: 'https://testclientapp.ato.gov.au', ssid: '7654321097'}
+  - {role: Business intermediary, credential_name: LEYJAN139, abn: '35069230628', tan: N/A, client_id: 'https://testclientapp.ato.gov.au', ssid: '9876543215'}
+test_triggers:
+  description: Test scenarios are triggered by fixed payload values, e.g. for the OAuth DCR API a client_name of ELDORAS144 returns 400, ADRENALAN645 returns 401 and YANDAR133 returns 403.
+  source: https://apiportal.ato.gov.au/oauth-dynamic-client-registration-api-test-scenarios
+  mandatory: The GST Property Settlement API test scenarios are a mandatory requirement before production access is granted.
+time_simulation: null

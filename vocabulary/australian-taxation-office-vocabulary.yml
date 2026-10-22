@@ -1,0 +1,456 @@
+generated: '2026-10-22'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml
+- openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml
+- openapi/australian-taxation-office-gst-property-settlement-openapi.yml
+- openapi/australian-taxation-office-health-check-openapi.yml
+- openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml
+vocabulary:
+  name: Australian Taxation Office Domain Vocabulary
+  description: 'Terms declared by Australian Taxation Office''s own API contract: its resource groups, objects and enumerations, with the contract''s
+    definitions. Derived, not authored.'
+  version: '2026-10-22'
+  terms:
+  - term: ApiInfo
+    definition: This will return the status and version of the API
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-health-check-openapi.yml
+  - term: Spec
+    definition: This will allow the specs to be viewed either in a browser or do a file download of the API spec
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-health-check-openapi.yml
+  - term: Heartbeat
+    definition: This will make sure the DSG is running successfully and will return a successful response
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-health-check-openapi.yml
+  - term: Providers
+    definition: This endpoint returns a list of SMSF messaging providers
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml
+  - term: TANContext
+    definition: 'Object declared by the contract with fields: TAN.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/TANContext
+  - term: RANContext
+    definition: 'Object declared by the contract with fields: RAN.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/RANContext
+  - term: GlobalDomesticMinimumGroupEntityTaxReturnRequest
+    definition: 'Object declared by the contract with fields: reportingFiscalYear, groupEntity.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GlobalDomesticMinimumGroupEntityTaxReturnRequest
+  - term: ReportingFiscalYear
+    definition: This will hold the start and end date of the fiscal year that the Combined Global and Domestic Tax Return is lodged for.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/ReportingFiscalYear
+  - term: GroupEntity
+    definition: This will hold the information related to the group entity.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GroupEntity
+  - term: IdentifierDetails
+    definition: 'Object declared by the contract with fields: identifierType, identifierValue.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/IdentifierDetails
+  - term: Address
+    definition: This will hold the specific information relating to the address of the group entity lodging the Combined Global and Domestic Tax
+      Return. Can be either the Business or Postal Address Details.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/Address
+  - term: DomesticMinimumTaxReturn
+    definition: Will contain whether the group entity has to report domestic top up tax and if so what that amount is. **Note - This object only
+      needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`. Otherwise, you can skip passing in
+      details for this object.**
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/DomesticMinimumTaxReturn
+  - term: IncomeInclusionRuleReturn
+    definition: Will contain whether the group entity has to report IIR top up tax and if so what that amount is and the parent entity type subject
+      to the tax. **Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`.
+      Otherwise, you can skip passing in details for this object.**
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/IncomeInclusionRuleReturn
+  - term: UndertaxedProfitRuleReturn
+    definition: Will contain whether the group entity has to report UTPR top up tax and if so what that amount is. **Note - This object only needs
+      to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true` and `periodStartDate` is on or after 01/01/2025.
+      Otherwise, you can skip passing in details for this object.**
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/UndertaxedProfitRuleReturn
+  - term: GroupEntityAssociateDetails
+    definition: This will hold the speific information related to the primary associate entity for the group entity. **Note the `groupEntityAssociateDetails`
+      information will not need to be passed if `groupEntityType` is passed in as any of the below options:** - `Company` - `Main Entity of a
+      GloBE Permanenet Establishment that is a Company` - `GloBE Joint Venture`
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GroupEntityAssociateDetails
+  - term: GlobalDomesticMinimumGroupEntityTaxReturnResponse
+    definition: This is the response for the Combined Global and Domestic Minimum Group Entity Tax Return when successfully submitted.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GlobalDomesticMinimumGroupEntityTaxReturnResponse
+  - term: GlobalDomesticGroupEntityForm
+    definition: This is the response data for a successfully submitted Group Entity Combined Global and Domestic Tax Return
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/GlobalDomesticGroupEntityForm
+  - term: ApiError
+    definition: This will hold the response error details.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/ApiError
+  - term: Source
+    definition: An object containing references to the source of the error.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/Source
+  - term: ApiErrorsResponse
+    definition: Full error payload returned to client. Will contain multiple errors if there are multiple that get returned.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml#/components/schemas/ApiErrorsResponse
+  - term: CombinedMinimumGlobalDomesticReturnRequest
+    definition: 'Object declared by the contract with fields: reportingFiscalYear, lodgingEntity, groupEntities, ultimateParentEntity, girLodgmentDetails,
+      foreignLodgmentNotification, girForexDetails, declaration.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/CombinedMinimumGlobalDomesticReturnRequest
+  - term: LodgingEntity
+    definition: This will hold all the information of the entity that is lodging the Combined Global and Domestic Minimum Tax Return.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/LodgingEntity
+  - term: LodgingEntityAuthorisedContact
+    definition: This will hold all the contact information of the authorised contact on who is lodging the Combined Global and Domestic Minimum
+      Tax Return. **Note there are some call outs to be aware of here:** - Only provide a non-local number if local number is not applicable.
+      - An Australian address is being requested here. An overseas address should only be provided if there is no applicable address in Austra
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/LodgingEntityAuthorisedContact
+  - term: LodgingEntityAssociateDetails
+    definition: 'This will hold all the contact information of the associate entity for the entity lodging the Combined Global and Domestic Minimum
+      Tax Return. **Note - The `lodgingEntityAssociateDetails` information will not need to be passed if `lodgingEntityType` is passed in as any
+      of the below options: - `Company` - `Main Entity of a GloBE Permanenet Establishment that is a Company` - `GloBE Joint Venture`**'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/LodgingEntityAssociateDetails
+  - term: EntityTypes
+    definition: This is the list of entity types which can be used for lodging the Combined Global and Domestic Minimum Tax Return. Can be used
+      for lodging entity as well as group entity. | Value | Description | |----------------|--------------------------------------------------------------------------------------------------------|
+      |COMPY | Company | |GPRTN | GloBE partnership | |TRUST | Trust | |MCOMP | Main e
+    tags:
+    - Enumeration
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/EntityTypes
+  - term: CountryCodes
+    definition: This is the code of the country in which the address resides or the jurisdiction the entity is in. This represents the country
+      code as prescribed by AS4590 and inherited from ISO 3166.
+    tags:
+    - Enumeration
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/CountryCodes
+  - term: IncomeInclusionRuleTaxReturn
+    definition: Will contain whether the group entity has to report IIR top up tax and if so what that amount is and the parent entity type subject
+      to the tax. **Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`.
+      Otherwise you can skip passing in details for this object.**
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/IncomeInclusionRuleTaxReturn
+  - term: UndertaxedProfitRuleTaxReturn
+    definition: Will contain whether the group entity has to report UTPR top up tax and if so what that amount is. **Note - This object only needs
+      to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true` and `periodStartDate` is on or after 01/01/2025.
+      Otherwise you can skip passing in details for this object.**
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/UndertaxedProfitRuleTaxReturn
+  - term: UltimateParentEntity
+    definition: This will contain the information of the ultimate parent entity (UPE) for the Combined Global and Domestic Minimum Tax Return
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/UltimateParentEntity
+  - term: UltimateParentEntityContact
+    definition: This will contain the contact details of the ultimate parent entity (UPE) if required for the Combined Global and Domestic Minimum
+      Tax Return. **Note - This information only needs to be in the request if the answer to `lodgingEntitySameAsUPEIndicator` is `false`.**
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/UltimateParentEntityContact
+  - term: GIRLodgmentDetails
+    definition: This will contain the information to determine whether the GloBE Information Return (GIR) has been lodged domestically or from
+      a foreign jurisdiction. - Either `girLodgeOptions` or `domesticGirLodgeDate` will need to be passed and not both. This will help determine
+      if the GloBE Information Return (GIR) is being lodged domestically or from a foreign jurisdiction. - If `girLodgeOptions` is passed in
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/GIRLodgmentDetails
+  - term: DesignatedFilingEntity
+    definition: This will contain the details of the designated filing entity (DFE) - If `girLodgeOptions` was passed in with the value of DLE
+      then the designated local entity details will need to be provided. If not, then designated local entity information doesn't need to be passed
+      into the request.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/DesignatedFilingEntity
+  - term: GIRForexDetails
+    definition: This will outline the foreign exchange rate details used for the GloBE Information Return (GIR). - If any of the group entities
+      in the `groupEntities` have DMT, IIR, UTPR liabilities (greater or equal to $0) then this section will need to be provided in the request.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/GIRForexDetails
+  - term: CurrencyCodes
+    definition: This is the currency code that was used in the GloBE Information Return (GIR) for the DMT, IIR and UTPR top-up tax amounts. **Currency
+      code description Table** |Currency Code |Description | |--------------|-----------------------------------| |AED |UAE Dirham | |AFN |Afghani
+      | |ALL |Albania, Leke | |AMD |Armenian Dram | |ANG |Netherlands Antillian Guilder | |AOA |Angola, Kwanza | |ARS |Argentine P
+    tags:
+    - Enumeration
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/CurrencyCodes
+  - term: Declaration
+    definition: This will be used to declare that all information provided on the Combined Global and Domestic Minimum Tax Return is accurate
+      before submitting. Before making this declaration check to ensure that all top up tax amounts have been disclosed, and the tax return is
+      true and correct in every detail. If you are in doubt about any aspect of the tax return, place all the facts before the ATO. The tax law
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/Declaration
+  - term: TaxAgent
+    definition: This will be used to hold the details for the tax agent that is lodging the Combined Global and Domestic Minimum Tax Return.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/TaxAgent
+  - term: GlobalDomesticMinimumTaxReturnResponse
+    definition: This is the response for the Combined Global and Domestic Minimum Tax Return when successfully submitted.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/GlobalDomesticMinimumTaxReturnResponse
+  - term: GSTPropertySettlementWithholdingNotificationRequest
+    definition: This object will hold the data of the request payload of GST Property Settlement Withholding Notification.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementWithholdingNotificationRequest
+  - term: GSTPropertySettlementWithholdingNotification
+    definition: This object will hold all information about GST Property Settlement Withholding Notification.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementWithholdingNotification
+  - term: GSTPropertySettlementDateConfirmationRequest
+    definition: This object will hold the data of the request payload of GST Property Settlement Date Confirmation.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementDateConfirmationRequest
+  - term: GSTPropertySettlementDateConfirmation
+    definition: This object will hold all information about GST Property Settlement Date Confirmation.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementDateConfirmation
+  - term: ContactDetails
+    definition: This will hold all the contact information for the lodging entity who is lodging the form. You must provide contact details of
+      the person completing the lodgment. This allows us to resolve any issues and process the form in a timely manner.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/ContactDetails
+  - term: Property
+    definition: This will hold all information of a property
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/Property
+  - term: TransactionWithholdingNotification
+    definition: This will hold all information of the property purchase transaction. Refer to the contract of sale for details to assist in completing
+      this section.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/TransactionWithholdingNotification
+  - term: TransactionDateConfirmation
+    definition: When you submitted the GST property settlement withholding notification, you were provided with a payment reference number (PRN)
+      and a lodgment reference number (LRN). Use both reference numbers in order for us to correctly match the details.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/TransactionDateConfirmation
+  - term: Purchaser
+    definition: This will hold all information of a property purchaser.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/Purchaser
+  - term: Supplier
+    definition: This will hold all information of a supplier.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/Supplier
+  - term: DeclarationWithholdingNotification
+    definition: 'Object declared by the contract with fields: statementAcceptedIndicator.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/DeclarationWithholdingNotification
+  - term: DeclarationDateConfirmation
+    definition: 'Object declared by the contract with fields: statementAcceptedIndicator.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/DeclarationDateConfirmation
+  - term: PurchaserName
+    definition: 'Object declared by the contract with fields: givenName, otherGivenName, familyName.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/PurchaserName
+  - term: PersonName
+    definition: 'Object declared by the contract with fields: givenName, familyName.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/PersonName
+  - term: BirthDate
+    definition: If the purchaser is an individual entity, provide the date of birth of the purchaser.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/BirthDate
+  - term: GSTPropertySettlementWithholdingNotificationResponse
+    definition: 'Object declared by the contract with fields: data.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementWithholdingNotificationResponse
+  - term: GSTPropertySettlementWithholdingNotificationResponseData
+    definition: This is the response for the GST Property Settlement Withholding Notification when successfully submitted.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml#/components/schemas/GSTPropertySettlementWithholdingNotificationResponseData
+  - term: SpecResponse
+    definition: 'Object declared by the contract with fields: specResponse.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-health-check-openapi.yml#/components/schemas/SpecResponse
+  - term: HeartbeatInfo
+    definition: This will hold information of the successful return response and the time received
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-health-check-openapi.yml#/components/schemas/HeartbeatInfo
+  - term: HeartbeatInfoResponse
+    definition: This will hold data of the successful return response and the time received
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-health-check-openapi.yml#/components/schemas/HeartbeatInfoResponse
+  - term: ApiMessage
+    definition: This will hold the response message details
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-health-check-openapi.yml#/components/schemas/ApiMessage
+  - term: RelyingParty
+    definition: 'Object declared by the contract with fields: client_name, ato_api_key, x509_certificate, grant_types, contacts, software_id,
+      software_version, client_id, client_id_issued_at, registration_client_uri, registration_access_token, scope. (1 more)'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml#/components/schemas/RelyingParty
+  - term: ErrorResponse
+    definition: This will hold the response error details.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml#/components/schemas/ErrorResponse
+  - term: TransactionPaymentReferenceNumberResponse
+    definition: This is the response that is returned upon successful Retrieval of a Payment Reference Number for a transaction.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-payment-reference-number-openapi.yml#/components/schemas/TransactionPaymentReferenceNumberResponse
+  - term: TransactionPaymentReferenceNumber
+    definition: This will hold the payment reference number that will be sent back in the response for a transaction.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-payment-reference-number-openapi.yml#/components/schemas/TransactionPaymentReferenceNumber
+  - term: GatewayResponse
+    definition: List of Gateway details
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml#/components/schemas/GatewayResponse
+  - term: ProviderResponse
+    definition: List of Provider details
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml#/components/schemas/ProviderResponse
+  - term: ProviderListResponse
+    definition: The list of SMSF alias providers
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml#/components/schemas/ProviderListResponse
+  - term: Provider
+    definition: Alias provider details
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml#/components/schemas/Provider
+  - term: ElectronicContact
+    definition: gateway contact details
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml#/components/schemas/ElectronicContact
+  - term: ApiErrorDetails
+    definition: This will hold the response error details
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-smsf-alias-lookup-openapi.yml#/components/schemas/ApiErrorDetails
+  - term: StapledSuperFundRequest
+    definition: The information needed for the stapled superfund request payload structure
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/StapledSuperFundRequest
+  - term: Payee
+    definition: This will hold the specific information related to the payee (employee)
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/Payee
+  - term: PersonDemographic
+    definition: 'Object declared by the contract with fields: birthDm, birthM, birthY.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/PersonDemographic
+  - term: StapledSuperFundResponse
+    definition: 'Object declared by the contract with fields: data, errors.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/StapledSuperFundResponse
+  - term: StapledSuperFund
+    definition: This holds the stapled super fund details.
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/StapledSuperFund
+  - term: StapledFundRequestOutcome
+    definition: 'Object declared by the contract with fields: reasonCode.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/StapledFundRequestOutcome
+  - term: SuperannuationProduct
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/SuperannuationProduct
+  - term: SuperannuationFund
+    definition: 'Object declared by the contract with fields: memberAccount, uniqueSuperannuationIdentifier.'
+    tags:
+    - Object
+    source: openapi/australian-taxation-office-stapled-super-fund-openapi.yml#/components/schemas/SuperannuationFund
+  - term: Combined Global and Domestic Group Entity Tax Return
+    definition: 'Resource group in the contract; its operation POST /clients/ABN/{identifierValue}/globalDomesticReturn/{transactionID}/groupEntity:
+      This API is to support the digital lodgement of tax returns for group entities that are subject to Australia''s implementation of the OECD''s
+      Global Anti-Base Erosion (GloBE) rules.'
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-global-domestic-minimum-group-entity-tax-return-openapi.yml
+  - term: Combined Global and Domestic Minimum Tax Return
+    definition: 'Resource group in the contract; its operation POST /clients/ABN/{identifierValue}/globalDomesticReturn: This API is to support
+      the digital lodgment of tax returns for entities that are subject to Australia''s implementation of the OECD''s Global Anti-Base Erosion
+      (GloBE) Rules.'
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml
+  - term: GST Property Settlement Withholding Notification
+    definition: 'Resource group in the contract; its operation POST /clients/ABN/{identifierValue}/propertySettlements: This endpoint validates
+      your payload and, if it passes all checks, lodges the GST property settlement withholding notification with the ATO.'
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml
+  - term: GST Property Settlement Date Confirmation
+    definition: 'Resource group in the contract; its operation POST /clients/ABN/{identifierValue}/changeOfPropertySettlements: This endpoint
+      validates your payload and, if it passes all checks, lodges the GST property settlement date confirmation with the ATO.'
+    tags:
+    - Resource Group
+    source: openapi/australian-taxation-office-gst-property-settlement-openapi.yml

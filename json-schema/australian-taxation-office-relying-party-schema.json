@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-relying-party-schema.json",
+  "title": "RelyingParty",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-oauth-dynamic-client-registration-openapi.yml#/components/schemas/RelyingParty",
+  "properties": {
+    "client_name": {
+      "description": "Human-readable string name of the client to be presented to the end-user during authorization.",
+      "type": "string",
+      "maxLength": 256
+    },
+    "ato_api_key": {
+      "description": "API Key as defined by ATO DSG (Digital Services Gateway). Ensure it is same as the api key provided in the request header.",
+      "type": "string",
+      "maxLength": 50
+    },
+    "x509_certificate": {
+      "description": "Base64 encoded x509 public certificate that will be used to verify private_key_jwt client assertions during client authentication. Either jwks_uri or x509_certificate, any one must be povided.",
+      "type": "string",
+      "maxLength": 8000
+    },
+    "grant_types": {
+      "description": "Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. Grant type should be client_credentials for desktop service providers & urn:ietf:params:oauth:grant-type:jwt-bearer for cloud service providers.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "client_credentials",
+          "urn:ietf:params:oauth:grant-type:jwt-bearer"
+        ]
+      },
+      "maxItems": 1
+    },
+    "contacts": {
+      "description": "Ways to contact people responsible for this client, typically email addresses.",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "maxLength": 256
+      },
+      "maxItems": 3
+    },
+    "software_id": {
+      "description": "A 32 length GUID (canonical) or 36 length GUID (non-canonical) unique identifier string assigned by the client developer or software publisher used by registration endpoint to identify the client software to be dynamically registered.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 36
+    },
+    "software_version": {
+      "description": "A version identifier string for the client software identified by \"software_id\". The value of the \"software_version\" should change on any update to the client software identified by the same \"software_id\". The value of this field is intended to be compared using string equality matching and no other comparison semantics are defined by this specification.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 50
+    },
+    "client_id": {
+      "description": "Random value that uniquely identifies the client software at the ATO auth server and is set by the system as a result of registration. Its format is a flat string representation of a GUID.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "readOnly": true,
+      "maxLength": 36
+    },
+    "client_id_issued_at": {
+      "description": "Time at which the client identifier was issued.  The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of issuance and be set by the system at the time of registration.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "readOnly": true
+    },
+    "registration_client_uri": {
+      "description": "String containing the fully qualified URL of the client configuration endpoint for this client.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "readOnly": true,
+      "maxLength": 2048
+    },
+    "registration_access_token": {
+      "description": "A long lived access token. String containing the access token to be used at the client configuration endpoint to perform subsequent operations upon the client registration. This token is initially generated while registering the client and will be updated during each applicable update.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "readOnly": true,
+      "maxLength": 8000
+    },
+    "scope": {
+      "description": "String containing a space-separated list of scope values that the client can use when requesting access tokens; it is a read only attribute and will be provided as part of response",
+      "type": [
+        "string",
+        "null"
+      ],
+      "readOnly": true,
+      "maxLength": 2000
+    },
+    "token_endpoint_auth_method": {
+      "description": "String indicator of the authentication method for the token endpoint. Currently we only support it to be of the type urn:ietf:params:oauth:client-assertion-type:jwt-bearer; it is a read-only attribute.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "readOnly": true,
+      "maxLength": 2000
+    }
+  },
+  "required": [
+    "client_name",
+    "grant_types",
+    "x509_certificate",
+    "ato_api_key"
+  ]
+}

@@ -1,0 +1,980 @@
+openapi: 3.0.0
+info:
+  title: Global and Domestic Minimum Group Entity Tax Return API
+  description: |-
+    The Global and Domestic Minimum Group Entity Tax Return API enables software users to lodge a 
+    Combined Global and Domestic Minimum Tax Return on behalf of a group entity within their multi-national enterprise (MNE) group.
+  version: 1.1.60
+  x-status:
+    status: Proposed
+servers:
+  - url: 'https://{env}/combinedMinimumGlobalDomesticReturn/v1'
+    description: |
+      Global and Domestic Minimum Group Entity Tax Return
+    variables:
+      env:
+        default: api.ato.gov.au
+        description: |
+          This is the environment that is going to be used to hit the API
+        enum:
+          - sandbox.api.ato.gov.au
+          - api.ato.gov.au
+paths:
+  /clients/ABN/{identifierValue}/globalDomesticReturn/{transactionID}/groupEntity:
+    post:
+      tags:
+        - Combined Global and Domestic Group Entity Tax Return
+      summary: This endpoint will allow you to either lodge or amend a Combined 
+        Global and Domestic Minimum Tax Return on behalf of a group entity.
+      description: |
+        This API is to support the digital lodgement of tax returns for group entities that are subject to Australia's implementation of the OECD's Global Anti-Base 
+        Erosion (GloBE) rules. It facilitates the reporting of obligations under the following components:
+
+        1. Australian Income Inclusion Rule (IIR)
+           Applies a top-up tac on Australian parent entities if the group's effective tax rate in another jurisdiction is below 15%.
+
+        2. Australian Undertaxed Profits Rule (UTPR)
+           Acts as a backstop to the IIR, applying a top-ip tax on Australian group entities when profits are not taxed under the IIR.
+
+        3. Australian Domestic Minimum Top-up (DMT) Tax
+           Ensures Australia retains primary taxing rights over low-taxed profits within its jurisdiction, consistent with the GloBE rules.
+
+        **Effective Dates**
+
+        - The IIR and DMT apply to fiscal years starting on or after 1 January 2024
+        - The UTPR applies to fiscal years starting on or after 1 January 2025.
+      parameters:
+        - $ref: '#/components/parameters/contextParam'
+        - $ref: '#/components/parameters/transactionID'
+        - $ref: '#/components/parameters/identifierValue'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlobalDomesticMinimumGroupEntityTaxReturnRequest'
+        description: Request for lodging or amending the Combined Global and 
+          Domestic Minimum Tax Return on behalf on a group entity
+        required: true
+      operationId: requestGlobalDomesticGroupEntityTaxReturnForm
+      responses:
+        '202':
+          description: Successful Response from Combined Global and Domestic 
+            Minumum Group Entity Tax Return
+          headers:
+            receipt:
+              description: This is the BET transaction ID that is associated 
+                with the submitted form. This will be passed into subsequent API
+                call to retrieve the PRN for this group entity.
+              schema:
+                type: string
+                pattern: '[0-9]{13}'
+                example: "6300000000001"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalDomesticMinimumGroupEntityTaxReturnResponse'
+              examples:
+                GlobalDomesticMinimumGroupEntityTaxReturnResponse:
+                  $ref: '#/components/examples/GlobalDomesticMinimumGroupEntityTaxReturnResponse'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                BadRequestExample:
+                  $ref: '#/components/examples/SchemaBadRequestResponse'
+          description: Bad Request Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                ApiKeyInvalidExample:
+                  $ref: '#/components/examples/ApiKeyInvalidResponse'
+                InvalidCredentialExample:
+                  $ref: '#/components/examples/InvalidCredentialResponse'
+          description: Unauthorized Error responses
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                ForbiddenErrorExample:
+                  $ref: '#/components/examples/ForbiddenErrorExample'
+          description: Forbidden Access Error Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                UnprocessableEntityExample:
+                  $ref: '#/components/examples/UnprocessableEntityResponse'
+          description: Unprocessable Entity Response
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              examples:
+                InternalServerErrorExample:
+                  $ref: '#/components/examples/InternalServerErrorResponse'
+          description: Internal Server Error Response
+components:
+  parameters:
+    contextParam:
+      name: context
+      required: false
+      in: query
+      style: deepObject
+      explode: false
+      description: |2
+
+        The `context` parameter specifies the Registered Agent Number (RAN)
+
+        - When a client is submitting a request to lodge or amend the Combined Global and Domestic Minimum tax return for a group entity: `context` is not required
+        - When an agent is acting on behalf of the client to lodge or amend the Combined Global and Domestic Minimum Tax Return for a group entity the
+        TAN or RAN of the intermediary has to be provided in the context, e.g.: `context[TAN]={TAN}` or `context[RAN]={RAN}`.
+      schema:
+        type: deepObject
+        $ref: '#/components/schemas/context'
+      examples:
+        RAN:
+          summary: Tax Agent - RAN
+          value: ?context[RAN]=17801003
+        TAN:
+          summary: Tax Agent - TAN
+          value: ?context[TAN]=17801003
+    identifierValue:
+      name: identifierValue
+      required: true
+      in: path
+      description: This will be the value of the identifier being passed in. 
+        This is to be passed in the URI path.
+      schema:
+        type: string
+        pattern: ^[0-9]{9,11}$
+        maxLength: 11
+    transactionID:
+      name: transactionID
+      required: true
+      in: path
+      description: This will be the receipt Transaction ID you received from the
+        successful submission of the CGDMTR using Global and Domestic Minimum 
+        Tax Return API. Ensure to pass this into the URI.
+      schema:
+        type: string
+        pattern: '[0-9]{13}'
+        example: "6300000000001"
+  schemas:
+    context:
+      oneOf:
+        - $ref: '#/components/schemas/TANContext'
+        - $ref: '#/components/schemas/RANContext'
+    TANContext:
+      type: object
+      required:
+        - TAN
+      properties:
+        TAN:
+          type: string
+    RANContext:
+      type: object
+      required:
+        - RAN
+      properties:
+        RAN:
+          type: string
+    GlobalDomesticMinimumGroupEntityTaxReturnRequest:
+      properties:
+        reportingFiscalYear:
+          $ref: '#/components/schemas/ReportingFiscalYear'
+        groupEntity:
+          $ref: '#/components/schemas/GroupEntity'
+      required:
+        - reportingFiscalYear
+        - groupEntity
+    ReportingFiscalYear:
+      description: |
+        This will hold the start and end date of the fiscal year that the Combined Global and Domestic Tax Return is lodged for.
+      properties:
+        periodStartDate:
+          description: |
+            This is the start date of the fiscal year the Combined Global and Domestic Tax Return is lodged for.
+          type: string
+          format: date
+          example: "2024-01-01"
+        periodEndDate:
+          description: |
+            This is the end date of the fiscal year the Combined Global and Domestic Tax Return is lodged for.
+          type: string
+          format: date
+          example: "2024-06-30"
+        transactionTypeCode:
+          description: |
+            This will hold the transaction type of the parent form whether it is an original or amended form.
+
+              **Transaction Type Description Table**
+            |Transaction Type Code| Description                                                                                                       |
+            |---------------------|-------------------------------------------------------------------------------------------------------------------|
+            |ORIGINAL             | Select this for submitting an original lodgment of the Combined Global and Domestic Minimum Tax Return            |
+            |AMENDMENT            | Select this for submitting an amendment to update the previously submitted information.                           |
+          type: string
+          enum:
+            - ORIGINAL
+            - AMENDMENT
+      required:
+        - periodStartDate
+        - periodEndDate
+        - transactionTypeCode
+    GroupEntity:
+      description: |
+        This will hold the information related to the group entity.
+      properties:
+        groupEntityName:
+          description: |
+            This is the full name of the group entity.
+          type: string
+          example: "Test Pillar 2 Ltd"
+          maxLength: 200
+          pattern: ^(?![Nn] [Aa]$|[Nn]\'[Aa]$|[Aa]\/[Aa]$|[Nn]\/[Aa]$|[Nn] \/ 
+            [Aa]$|[Nn]\/\s[Aa]$|[Nn]\s\/[Aa]$)[A-Za-z0-9 
+            ,-`!@#$%\&()_=\[\]\{\}\|\;:'"\\.\?\/\-]*$
+        groupEntityType:
+          description: |
+            This is the entity type for the group entity that the Combined Global and Domestic Minimum Tax Return is being lodged for.
+
+            **Entity Type Description Table**
+            |Entity Type Code| Description                                                                                            |
+            |----------------|--------------------------------------------------------------------------------------------------------|                                                                                     
+            |COMPY           | Company                                                                                                |
+            |GPRTN           | GloBE partnership                                                                                      |
+            |TRUST           | Trust                                                                                                  |
+            |MCOMP           | Main entity of a GloBE permanent establishment that is a company                                       |
+            |NCOMP           | Main entity of a GloBE permanent establishment that is not a company                                   |
+            |JVOTH           | GloBE joint venture                                                                                    |
+            |JVPRT           | Unincorporated GloBE joint venture that is a GloBE partnership                                         |
+            |JVNTP           | Unincorporated GloBE joint venture that is not a trust or GloBE partnership                            |
+            |JSPRT           | Unincorporated GloBE joint venture subsidiary where the subsidiary is a GloBE partnership              |
+            |JSNTP           | Unincorporated GloBE joint venture subsidiary where the subsidiary is not a trust or GloBE partnership |
+            |UENTP           | Unincorporated Group Entity that is not a trust or a GloBE partnership                                 |
+
+          type: string
+          example: COMPY
+          enum:
+            - COMPY
+            - GPRTN
+            - TRUST
+            - MCOMP
+            - NCOMP
+            - JVOTH
+            - JVPRT
+            - JVNTP
+            - JSPRT
+            - JSNTP
+            - UENTP
+        identifierDetails:
+          description: |
+            At least one of the following identifiers are to be provided TFN/ABN/ARN. If providing both TFN and ABN make sure
+            this is for the same group entity.
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentifierDetails'
+        businessAddress:
+          description: |
+            This is the business address of the group entity.
+          allOf:
+            - $ref: '#/components/schemas/Address'
+        foreignLodgementNotificationIndicator:
+          description: |
+            This is to indicate whether the lodger has lodged the Foreign Lodgment Notification on behalf of this group entity.
+          type: boolean
+          example: true
+        continueGlobalDomesticMinimumReturnIndicator:
+          description: |
+            This is to indicate whether the lodger will complete the Australian IIR/UTPR and Australian DMT Tax Return on behalf of this group entity.
+          type: boolean
+          example: true
+        domesticMinimumTaxReturn:
+          $ref: '#/components/schemas/DomesticMinimumTaxReturn'
+        incomeInclusionRuleTaxReturn:
+          $ref: '#/components/schemas/IncomeInclusionRuleReturn'
+        undertaxedProfitRuleTaxReturn:
+          $ref: '#/components/schemas/UndertaxedProfitRuleReturn'
+        groupEntityAssociateDetails:
+          $ref: '#/components/schemas/GroupEntityAssociateDetails'
+      required:
+        - groupEntityName
+        - businessAddress
+        - identifierDetails
+        - groupEntityType
+        - foreignLodgementNotificationIndicator
+        - continueGlobalDomesticMinimumReturnIndicator
+    IdentifierDetails:
+      properties:
+        identifierType:
+          description: |
+            This will hold the different identifying type information for the group entity in this return.
+          type: string
+          enum:
+            - TFN
+            - ABN
+            - ARN
+        identifierValue:
+          type: string
+          description: |
+            This will hold the value of the type of identifier selected in identifierType.
+          minLength: 5
+          maxLength: 200
+          pattern: ^[A-Za-z0-9 `!@%#\$&()_\-=\[\]\{\}\\|;:'",\.\/\?]+$
+      required:
+        - identifierType
+        - identifierValue
+    Address:
+      description: |
+        This will hold the specific information relating to the address of the group entity lodging the Combined Global and Domestic Tax Return. Can be either the Business or Postal Address Details.
+      properties:
+        line1:
+          description: |
+            First line of address using free form format, that is used to create a semi structured address.
+          type: string
+          example: 34 wanderer street
+          pattern: ^(?!unknown$|as\s*above$)(?!c\/o|c\/|care\s*of)[a-zA-Z0-9 
+            !@$%&*()\-\=\[\]:;'",.?\/]+$
+        line2:
+          description: |
+            Second line of address using free form format, that is used to create a semi structured address.
+          type: string
+          example: Unit 8
+          nullable: true
+          pattern: ^(?!unknown$|as\s*above$)(?!c\/o|c\/|care\s*of)[a-zA-Z0-9 
+            !@$%&*()\-\=\[\]:;'",.?\/]+$
+        localityName:
+          description: |
+            A word or combination of words, by which a geographic locality/suburb is designated or known.
+          type: string
+          example: Mt Helen
+          pattern: ^(?!unknown$)[a-zA-Z0-9 !@$%&*()\-\=\[\]:;'",.?\/]+$
+        stateOrTerritoryCode:
+          description: |
+            The code that is assigned to each Australian State or Territory
+          type: string
+          example: VIC
+          nullable: true
+          enum:
+            - ACT
+            - NSW
+            - NT
+            - QLD
+            - SA
+            - TAS
+            - VIC
+            - WA
+        countryCode:
+          description: |
+            This is the code of the country in which the address resides in. This represents the country code as prescribed by AS4590 and inherited from ISO 3166.
+          type: string
+          example: AU
+          enum:
+            - 'AD'
+            - 'AE'
+            - 'AF'
+            - 'AG'
+            - 'AI'
+            - 'AL'
+            - 'AM'
+            - 'AN'
+            - 'AO'
+            - 'AQ'
+            - 'AR'
+            - 'AS'
+            - 'AT'
+            - 'AU'
+            - 'AW'
+            - 'AX'
+            - 'AZ'
+            - 'BA'
+            - 'BB'
+            - 'BD'
+            - 'BE'
+            - 'BF'
+            - 'BG'
+            - 'BH'
+            - 'BI'
+            - 'BJ'
+            - 'BL'
+            - 'BM'
+            - 'BN'
+            - 'BO'
+            - 'BQ'
+            - 'BR'
+            - 'BS'
+            - 'BT'
+            - 'BV'
+            - 'BW'
+            - 'BY'
+            - 'BZ'
+            - 'CA'
+            - 'CC'
+            - 'CF'
+            - 'CG'
+            - 'CH'
+            - 'CI'
+            - 'CK'
+            - 'CL'
+            - 'CM'
+            - 'CN'
+            - 'CO'
+            - 'CR'
+            - 'CU'
+            - 'CV'
+            - 'CW'
+            - 'CX'
+            - 'CY'
+            - 'CZ'
+            - 'DE'
+            - 'DJ'
+            - 'DK'
+            - 'DM'
+            - 'DO'
+            - 'DZ'
+            - 'EC'
+            - 'EE'
+            - 'EG'
+            - 'EH'
+            - 'ER'
+            - 'ES'
+            - 'ET'
+            - 'FI'
+            - 'FJ'
+            - 'FK'
+            - 'FM'
+            - 'FO'
+            - 'FR'
+            - 'GA'
+            - 'GB'
+            - 'GD'
+            - 'GE'
+            - 'GF'
+            - 'GG'
+            - 'GH'
+            - 'GI'
+            - 'GL'
+            - 'GM'
+            - 'GN'
+            - 'GP'
+            - 'GQ'
+            - 'GR'
+            - 'GS'
+            - 'GT'
+            - 'GU'
+            - 'GW'
+            - 'GY'
+            - 'HK'
+            - 'HM'
+            - 'HN'
+            - 'HR'
+            - 'HT'
+            - 'HU'
+            - 'ID'
+            - 'IE'
+            - 'IL'
+            - 'IM'
+            - 'IN'
+            - 'IO'
+            - 'IQ'
+            - 'IR'
+            - 'IS'
+            - 'IT'
+            - 'JE'
+            - 'JM'
+            - 'JO'
+            - 'JP'
+            - 'KE'
+            - 'KG'
+            - 'KH'
+            - 'KI'
+            - 'KM'
+            - 'KN'
+            - 'KP'
+            - 'KR'
+            - 'KW'
+            - 'KY'
+            - 'KZ'
+            - 'LA'
+            - 'LB'
+            - 'LC'
+            - 'LI'
+            - 'LK'
+            - 'LR'
+            - 'LS'
+            - 'LT'
+            - 'LU'
+            - 'LV'
+            - 'LY'
+            - 'MA'
+            - 'MC'
+            - 'MD'
+            - 'ME'
+            - 'MF'
+            - 'MG'
+            - 'MH'
+            - 'MK'
+            - 'ML'
+            - 'MM'
+            - 'MN'
+            - 'MO'
+            - 'MP'
+            - 'MQ'
+            - 'MR'
+            - 'MS'
+            - 'MT'
+            - 'MU'
+            - 'MV'
+            - 'MW'
+            - 'MX'
+            - 'MY'
+            - 'MZ'
+            - 'NA'
+            - 'NC'
+            - 'NE'
+            - 'NF'
+            - 'NG'
+            - 'NI'
+            - 'NL'
+            - 'NO'
+            - 'NP'
+            - 'NR'
+            - 'NU'
+            - 'NZ'
+            - 'OM'
+            - 'PA'
+            - 'PE'
+            - 'PF'
+            - 'PG'
+            - 'PH'
+            - 'PK'
+            - 'PL'
+            - 'PM'
+            - 'PN'
+            - 'PR'
+            - 'PS'
+            - 'PT'
+            - 'PW'
+            - 'PY'
+            - 'QA'
+            - 'RE'
+            - 'RO'
+            - 'RS'
+            - 'RU'
+            - 'RW'
+            - 'SA'
+            - 'SB'
+            - 'SC'
+            - 'SD'
+            - 'SE'
+            - 'SG'
+            - 'SH'
+            - 'SI'
+            - 'SJ'
+            - 'SK'
+            - 'SL'
+            - 'SM'
+            - 'SN'
+            - 'SO'
+            - 'SR'
+            - 'SS'
+            - 'ST'
+            - 'SV'
+            - 'SX'
+            - 'SY'
+            - 'SZ'
+            - 'TC'
+            - 'TD'
+            - 'TF'
+            - 'TG'
+            - 'TH'
+            - 'TJ'
+            - 'TK'
+            - 'TM'
+            - 'TN'
+            - 'TO'
+            - 'TP'
+            - 'TR'
+            - 'TT'
+            - 'TV'
+            - 'TW'
+            - 'TZ'
+            - 'UA'
+            - 'UG'
+            - 'UM'
+            - 'US'
+            - 'UY'
+            - 'UZ'
+            - 'VA'
+            - 'VC'
+            - 'VE'
+            - 'VG'
+            - 'VI'
+            - 'VN'
+            - 'VU'
+            - 'WF'
+            - 'WS'
+            - 'YE'
+            - 'YT'
+            - 'YU'
+            - 'ZA'
+            - 'ZM'
+            - 'ZR'
+            - 'ZW'
+        postCode:
+          description: |
+            The descriptor for a postal delivery area, aligned with locality, suburb or place. Can be used for an Australian or non-Australian address.
+          type: string
+          example: 3000
+      required:
+        - line1
+        - localityName
+        - countryCode
+    DomesticMinimumTaxReturn:
+      description: |
+        Will contain whether the group entity has to report domestic top up tax and if so what that amount is.
+
+        **Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`.
+        Otherwise, you can skip passing in details for this object.**
+      properties:
+        domesticTopUpTaxIndicator:
+          description: |
+            Indicate whether the group entity has the obligation to report a domestic top up tax amount.
+
+             - If `domesticTopUpTaxIndicator` is set to false then there will be no need to pass any Domestic Top-up Tax Amount in the request.
+          type: boolean
+          example: true
+        domesticTopUpTaxAmount:
+          description: |
+            The domestic top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.
+
+            **Note - This field only needs to be present in the request if the answer to `domesticTopUpTaxIndicator` is set to `true`. 
+          type: integer
+          nullable: true
+          example: 3000
+          minimum: 0
+          maximum: 99999999999
+      required:
+        - domesticTopUpTaxIndicator
+    IncomeInclusionRuleReturn:
+      description: |
+        Will contain whether the group entity has to report IIR top up tax and if so what that amount is and the parent entity type subject to the tax.
+
+        **Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`.
+        Otherwise, you can skip passing in details for this object.**
+      properties:
+        incomeInclusionTopUpTaxIndicator:
+          description: |
+            Indicate whether the group entity has the obligation to report a IIR top up tax amount.
+
+             - If `incomeInclusionTopUpTaxIndicator` is set to false then there will be no need to pass any IIR Top-Up Tax Amount and 
+             associated parent entity in the request.
+          type: boolean
+          example: true
+        incomeInclusionTopUpTaxAmount:
+          description: |
+            The IIR top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.
+
+            Note - This field only needs to be present in the request if the answer to `incomeInclusionTopUpTaxIndicator` is set to `true`.
+          type: integer
+          nullable: true
+          example: 2000
+          minimum: 0
+          maximum: 99999999999
+        parentEntityType:
+          description: |
+            The parent entity type of the group entity subject to the IIR tax.
+
+            Note - This field only needs to be present in the request if the answer to `incomeInclusionTopUpTaxIndicator` is set to `true`. 
+
+            **Parent Entity Type Description Table**
+            |Parent Entity Type Code| Description                   |
+            |-----------------------|-------------------------------|
+            |UPE                    | Ultimate parent entity        |
+            |IPE                    | Intermediate parent entity    |
+            |POPE                   | Partially owned parent entity |
+
+          type: string
+          example: UPE
+          enum:
+            - UPE
+            - IPE
+            - POPE
+      required:
+        - incomeInclusionTopUpTaxIndicator
+    UndertaxedProfitRuleReturn:
+      description: |
+        Will contain whether the group entity has to report UTPR top up tax and if so what that amount is.
+
+        **Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`
+        and `periodStartDate` is on or after 01/01/2025. Otherwise, you can skip passing in details for this object.**
+      properties:
+        undertaxedProfitsTopUpTaxIndicator:
+          description: |
+            Indicate whether the group entity has the obligation to report a UTPR top up tax amount.
+
+             - If `undertaxedProfitsTopUpTaxIndicator` is set to false then there will be no need to pass any UTPR Top-up Tax Amount in the request.
+          type: boolean
+          example: true
+        undertaxedProfitsTopUpTaxAmount:
+          description: |
+            The UTPR top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.
+
+            Note - This field only needs to be present in the request if the answer to `undertaxedProfitsTopUpTaxIndicator` is set to `true`.
+          type: integer
+          example: 2500
+          minimum: 0
+          maximum: 99999999999
+      required:
+        - undertaxedProfitsTopUpTaxIndicator
+    GroupEntityAssociateDetails:
+      description: |
+        This will hold the speific information related to the primary associate entity for the group entity. 
+
+        **Note the `groupEntityAssociateDetails` information will not need to be passed
+        if `groupEntityType` is passed in as any of the below options:**
+
+        - `Company`
+
+        - `Main Entity of a GloBE Permanenet Establishment that is a Company`
+
+        - `GloBE Joint Venture`
+
+      properties:
+        associateEntityName:
+          description: |
+            This is the full name of the associate entity
+          type: string
+          example: "Test Pillar 2 Ltd"
+          maxLength: 200
+          pattern: ^(?![Nn] [Aa]$|[Nn]\'[Aa]$|[Aa]\/[Aa]$|[Nn]\/[Aa]$|[Nn] \/ 
+            [Aa]$|[Nn]\/\s[Aa]$|[Nn]\s\/[Aa]$)[A-Za-z0-9 
+            ,-`!@#$%\&()_=\[\]\{\}\|\;:'"\\.\?\/\-]*$
+        taxFileNumber:
+          description: |
+            This is the tax file number of the associate entity
+          type: string
+          minLength: 8
+          maxLength: 9
+          nullable: true
+          example: 111111111
+        telephoneAreaCode:
+          description: |
+            Telephone area code of the associate entity.
+          type: string
+          minLength: 2
+          maxLength: 4
+          pattern: ^\d+$
+          example: "02"
+        telephoneNumber:
+          type: string
+          description: |
+            This is the phone number of the associate entity.
+          minLength: 7
+          maxLength: 15
+          pattern: ^\d+$
+        postalAddress:
+          description: |
+            This is the postal address of the assciate entity.
+          $ref: '#/components/schemas/Address'
+      required:
+        - associateEntityName
+        - telephoneAreaCode
+        - telephoneNumber
+        - postalAddress
+    GlobalDomesticMinimumGroupEntityTaxReturnResponse:
+      description: This is the response for the Combined Global and Domestic 
+        Minimum Group Entity Tax Return when successfully submitted.
+      properties:
+        data:
+          $ref: '#/components/schemas/GlobalDomesticGroupEntityForm'
+      required:
+        - data
+    GlobalDomesticGroupEntityForm:
+      description: This is the response data for a successfully submitted Group 
+        Entity Combined Global and Domestic Tax Return
+      properties:
+        message:
+          description: |
+            Response message to let the lodger know their lodgment was successful.
+          type: string
+          example: "The Combined Global and Domestic Minimum Tax Return was successfully
+            submitted."
+        date:
+          description: |
+            Timestamp for when the lodgement was completed.
+          type: string
+          format: date-time
+          example: "2025-06-30T12:30:00+10:00"
+        entityName:
+          description: |
+            The name of the group entity which form was lodged for.
+          type: string
+          example: "Mark Martin"
+        australianBusinessNumber:
+          description: |
+            This is the ABN of the group entity and will be returned if applicable for the group entity.
+          type: string
+          nullable: true
+          example: "12345678901"
+        paymentAmount:
+          description: |
+            This is the total amount of liabilities the group entity has to pay. 
+          type: integer
+          example: 1450
+        paymentReferenceNumber:
+          description: |
+            This is the payment reference number for this group entity. Will be returned if there is an amount to be paid.
+          type: string
+          nullable: true
+          example: "123456789098765432"
+      required:
+        - message
+        - date
+        - entityName
+        - paymentAmount
+    ApiError:
+      description: This will hold the response error details.
+      type: object
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurence 
+            of the problem.
+          example: Object has missing required properties (['periodStartDate'])
+          type: string
+          nullable: true
+        code:
+          description: An application specific error code
+          example: OAS.VAL.00000
+          type: string
+          nullable: true
+        source:
+          $ref: '#/components/schemas/Source'
+    Source:
+      description: An object containing references to the source of the error.
+      type: object
+      properties:
+        pointer:
+          description: JSON Pointer [RFC6901] to the associated entity in the 
+            request document.
+          example: /groupEntityDetails/groupEntityName
+          type: string
+          nullable: true
+        parameters:
+          description: A string indicating which URI query parameter caused the 
+            error.
+          example: context
+          type: string
+          nullable: true
+    ApiErrorsResponse:
+      description: Full error payload returned to client. Will contain multiple 
+        errors if there are multiple that get returned.
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/ApiError'
+          type: array
+  examples:
+    GlobalDomesticMinimumGroupEntityTaxReturnResponse:
+      summary: Combined Global and Domestic Minimum Group Entity Tax Return 
+        Successfully submitted response
+      description: Example Combined Global and Domestic Minimum Group Entity Tax
+        Return Successfully submitted response
+      value: |-
+        {
+          "data": {
+            "message": "The Combined Global and Domestic Minimum Tax Return was successfully submitted.",
+            "date": "2025-06-31T12:30:00+10:00",
+            "entityName": "Mark Martin",
+            "australianBusinessNumber": "12345678901",
+            "paymentAmount": 1450,
+            "paymentReferenceNumber": "123456789098765432"
+          }
+        }
+    SchemaBadRequestResponse:
+      summary: OAS Schema Bad Request response
+      description: Example OAS Schema Bad Request response
+      value: |-
+        {
+          "errors": [
+          {
+            "code": "OAS.VAL.00000",
+            "detail": "Object has missing required properties (['periodStartDate'])",
+            "source": {
+              "pointer": "/reportingFiscalYear"
+            }
+          }
+          ]
+        }
+    UnprocessableEntityResponse:
+      summary: Invalid Identifier Unprocessable Entity response
+      description: Example invalid identifier response
+      value: |-
+        {
+          "errors": [
+          {
+            "code": "PYID.00001",
+            "detail": "ABN is invalid",
+            "source": {
+              "parameter": "ABNBusiness"
+            }
+          }
+          ]
+        }
+    InternalServerErrorResponse:
+      summary: Internal Server Error response
+      description: Example internal server error response
+      value: |-
+        {
+          "errors": [
+          {
+            "code": "500-01",
+            "detail": "internal server error"
+          }
+          ]
+        }
+    ApiKeyInvalidResponse:
+      summary: API Key is invalid response
+      description: Example api key is invalid response
+      value: |-
+        {
+          "errors": [
+          {
+            "code": "401-01",
+            "detail": "api key is invalid"
+          }
+          ]
+        }
+    InvalidCredentialResponse:
+      summary: Invalid Credential error response
+      description: Example invalid credential response
+      value: |-
+        {
+          "errors": [
+          {
+            "code": "401-01",
+            "detail": "invalid credential"
+          }
+          ]
+        }
+    ForbiddenErrorExample:
+      summary: Forbidden access error response
+      description: Example forbidden access response
+      value: |-
+        {
+          "errors": [
+          {
+            "code": "403-01",
+            "detail": "Forbidden"
+          }
+          ]
+        }

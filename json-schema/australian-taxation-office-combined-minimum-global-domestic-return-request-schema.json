@@ -1,0 +1,1212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/australian-taxation-office/main/json-schema/australian-taxation-office-combined-minimum-global-domestic-return-request-schema.json",
+  "title": "CombinedMinimumGlobalDomesticReturnRequest",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/australian-taxation-office-global-domestic-minimum-tax-return-openapi.yml#/components/schemas/CombinedMinimumGlobalDomesticReturnRequest",
+  "type": "object",
+  "properties": {
+    "reportingFiscalYear": {
+      "description": "Your fiscal year is generally the same accounting period to which your Ultimate Parent Entity (UPE) prepares its \nConsolidated Financial Statement in accordance with an Acceptable Financial Accounting Standard.\n",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ReportingFiscalYear"
+        }
+      ]
+    },
+    "lodgingEntity": {
+      "$ref": "#/$defs/LodgingEntity"
+    },
+    "groupEntities": {
+      "type": "array",
+      "maxItems": 300,
+      "minItems": 1,
+      "description": "This will hold all the information for all group entities as part of the multi-national enterprise (MNE). Can be multiple group entities passed.\n\n**Note -  Repeat for each group entity of the group who is NOT part of the Tax Consolidated Group (TCG) or Multiple Entry Consolidated (MEC) group.\n\n  If you are part of a TCG or MEC Group, only details of the head representative entity of the TCG or the provisional head representative entity of the MEC Group\n  needs to be completed in this section. However, if there is Income Inclusion Rule (IIR) liability, where multiple group entities that are parent entities have the \n  IIR liability, every one of the liable entities must be included in this section. This may include a NIL amount.**\n",
+      "items": {
+        "$ref": "#/$defs/GroupEntity"
+      }
+    },
+    "ultimateParentEntity": {
+      "$ref": "#/$defs/UltimateParentEntity"
+    },
+    "girLodgmentDetails": {
+      "$ref": "#/$defs/GIRLodgmentDetails"
+    },
+    "foreignLodgmentNotification": {
+      "$ref": "#/$defs/DesignatedFilingEntity"
+    },
+    "girForexDetails": {
+      "$ref": "#/$defs/GIRForexDetails"
+    },
+    "declaration": {
+      "$ref": "#/$defs/Declaration"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "groupEntities",
+    "ultimateParentEntity",
+    "girLodgmentDetails",
+    "reportingFiscalYear",
+    "lodgingEntity",
+    "declaration"
+  ],
+  "$defs": {
+    "Address": {
+      "properties": {
+        "line1": {
+          "description": "First line utilising free format, that is used to create a semi structured address.\n",
+          "type": "string",
+          "maxLength": 38,
+          "pattern": "^(?!unknown$|as\\s*above$)(?!c\\/o|c\\/|care\\s*of)[a-zA-Z0-9 !@$%&*()\\-\\=\\[\\]:;'\",.?\\/]+$"
+        },
+        "line2": {
+          "description": "Second line utilising free format, that is used to create a semi structured address.\n",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 38,
+          "pattern": "^(?!unknown$|as\\s*above$)(?!c\\/o|c\\/|care\\s*of)[a-zA-Z0-9 !@$%&*()\\-\\=\\[\\]:;'\",.?\\/]+$"
+        },
+        "localityName": {
+          "description": "A word or combination of words, by which a geographic locality/suburb is designated or known.\n",
+          "type": "string",
+          "maxLength": 46,
+          "pattern": "^(?!unknown$)[a-zA-Z0-9 !@$%&*()\\-\\=\\[\\]:;'\",.?\\/]+$"
+        },
+        "stateOrTerritoryCode": {
+          "enum": [
+            "ACT",
+            "NSW",
+            "NT",
+            "QLD",
+            "SA",
+            "TAS",
+            "VIC",
+            "WA"
+          ],
+          "description": "The code that is assigned to each Australian State or Territory.\n",
+          "type": "string"
+        },
+        "countryCode": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/CountryCodes"
+            }
+          ],
+          "description": "This represents the Country Code as prescribed by AS4590 and inherited from ISO 3166.\n",
+          "type": "string",
+          "maxLength": 3
+        },
+        "postCode": {
+          "description": "The descriptor for a postal delivery area, aligned with locality, suburb or place. Can be used for an Australian or non-Australian address.\n",
+          "maxLength": 12,
+          "type": "string"
+        }
+      },
+      "description": "This will hold the specific information relating to the address of the entities lodging the Combined Global and Domestic Tax Return. Can be either the Business or Postal Address Details.\n",
+      "type": "object",
+      "required": [
+        "line1",
+        "localityName",
+        "countryCode"
+      ]
+    },
+    "CountryCodes": {
+      "type": "string",
+      "description": "This is the code of the country in which the address resides or the jurisdiction the entity is in. This represents the country code as prescribed by AS4590 and inherited from ISO 3166.\n",
+      "enum": [
+        "AD",
+        "AE",
+        "AF",
+        "AG",
+        "AI",
+        "AL",
+        "AM",
+        "AN",
+        "AO",
+        "AQ",
+        "AR",
+        "AS",
+        "AT",
+        "AU",
+        "AW",
+        "AX",
+        "AZ",
+        "BA",
+        "BB",
+        "BD",
+        "BE",
+        "BF",
+        "BG",
+        "BH",
+        "BI",
+        "BJ",
+        "BL",
+        "BM",
+        "BN",
+        "BO",
+        "BQ",
+        "BR",
+        "BS",
+        "BT",
+        "BV",
+        "BW",
+        "BY",
+        "BZ",
+        "CA",
+        "CC",
+        "CF",
+        "CG",
+        "CH",
+        "CI",
+        "CK",
+        "CL",
+        "CM",
+        "CN",
+        "CO",
+        "CR",
+        "CU",
+        "CV",
+        "CW",
+        "CX",
+        "CY",
+        "CZ",
+        "DE",
+        "DJ",
+        "DK",
+        "DM",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "EG",
+        "EH",
+        "ER",
+        "ES",
+        "ET",
+        "FI",
+        "FJ",
+        "FK",
+        "FM",
+        "FO",
+        "FR",
+        "GA",
+        "GB",
+        "GD",
+        "GE",
+        "GF",
+        "GG",
+        "GH",
+        "GI",
+        "GL",
+        "GM",
+        "GN",
+        "GP",
+        "GQ",
+        "GR",
+        "GS",
+        "GT",
+        "GU",
+        "GW",
+        "GY",
+        "HK",
+        "HM",
+        "HN",
+        "HR",
+        "HT",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IM",
+        "IN",
+        "IO",
+        "IQ",
+        "IR",
+        "IS",
+        "IT",
+        "JE",
+        "JM",
+        "JO",
+        "JP",
+        "KE",
+        "KG",
+        "KH",
+        "KI",
+        "KM",
+        "KN",
+        "KP",
+        "KR",
+        "KW",
+        "KY",
+        "KZ",
+        "LA",
+        "LB",
+        "LC",
+        "LI",
+        "LK",
+        "LR",
+        "LS",
+        "LT",
+        "LU",
+        "LV",
+        "LY",
+        "MA",
+        "MC",
+        "MD",
+        "ME",
+        "MF",
+        "MG",
+        "MH",
+        "MK",
+        "ML",
+        "MM",
+        "MN",
+        "MO",
+        "MP",
+        "MQ",
+        "MR",
+        "MS",
+        "MT",
+        "MU",
+        "MV",
+        "MW",
+        "MX",
+        "MY",
+        "MZ",
+        "NA",
+        "NC",
+        "NE",
+        "NF",
+        "NG",
+        "NI",
+        "NL",
+        "NO",
+        "NP",
+        "NR",
+        "NU",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PF",
+        "PG",
+        "PH",
+        "PK",
+        "PL",
+        "PM",
+        "PN",
+        "PR",
+        "PS",
+        "PT",
+        "PW",
+        "PY",
+        "QA",
+        "RE",
+        "RO",
+        "RS",
+        "RU",
+        "RW",
+        "SA",
+        "SB",
+        "SC",
+        "SD",
+        "SE",
+        "SG",
+        "SH",
+        "SI",
+        "SJ",
+        "SK",
+        "SL",
+        "SM",
+        "SN",
+        "SO",
+        "SR",
+        "SS",
+        "ST",
+        "SV",
+        "SX",
+        "SY",
+        "SZ",
+        "TC",
+        "TD",
+        "TF",
+        "TG",
+        "TH",
+        "TJ",
+        "TK",
+        "TM",
+        "TN",
+        "TO",
+        "TP",
+        "TR",
+        "TT",
+        "TV",
+        "TW",
+        "TZ",
+        "UA",
+        "UG",
+        "UM",
+        "US",
+        "UY",
+        "UZ",
+        "VA",
+        "VC",
+        "VE",
+        "VG",
+        "VI",
+        "VN",
+        "VU",
+        "WF",
+        "WS",
+        "YE",
+        "YT",
+        "YU",
+        "ZA",
+        "ZM",
+        "ZR",
+        "ZW"
+      ]
+    },
+    "CurrencyCodes": {
+      "type": "string",
+      "description": "This is the currency code that was used in the GloBE Information Return (GIR) for the DMT, IIR and UTPR top-up tax amounts.\n \n  **Currency code description Table**\n |Currency Code |Description                        |\n |--------------|-----------------------------------|\n |AED           |UAE Dirham                         |\n |AFN           |Afghani                            |\n |ALL           |Albania, Leke                      |\n |AMD           |Armenian Dram                      |\n |ANG           |Netherlands Antillian Guilder      |\n |AOA           |Angola, Kwanza                     |\n |ARS           |Argentine Peso                     |\n |AUD           |Australian Dollar                  |\n |AWG           |Aruban Florin                      |\n |AZN           |Azerbaijanian New Manat            |\n |BAM           |Convertible Marka                  |\n |BBD           |Barbados Dollar                    |\n |BDT           |Bangladesh, Taka                   |\n |BGN           |Bulgarian Lev                      |\n |BHD           |Bahraini Dinar                     |\n |BIF           |Burundi Franc                      |\n |BMD           |Bermudian Dollar                   |\n |BND           |Brunei Dollar                      |\n |BOB           |Bolivia, Bolivianos                |\n |BRL           |Brazilian Real                     |\n |BSD           |Bahamian Dollar                    |\n |BTN           |Bhutan, Ngultrum                   |\n |BWP           |Botswana, Pulas                    |\n |BYN           |Belarusian Ruble                   |\n |BZD           |Belize Dollar                      |\n |CAD           |Canadian Dollar                    |\n |CDF           |Congolais Franc                    |\n |CHF           |Swiss Franc                        |\n |CLP           |Chilean Peso                       |\n |CNY           |Yuan Renminbi                      |\n |COP           |Colombian Peso                     |\n |CRC           |Costa Rican Colon                  |\n |CUP           |Cuban Peso                         |\n |CVE           |Cabo Verde Escudo                  |\n |CZK           |Czech Koruna                       |\n |DJF           |Djibouti Franc                     |\n |DKK           |Danish Krone                       |\n |DOP           |Dominican Peso                     |\n |DZD           |Algerian Dinar                     |\n |EGP           |Egyptian Pound                     |\n |ERN           |Eritrea, Nakfa                     |\n |ETB           |Ethiopian Birr                     |\n |EUR           |Euro Member Countries, Euro        |\n |FJD           |Fiji Dollar                        |\n |FKP           |Falkland Islands Pound             |\n |GBP           |Pound Sterling                     |\n |GEL           |Georgia, Lari                      |\n |GHS           |Ghanaian Cedi                      |\n |GIP           |Gibraltar Pound                    |\n |GMD           |Gambia, Dalasi                     |\n |GNF           |Guinean Franc                      |\n |GTQ           |Guatemala, Quetzales               |\n |GYD           |Guyana Dollar                      |\n |HKD           |Hong Kong Dollar                   |\n |HNL           |Honduras, Lempiras                 |\n |HTG           |Haiti, Gourdes                     |\n |HUF           |Hungary, Forint                    |\n |IDR           |Indonesia, Rupiahs                 |\n |ILS           |New Israeli Sheqel                 |\n |INR           |Indian Rupee                       |\n |IQD           |Iraqi Dinar                        |\n |IRR           |Iranian Rial                       |\n |ISK           |Iceland Krona                      |\n |JMD           |Jamaican Dollar                    |\n |JOD           |Jordanian Dinar                    |\n |JPY           |Japan Yen                          |\n |KES           |Kenyan Shilling                    |\n |KGS           |Kyrgyzstan, Soms                   |\n |KHR           |Cambodia, Riels                    |\n |KMF           |Comoro Franc                       |\n |KPW           |North Korean Won                   |\n |KRW           |South Korean Won                   |\n |KWD           |Kuwaiti Dinar                      |\n |KYD           |Cayman Islands Dollar              |\n |KZT           |Kazakstan, Tenge                   |\n |LAK           |Laos, Kips                         |\n |LBP           |Lebanese Pound                     |\n |LKR           |Sri Lanka Rupee                    |\n |LRD           |Liberian Dollar                    |\n |LSL           |Lesotho, Maloti                    |\n |LYD           |Libyan Dinar                       |\n |MAD           |Moroccan Dirham                    |\n |MDL           |Moldovan Leu                       |\n |MGA           |Malagasy Ariary                    |\n |MKD           |Macedonia, Denars                  |\n |MMK           |Myanmar Kyat                       |\n |MNT           |Mongolia, Tugriks                  |\n |MOP           |Macau, Patacas                     |\n |MRU           |Mauritanian Ouguiya                |\n |MUR           |Mauritius Rupee                    |\n |MVR           |Maldives (Maldive Islands), Rufiyaa|\n |MWK           |Malawi Kwacha                      |\n |MXN           |Mexican Peso                       |\n |MYR           |Malaysian Ringgit                  |\n |MZN           |Mozambique, Meticais               |\n |NAD           |Namibian Dollar                    |\n |NGN           |Nigeria, Nairas                    |\n |NIO           |Nicaragua, Gold Cordobas           |\n |NOK           |Norwegian Krone                    |\n |NPR           |Nepalese Rupee                     |\n |NZD           |New Zealand Dollar                 |\n |OMR           |Omani Rial                         |\n |OTH           |Other                              |\n |PAB           |Panama, Balboa                     |\n |PEN           |Nuevo Sol                          |\n |PGK           |Papua New Guinea, Kina             |\n |PHP           |Philippine Peso                    |\n |PKR           |Pakistan Rupee                     |\n |PLN           |Polish Zloty                       |\n |PYG           |Paraguay, Guarani                  |\n |QAR           |Qatari Rial                        |\n |RON           |Leu (New)                          |\n |RSD           |Serbian Dinar                      |\n |RUB           |Russia, Rubles                     |\n |RWF           |Rwanda Franc                       |\n |SAR           |Saudi Riyal                        |\n |SBD           |Solomon Islands Dollar             |\n |SCR           |Seychelles Rupee                   |\n |SDG           |Sudanese Pounds                    |\n |SEK           |Swedish Krona                      |\n |SGD           |Singapore Dollar                   |\n |SHP           |Saint Helena Pound                 |\n |SLE           |Sierra Leone, Leone                |\n |SOS           |Somali Shilling                    |\n |SRD           |Surinam Dollar                     |\n |SSP           |South Sudanese Pound               |\n |STN           |Dobra                              |\n |SVC           |El Salvador Colon                  |\n |SYP           |Syrian Pound                       |\n |SZL           |Swaziland, Emalangeni              |\n |THB           |Thailand, Baht                     |\n |TJS           |Tajikistan, Somoni                 |\n |TMT           |Turkmenistan New Manat             |\n |TND           |Tunisian Dinar                     |\n |TOP           |Tonga, Pa'anga                     |\n |TRY           |New Turkish Lira                   |\n |TTD           |Trinidad and Tobago Dollar         |\n |TWD           |New Taiwan Dollar                  |\n |TZS           |Tanzanian Shilling                 |\n |UAH           |Ukraine, Hryvnia                   |\n |UGX           |Uganda Shilling                    |\n |USD           |US Dollar                          |\n |UYU           |Uruguayan Peso                     |\n |UZS           |Uzbekistan Sum                     |\n |VES           |Bolivar Soberano                   |\n |VND           |Viet Nam, Dong                     |\n |VUV           |Vanuatu, Vatu                      |\n |WST           |Western Samoa (Samoa), Tala        |\n |XAF           |CFA Franc BEAC�**                  |\n |XCD           |East Caribbean Dollar              |\n |XOF           |CFA Franc BCEAO�*                  |\n |XPF           |CFP Franc                          |\n |YER           |Yemeni Rial                        |\n |ZAR           |South Africa, Rand                 |\n |ZMW           |Zambian Kwacha�                    |\n |ZWG           |Zimbabwe, Zimbabwe Gold            |\n",
+      "enum": [
+        "AED",
+        "AFN",
+        "ALL",
+        "AMD",
+        "ANG",
+        "AOA",
+        "ARS",
+        "AUD",
+        "AWG",
+        "AZN",
+        "BAM",
+        "BBD",
+        "BDT",
+        "BGN",
+        "BHD",
+        "BIF",
+        "BMD",
+        "BND",
+        "BOB",
+        "BRL",
+        "BSD",
+        "BTN",
+        "BWP",
+        "BYN",
+        "BZD",
+        "CAD",
+        "CDF",
+        "CHF",
+        "CLP",
+        "CNY",
+        "COP",
+        "CRC",
+        "CUP",
+        "CVE",
+        "CZK",
+        "DJF",
+        "DKK",
+        "DOP",
+        "DZD",
+        "EGP",
+        "ERN",
+        "ETB",
+        "EUR",
+        "FJD",
+        "FKP",
+        "GBP",
+        "GEL",
+        "GHS",
+        "GIP",
+        "GMD",
+        "GNF",
+        "GTQ",
+        "GYD",
+        "HKD",
+        "HNL",
+        "HTG",
+        "HUF",
+        "IDR",
+        "ILS",
+        "INR",
+        "IQD",
+        "IRR",
+        "ISK",
+        "JMD",
+        "JOD",
+        "JPY",
+        "KES",
+        "KGS",
+        "KHR",
+        "KMF",
+        "KPW",
+        "KRW",
+        "KWD",
+        "KYD",
+        "KZT",
+        "LAK",
+        "LBP",
+        "LKR",
+        "LRD",
+        "LSL",
+        "LYD",
+        "MAD",
+        "MDL",
+        "MGA",
+        "MKD",
+        "MMK",
+        "MNT",
+        "MOP",
+        "MRU",
+        "MUR",
+        "MVR",
+        "MWK",
+        "MXN",
+        "MYR",
+        "MZN",
+        "NAD",
+        "NGN",
+        "NIO",
+        "NOK",
+        "NPR",
+        "NZD",
+        "OMR",
+        "OTH",
+        "PAB",
+        "PEN",
+        "PGK",
+        "PHP",
+        "PKR",
+        "PLN",
+        "PYG",
+        "QAR",
+        "RON",
+        "RSD",
+        "RUB",
+        "RWF",
+        "SAR",
+        "SBD",
+        "SCR",
+        "SDG",
+        "SEK",
+        "SGD",
+        "SHP",
+        "SLE",
+        "SOS",
+        "SRD",
+        "SSP",
+        "STN",
+        "SVC",
+        "SYP",
+        "SZL",
+        "THB",
+        "TJS",
+        "TMT",
+        "TND",
+        "TOP",
+        "TRY",
+        "TTD",
+        "TWD",
+        "TZS",
+        "UAH",
+        "UGX",
+        "USD",
+        "UYU",
+        "UZS",
+        "VES",
+        "VND",
+        "VUV",
+        "WST",
+        "XAF",
+        "XCD",
+        "XOF",
+        "XPF",
+        "YER",
+        "ZAR",
+        "ZMW",
+        "ZWG"
+      ]
+    },
+    "Declaration": {
+      "description": "This will be used to declare that all information provided on the Combined Global and Domestic Minimum Tax Return is accurate before submitting.\n\nBefore making this declaration check to ensure that all top up tax amounts have been disclosed, and the tax return is true and correct in every detail. If you are in doubt about any aspect of the tax return, place all the facts before the ATO. The tax laws impose heavy penalties for false or misleading statements in tax returns. This declaration must be signed by an authorised contact of the DLE or the DLE(s) Public Officer. However, if completing this form as a Group Entity, the Group Entity(s) authorised contact or Public Officer must sign this declaration.\n\nNote: Group Entity for the purpose of this form includes GloBE Joint Ventures and GloBE JV Subsidiaries.\nPrivacy Statement\nWe are authorised to request TFNs by the Taxation Administration Act 1953.  We use them to identify you and if applicable, other entities on behalf of which you are authorised to lodge this form (the Group Entities). It is not an offence not to provide TFNs. However, this may cause delays in processing your form.\nTaxation law authorises us to collect information and disclose it to other government agencies. This includes personal information of the person authorised to complete the form and sign the declaration. See more about your privacy at ato.gov.au/privacy\n",
+      "properties": {
+        "declarationStatementAcceptance": {
+          "description": "Select a valid value from the enum to indicate the capacity that you are making the declaration for the tax return.\n\n **Declaration code description Table**\n|Declaration Statement Acceptance |Declaration Statements Accepted    |\n|---------------------------------|-----------------------------------|\n|GED                              |I declare that I am a Group Entity and that the information in this tax return is true and correct. |\n|GEIPD                            |I declare that I have been appointed under the _Corporations Act 2001_ to act on behalf of the Group Entity in my capacity as an insolvency practitioner and I declare that the information in this tax return is true and correct. |\n|DLED                             |I declare that I am a Designated Local Entity submitting this tax return and declare all of the following statements are accepted:\n|                                 | <ol><li>The information in this tax return is true and correct.</li><li>This tax return has been prepared in accordance with information supplied by the Group Entity/ies.</li><li>I have received a declaration from the Group Entity/ies stating that the information is true and correct.</li><li>I am authorised by the Group Entity/ies to give this tax return to the Commissioner of Taxation.</li></ol> |\n|TAD                              |I declare that I am a tax agent submitting this tax return on behalf of a Group Entity or Designated Local Entity and declare that all of the following statements are accepted:\n|                                 | <ol><li>This tax return has been prepared in accordance with information supplied by the Group Entity/ies.</li><li>I have received a declaration from the Group Entity/ies stating that the information is true and correct.</li><li>I am authorised by the Group Entity/ies to give this tax return to the Commissioner of Taxation.</li></ol> |            \n",
+          "type": "string",
+          "enum": [
+            "GED",
+            "GEIPD",
+            "DLED",
+            "TAD"
+          ]
+        },
+        "taxAgentDetails": {
+          "$ref": "#/$defs/TaxAgent"
+        },
+        "declarationDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This is the date that the declaration was made on.\n"
+        }
+      },
+      "required": [
+        "declarationDate",
+        "declarationStatementAcceptance"
+      ]
+    },
+    "DesignatedFilingEntity": {
+      "type": "object",
+      "description": "This will contain the details of the designated filing entity (DFE)\n - If `girLodgeOptions` was passed in with the value of DLE then the designated local entity details will need to be provided. If not, then designated local entity information doesn't need to be passed into the request.\n",
+      "properties": {
+        "designatedFilingEntityFullName": {
+          "type": "string",
+          "description": "This is the full name of the designated filing entity (DFE).\n",
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$",
+          "maxLength": 200
+        },
+        "identifierDetails": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/IdentifierDetails"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "identifierType": {
+                    "type": "string",
+                    "enum": [
+                      "TFN",
+                      "ABN",
+                      "TIN"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "description": "This is the identifying information for the designated filing entity (DFE). At least one of the following identifiers are to be provided **TFN/ABN/TIN**. If providing both TFN and ABN make sure this is for the same entity.\n"
+        },
+        "postalAddress": {
+          "$ref": "#/$defs/Address"
+        },
+        "jurisdictionCountryCode": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/CountryCodes"
+            }
+          ],
+          "type": "string",
+          "description": "This is the jurisdiction country code in which the designated filing entity (DFE) is located.\n"
+        },
+        "dfeGirReceivingIndicator": {
+          "type": "boolean",
+          "description": "This will outline if the designated filing entity (DFE) will be sending the ATO the GloBE Information Return (GIR) under Exchange of Information.\n - If `dfeGirReceivingIndicator` is passed in as **true** then `dfeGirLodgeDate` will also need to be passed into the request.\n"
+        },
+        "dfeGirLodgeDate": {
+          "type": "string",
+          "description": "This will be the date that the GloBE Information Return (GIR) was lodged by the designated filing entity (DFE).\n",
+          "format": "date"
+        }
+      },
+      "required": [
+        "designatedFilingEntityFullName",
+        "postalAddress",
+        "jurisdictionCountryCode",
+        "dfeGirReceivingIndicator",
+        "identifierDetails"
+      ]
+    },
+    "DomesticMinimumTaxReturn": {
+      "description": "Will contain whether the group entity has to report domestic top up tax and if so what that amount is.\n\n**Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`. Otherwise, you can skip passing \nin details for this object.**\n",
+      "properties": {
+        "domesticTopUpTaxIndicator": {
+          "description": "Indicate whether the group entity has to report a domestic top up tax amount.\n- If `domesticTopUpTaxIndicator` is set to **false** then there will be no need to pass any Domestic Top-up Tax Amount in the request. \n",
+          "type": "boolean"
+        },
+        "domesticTopUpTaxAmount": {
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "maximum": 99999999999,
+          "description": "The domestic top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.\n\n**Note - This field only needs to be present in the request if the answer to `domesticTopUpTaxIndicator` is set to `true`.**\n"
+        }
+      },
+      "required": [
+        "domesticTopUpTaxIndicator"
+      ]
+    },
+    "EntityTypes": {
+      "description": "This is the list of entity types which can be used for lodging the Combined Global and Domestic Minimum Tax Return. Can be used for lodging entity as well as group entity.\n\n | Value          | Description                                                                                            |\n |----------------|--------------------------------------------------------------------------------------------------------|\n |COMPY           | Company                                                                                                |\n |GPRTN           | GloBE partnership                                                                                      |\n |TRUST           | Trust                                                                                                  |\n |MCOMP           | Main entity of a GloBE permanent establishment that is a company                                       |\n |NCOMP           | Main entity of a GloBE permanent establishment that is not a company                                   |\n |JVOTH           | GloBE joint venture                                                                                    |\n |JVPRT           | Unincorporated GloBE joint venture that is a GloBE partnership                                         |\n |JVNTP           | Unincorporated GloBE joint venture that is not a trust or GloBE partnership                            |\n |JSPRT           | Unincorporated GloBE joint venture subsidiary where the subsidiary is a GloBE partnership              |\n |JSNTP           | Unincorporated GloBE joint venture subsidiary where the subsidiary is not a trust or GloBE partnership |\n |UENTP           | Unincorporated Group Entity that is not a trust or a GloBE partnership                                 |\n \n",
+      "type": "string",
+      "enum": [
+        "COMPY",
+        "GPRTN",
+        "TRUST",
+        "MCOMP",
+        "NCOMP",
+        "JVOTH",
+        "JVPRT",
+        "JVNTP",
+        "JSPRT",
+        "JSNTP",
+        "UENTP"
+      ]
+    },
+    "GIRForexDetails": {
+      "description": "This will outline the foreign exchange rate details used for the GloBE Information Return (GIR).\n    - If any of the group entities in the `groupEntities` have DMT, IIR, UTPR liabilities (greater or equal to $0) then this section will need to be provided in the request.\n",
+      "properties": {
+        "currencyUsedForGir": {
+          "description": "This is the currency that was used in the GloBE Information Return (GIR) for the DMT, IIR and UTPR top-up tax amounts.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/CurrencyCodes"
+            }
+          ],
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exchangeRateUsedForGir": {
+          "description": "This is the exchange rate that was used in the GloBE Information Return (GIR) to convert the DMT, IIR and UTPR top-up tax amounts.\n",
+          "type": "number",
+          "format": "double"
+        },
+        "convertForeignCurrencyMethodology": {
+          "description": "This is the methodology you used to convert the DMT, IIR and UTPR top-up tax amounts.\n",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "GIRLodgmentDetails": {
+      "type": "object",
+      "description": "This will contain the information to determine whether the GloBE Information Return (GIR) has been lodged domestically or from a foreign jurisdiction.\n   - Either `girLodgeOptions` or `domesticGirLodgeDate` will need to be passed and not both. This will help determine if the GloBE Information Return (GIR)\n    is being lodged domestically or from a foreign jurisdiction. \n    - If `girLodgeOptions` is passed in with the value **UPE** then `upeGirReceivingIndicator` will need to be passed into the request at a minimum. If the\n      answer to this is **true** then `upeGirLodgeDate` will also need to be passed into the request.\n",
+      "properties": {
+        "girLodgeOptions": {
+          "enum": [
+            "DFE",
+            "UPE"
+          ],
+          "type": "string",
+          "description": "This will be the type that the foreign entity is lodging the GloBE Information Return (GIR) as.\n **GIR lodgement options description Table**\n \n|GIR lodgement options  | Description                                                         |\n|-----------------------|---------------------------------------------------------------------|\n|DFE                    | GIR is lodged or will be lodged by DFE in a foreign jurisdiction    |\n|UPE                    | GIR is lodged or will be lodged by UPE in a foreign jurisdiction    |     \n"
+        },
+        "domesticGirLodgeDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This will be the date that the GloBE Information Return (GIR) was lodged if it was done domestically.\n"
+        },
+        "upeGirReceivingIndicator": {
+          "description": "This will outline if the ultimate parent entity (UPE) will be sending the ATO the GloBE Information Return (GIR) under Exchange of Information.\n",
+          "type": "boolean"
+        },
+        "upeGirLodgeDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This will be the date that the GloBE Information Return (GIR) was lodged by the ultimate parent entity (UPE).\n"
+        }
+      }
+    },
+    "GroupEntity": {
+      "description": "This will hold the information for a specific group entity.\n - Repeat for each group entity of the group who is NOT part of the Tax Consolidated Group (TCG) or Multiple Entry Consolidated (MEC) group.\n\n- If you are part of a TCG or MEC Group, only details of the head representative entity of the TCG or the provisional head representative entity of the MEC Group\nneeds to be completed in this section. However, if there is Income Inclusion Rule (IIR) liability, where multiple group entities that are parent entities have the \nIIR liability, every one of the liable entities must be included in this section. This may include a NIL amount. \n",
+      "properties": {
+        "groupEntityName": {
+          "type": "string",
+          "description": "This is the full name of the group entity\n",
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "groupEntityType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/EntityTypes"
+            }
+          ],
+          "type": "string"
+        },
+        "businessAddress": {
+          "$ref": "#/$defs/Address"
+        },
+        "identifierDetails": {
+          "type": "array",
+          "description": "- At least one of the following identifiers are to be provided **TFN/ABN/ARN**. If providing both TFN and ABN make sure this is for the same group entity.\n",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/IdentifierDetails"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "identifierType": {
+                    "type": "string",
+                    "enum": [
+                      "TFN",
+                      "ABN",
+                      "ARN"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "groupEntityAssociateDetails": {
+          "$ref": "#/$defs/GroupEntityAssociateDetails"
+        },
+        "foreignLodgementNotificationIndicator": {
+          "description": "This is to indicate whether the lodger has lodged the Foreign Lodgment Notification on behalf of this group entity.\n",
+          "type": "boolean"
+        },
+        "continueGlobalDomesticMinimumReturnIndicator": {
+          "description": "- If you are lodging a foreign lodgment notification only then select `false` for `continueGlobalDomesticMinimumReturnIndicator`. This will also mean that the DMT,\n    IIR and UTPR Tax liability amounts don't need to be passed into the request.\n",
+          "type": "boolean"
+        },
+        "domesticMinimumTaxReturn": {
+          "$ref": "#/$defs/DomesticMinimumTaxReturn"
+        },
+        "incomeInclusionRuleTaxReturn": {
+          "$ref": "#/$defs/IncomeInclusionRuleTaxReturn"
+        },
+        "undertaxedProfitRuleTaxReturn": {
+          "$ref": "#/$defs/UndertaxedProfitRuleTaxReturn"
+        }
+      },
+      "required": [
+        "identifierDetails",
+        "groupEntityName",
+        "groupEntityType",
+        "businessAddress",
+        "continueGlobalDomesticMinimumReturnIndicator",
+        "foreignLodgementNotificationIndicator"
+      ]
+    },
+    "GroupEntityAssociateDetails": {
+      "description": "This will hold the specific information related to the primary associate entity contact of the group entity. \nThe `groupEnityAssociateDetails` information will not be passed if `groupEntityType` is passed in as any of the below options:\n\n - `Company`\n \n - `Main Entity of a GloBE Permanent Establishment that is a Company`\n \n - `GloBE Joint Venture`\n \n",
+      "properties": {
+        "associateEntityName": {
+          "type": "string",
+          "description": "This is the full name of the associate entity\n",
+          "minLength": 2,
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "taxFileNumber": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 8,
+          "maxLength": 9,
+          "description": "This is the tax file number of the associate entity\n"
+        },
+        "telephoneAreaCode": {
+          "type": "string",
+          "description": "This is the area code of the associate entity.\n",
+          "maxLength": 4,
+          "pattern": "^\\d+$"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "This is the phone number of the associate entity.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^\\d+$"
+        },
+        "postalAddress": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "required": [
+        "associateEntityName",
+        "telephoneAreaCode",
+        "telephoneNumber",
+        "postalAddress"
+      ]
+    },
+    "IdentifierDetails": {
+      "properties": {
+        "identifierType": {
+          "type": "string",
+          "description": "This will hold the different identifying type of information for the entities lodging this Return.\n"
+        },
+        "identifierValue": {
+          "type": "string",
+          "description": "Identifier value of the identifying type provided by the entities lodging the return.\n",
+          "minLength": 5,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9 `!@%#\\$&()_\\-=\\[\\]\\{\\}\\\\|;:'\",\\.\\/\\?]+$"
+        }
+      },
+      "required": [
+        "identifierType",
+        "identifierValue"
+      ]
+    },
+    "IncomeInclusionRuleTaxReturn": {
+      "type": "object",
+      "description": "Will contain whether the group entity has to report IIR top up tax and if so what that amount is and the parent entity type subject to the tax.\n\n**Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true`. Otherwise you can skip passing \nin details for this object.**\n",
+      "properties": {
+        "incomeInclusionTopUpTaxIndicator": {
+          "type": "boolean",
+          "description": "Indicate whether the group entity has to report a IIR top up tax amount.\n - If `incomeInclusionTopUpTaxIndicator` is set to **false** then there will be no need to pass any IIR Top-Up Tax Amount and associated parent entity in the request. \n"
+        },
+        "incomeInclusionTopUpTaxAmount": {
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "maximum": 99999999999,
+          "description": "The IIR top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.\n\n**Note - This field only needs to be present in the request if the answer to `incomeInclusionTopUpTaxIndicator` is set to `true`.**\n"
+        },
+        "parentEntityType": {
+          "enum": [
+            "UPE",
+            "IPE",
+            "POPE"
+          ],
+          "type": "string",
+          "description": "The parent entity type of the group entity subject to the IIR tax.\n\n   **Note - This field only needs to be present in the request if the answer to `incomeInclusionTopUpTaxIndicator` is set to `true`.**\n\n   **Parent Entity Type Description Table**\n|Parent Entity Type Code| Description                   |\n|-----------------------|-------------------------------|\n|UPE                    | Ultimate parent entity        |\n|IPE                    | Intermediate parent entity    |\n|POPE                   | Partially owned parent entity |\n"
+        }
+      },
+      "required": [
+        "incomeInclusionTopUpTaxIndicator"
+      ]
+    },
+    "LodgingEntity": {
+      "type": "object",
+      "description": "This will hold all the information of the entity that is lodging the Combined Global and Domestic Minimum Tax Return.\n",
+      "properties": {
+        "lodgingEntityCode": {
+          "enum": [
+            "GE",
+            "DLE"
+          ],
+          "type": "string",
+          "description": "Select the entity that you are going to be lodging the Combined Global and Domestic Minimum Tax Return as. This is to nominate the capacity in which you are completing the Combined Global and Domestic Minimum Tax Return.\n\n  **Lodging EntityCode Description Table**\n|Lodging Entity Code| Description             |\n|-------------------|-------------------------|\n|GE                 | Group Entity            |\n|DLE                | Designated Local Entity |\n"
+        },
+        "lodgingEntityName": {
+          "type": "string",
+          "description": "The full name of the entity that is lodging the Combined Global and Domestic Minimum Tax Return.\n",
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "identifierDetails": {
+          "description": "- This is the identifying information for the lodging entity. At least one of the following identifiers are to be provided **TFN/ABN/ARN/TIN**. If providing both TFN and ABN make sure this is for the same entity.\n",
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/IdentifierDetails"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "identifierType": {
+                    "type": "string",
+                    "enum": [
+                      "TFN",
+                      "ABN",
+                      "ARN",
+                      "TIN"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "lodgingEntityAuthorisedContact": {
+          "$ref": "#/$defs/LodgingEntityAuthorisedContact"
+        },
+        "postalAddress": {
+          "description": "- For the address information an Australian address is being requested here. An overseas address should only be provided if there is no applicable address in Australia for the entity.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            }
+          ]
+        },
+        "businessAddress": {
+          "description": "- For the address information an Australian address is being requested here. An overseas address should only be provided \n   if there is no applicable address in Australia for the entity.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            }
+          ]
+        },
+        "lodgingEntityType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/EntityTypes"
+            }
+          ],
+          "type": "string"
+        },
+        "lodgingEntityAssociateDetails": {
+          "$ref": "#/$defs/LodgingEntityAssociateDetails"
+        }
+      },
+      "required": [
+        "lodgingEntityCode",
+        "lodgingEntityName",
+        "lodgingEntityType",
+        "lodgingEntityAuthorisedContact",
+        "postalAddress",
+        "businessAddress"
+      ]
+    },
+    "LodgingEntityAssociateDetails": {
+      "type": "object",
+      "description": "This will hold all the contact information of the associate entity for the entity lodging the Combined Global and Domestic Minimum Tax Return.\n\n**Note - The `lodgingEntityAssociateDetails` information will not need to be passed\nif `lodgingEntityType` is passed in as any of the below options:\n\n  - `Company`\n  \n  - `Main Entity of a GloBE Permanenet Establishment that is a Company`\n  \n  - `GloBE Joint Venture`**\n  \n",
+      "properties": {
+        "associateEntityName": {
+          "type": "string",
+          "description": "This is the full name of the associate entity\n",
+          "minLength": 2,
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "taxFileNumber": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 8,
+          "maxLength": 9,
+          "description": "This is the tax file number of the associate entity\n"
+        },
+        "telephoneCountryCode": {
+          "type": "string",
+          "description": "This is the international code of the associate entities phone number.\n",
+          "minLength": 2,
+          "maxLength": 4
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "This is the phone number including area code of the associate entity.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^\\d+$"
+        },
+        "postalAddress": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "required": [
+        "associateEntityName",
+        "telephoneCountryCode",
+        "telephoneNumber",
+        "postalAddress"
+      ]
+    },
+    "LodgingEntityAuthorisedContact": {
+      "type": "object",
+      "description": "This will hold all the contact information of the authorised contact on who is lodging the Combined Global and Domestic Minimum Tax Return.\n\n**Note there are some call outs to be aware of here:**\n   - Only provide a non-local number if local number is not applicable.\n   - An Australian address is being requested here. An overseas address should only be provided if there is no applicable address in Australia for the entity\n",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "description": "The full name of the authorised contact for either the group entity or designated local entity lodging the return.\n",
+          "minLength": 2,
+          "maxLength": 200,
+          "pattern": "^[-' A-Za-z0-9]+$"
+        },
+        "telephoneCountryCode": {
+          "type": "string",
+          "description": "The international code of the authorised contacts phone number for either the group entity or designated local entity lodging the return.\n",
+          "minLength": 2,
+          "maxLength": 4
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "The phone number of the authorised contact for either the group entity or designated local entity lodging the return.\n  - For the phone number only provide a non-local number if local number is not applicable.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^\\d+$"
+        },
+        "electronicMailAddress": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 200,
+          "description": "The email address of the authorised contact for either the group entity or designated local entity lodging the return.\n",
+          "pattern": "^[a-zA-Z0-9!#$%&*+=?^_`|~-]+(?:\\.[a-zA-Z0-9!#$%&*+=?^_`|~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$"
+        }
+      },
+      "required": [
+        "fullName",
+        "telephoneCountryCode",
+        "telephoneNumber",
+        "electronicMailAddress"
+      ]
+    },
+    "ReportingFiscalYear": {
+      "type": "object",
+      "description": "This will hold the start and end date of the fiscal year the Combined Global and Domestic Minimum Tax Return is lodged for.\n\n**Note - Your fiscal year is generally the same accounting period to which your Ultimate Parent Entity (UPE) prepares its \nConsolidated Financial Statement in accordance with an Acceptable Financial Accounting Standard.**\n",
+      "properties": {
+        "periodStartDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This is the start date (YYYY-MM-DD) of the fiscal year the Combined Global and Domestic Minimum Tax Return is lodged for.\n"
+        },
+        "periodEndDate": {
+          "type": "string",
+          "format": "date",
+          "description": "This is the end date (YYYY-MM-DD) of the fiscal year the Combined Global and Domestic Minimum Tax Return is lodged for.\n"
+        },
+        "transactionTypeCode": {
+          "description": "This will hold the transaction type of the parent form whether it is an original or amended form.\n\n  **Transaction Type Description Table**\n|Transaction Type Code| Description                                                                                                       |\n|---------------------|-------------------------------------------------------------------------------------------------------------------|\n|ORIGINAL             | Select this for submitting an original lodgment of the Combined Global and Domestic Minimum Tax Return            |\n|AMENDMENT            | Select this for submitting an amendment to update the previously submitted information.                           |\n",
+          "type": "string",
+          "enum": [
+            "ORIGINAL",
+            "AMENDMENT"
+          ]
+        }
+      },
+      "required": [
+        "periodStartDate",
+        "periodEndDate",
+        "transactionTypeCode"
+      ]
+    },
+    "TaxAgent": {
+      "description": "This will be used to hold the details for the tax agent that is lodging the Combined Global and Domestic Minimum Tax Return.\n",
+      "properties": {
+        "clientReference": {
+          "type": "string",
+          "description": "This is the tax agent's reference number of the client.\n",
+          "maxLength": 10,
+          "minLength": 1
+        },
+        "agentFullName": {
+          "type": "string",
+          "description": "This is the full name of the tax agent.\n",
+          "maxLength": 38,
+          "pattern": "^[-' A-Za-z0-9]+$"
+        },
+        "agentTelephoneAreaCode": {
+          "type": "string",
+          "description": "This is the area code of the tax agent's telephone number.\n",
+          "maxLength": 4,
+          "minLength": 2,
+          "pattern": "^\\d+$"
+        },
+        "agentTelephoneNumber": {
+          "type": "string",
+          "description": "The phone number of tax agent.\n",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^\\d+$"
+        }
+      },
+      "required": [
+        "clientReference",
+        "agentFullName",
+        "agentTelephoneAreaCode",
+        "agentTelephoneNumber"
+      ]
+    },
+    "UltimateParentEntity": {
+      "description": "This will contain the information of the ultimate parent entity (UPE) for the Combined Global and Domestic Minimum Tax Return",
+      "properties": {
+        "lodgingEntitySameAsUPEIndicator": {
+          "description": "This is to determine whether the entity lodging the Combined Global and Domestic Minimum Tax Return is the same as the ultimate parent entity (UPE).\n - If `lodgingEntitySameAsUPEIndicator` is set to **false** then the extra `ultimateParentEntityDetails` will need to be passed in the request. If passed as **true**\n  then the extra ultimate parent entity details won't need to be passed in the request.\n",
+          "type": "boolean"
+        },
+        "ultimateParentEntityDetails": {
+          "$ref": "#/$defs/UltimateParentEntityContact"
+        }
+      },
+      "required": [
+        "lodgingEntitySameAsUPEIndicator",
+        "ultimateParentEntityDetails"
+      ]
+    },
+    "UltimateParentEntityContact": {
+      "description": "This will contain the contact details of the ultimate parent entity (UPE) if required for the Combined Global and Domestic Minimum Tax Return.\n\n**Note - This information only needs to be in the request if the answer to `lodgingEntitySameAsUPEIndicator` is `false`.**\n",
+      "properties": {
+        "ultimateParentEntityName": {
+          "description": "This is the full name of the ultimate parent entity (UPE).\n",
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^(?![Nn] [Aa]$|[Nn]\\'[Aa]$|[Aa]\\/[Aa]$|[Nn]\\/[Aa]$|[Nn] \\/ [Aa]$|[Nn]\\/\\s[Aa]$|[Nn]\\s\\/[Aa]$)[A-Za-z0-9 ,-`!@#$%\\&()_=\\[\\]\\{\\}\\|\\;:'\"\\\\.\\?\\/\\-]*$"
+        },
+        "identifierDetails": {
+          "type": "array",
+          "description": "- This is the identifying information for the ultimate parent entity (UPE). At least one of the following identifiers are to be provided **TFN/ABN/TIN**. If providing both TFN and ABN make sure this is for the same entity.\n",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/IdentifierDetails"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "identifierType": {
+                    "type": "string",
+                    "enum": [
+                      "TFN",
+                      "ABN",
+                      "TIN"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "postalAddress": {
+          "description": "This is the postal address of the ultimate parent entity (UPE).\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Address"
+            }
+          ]
+        },
+        "jurisdictionCountryCode": {
+          "description": "This is the jurisdiction country code in which the ultimate parent entity (UPE) is located.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/CountryCodes"
+            }
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "ultimateParentEntityName",
+        "postalAddress",
+        "jurisdictionCountryCode",
+        "identifierDetails"
+      ]
+    },
+    "UndertaxedProfitRuleTaxReturn": {
+      "description": "Will contain whether the group entity has to report UTPR top up tax and if so what that amount is.\n\n**Note - This object only needs to be present in the request if `continueGlobalDomesticMinimumReturnIndicator` is set to `true` and `periodStartDate` is on \nor after 01/01/2025. Otherwise you can skip passing in details for this object.**\n",
+      "type": "object",
+      "properties": {
+        "undertaxedProfitsTopUpTaxIndicator": {
+          "description": "Indicate whether the group entity has to report a UTPR top up tax amount.\n- If `undertaxedProfitsTopUpTaxIndicator` is set to **false** then there will be no need to pass any UTPR Top-up Tax Amount in the request. \n",
+          "type": "boolean"
+        },
+        "undertaxedProfitsTopUpTaxAmount": {
+          "description": "The UTPR top up tax amount for the group entity. If the amount is nil, please enter '0' in the field.\n\n**Note - This field only needs to be present in the request if the answer to `undertaxedProfitsTopUpTaxIndicator` is set to `true`.**\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "maximum": 99999999999
+        }
+      },
+      "required": [
+        "undertaxedProfitsTopUpTaxIndicator"
+      ]
+    }
+  }
+}
